@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Playerlife : MonoBehaviour
 {
-    [SerializeField]private Animator anim;
+    [SerializeField] private Animator anim;
+
     private Rigidbody2D _rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class Playerlife : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("BlackTag"))
-        {   Debug.Log("death");
+        {
             Die();
         }
     }
@@ -27,7 +29,7 @@ public class Playerlife : MonoBehaviour
     private void Die()
     {
         BoxCollider2D boxCollider2D = new BoxCollider2D();
-        _rigidbody2D.bodyType = RigidbodyType2D.Static; 
+        _rigidbody2D.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
     }
 
