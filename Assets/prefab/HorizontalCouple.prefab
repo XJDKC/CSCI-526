@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4098627361084807326}
   - component: {fileID: 4098627361084807327}
   - component: {fileID: 4098627361084807320}
+  - component: {fileID: 5820560654287253066}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: BlackTag
@@ -95,13 +96,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4098627361084807322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65ab8e450b81a4e34ac5d803885754cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 39fbb149b1594ebca5b1e9e77f1c59ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 4098627361093393199}
-  - {fileID: 4098627361209808614}
-  speed: 2
 --- !u!61 &4098627361084807320
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -111,7 +108,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 4098627361084807322}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a55d59049e76e45cfa1e31dbf513a13b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -128,6 +125,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5820560654287253066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098627361084807322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf21dcebbf8c429b9ba501c4a6ae4f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 4098627361093393199}
+  - {fileID: 4098627361209808614}
+  speed: 2
 --- !u!1 &4098627361093393199
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +277,7 @@ GameObject:
   - component: {fileID: 4098627362567562807}
   - component: {fileID: 4098627362567562800}
   - component: {fileID: 4098627362567562801}
+  - component: {fileID: 5199493219128525698}
   m_Layer: 0
   m_Name: Helper
   m_TagString: WhiteTag
@@ -347,7 +361,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 4098627362567562803}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a55d59049e76e45cfa1e31dbf513a13b, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -373,7 +387,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4098627362567562803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65ab8e450b81a4e34ac5d803885754cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 457613455ddd0490c9c0d8f2673dc8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5199493219128525698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098627362567562803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf21dcebbf8c429b9ba501c4a6ae4f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
