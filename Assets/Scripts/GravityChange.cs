@@ -1,105 +1,54 @@
-using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
+
+[RequireComponent(typeof(BoxCollider2D))]
 public class GravityChange : MonoBehaviour
 {
-    PlayerController pc;
-    Vector3 yStandVect = new Vector3(0.0f, 1.0f, 0.0f);
-    Vector3 xStandVect = new Vector3(1.0f, 0.0f, 0.0f);
-    Dictionary<Collider2D, float> valueXDict = new Dictionary<Collider2D, float>();
-    Dictionary<Collider2D, float> valueYDict = new Dictionary<Collider2D, float>();
-    //Dictionary<Collider2D, float> collToVect = new Dictionary<Collider2D, float>();
+    private Vector3 _upVector = Vector3.up;
+    private Dictionary<Collider2D, float> _colliderEnterSide = new Dictionary<Collider2D, float>();
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        if (collision.gameObject.tag == "Player")
+        float anglesZ = transform.rotation.eulerAngles.z;
+        _upVector = Quaternion.AngleAxis(anglesZ, Vector3.forward) * Vector3.up;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Player")
         {
-            //get the corner coordinates of the door(the door must be rectangular)
-            //you have to add rect transform component in the door object
-            //RectTransform rt = GetComponent<RectTransform>();
+            Vector3 center = transform.position;
+            Vector3 colliderCenter = collider.bounds.center;
 
-            //Vector3[] corners = new Vector3[4];
-            //rt.GetWorldCorners(corners);
-
-            //Vector3 edge1 = (corners[0] + corners[1]) / 2;
-            //Vector3 edge2 = (corners[2] + corners[3]) / 2;
-
-            //Vector3 door = edge1 - edge2;
-
-            pc = collision.gameObject.GetComponent<PlayerController>();
-
-            Vector3 center = this.transform.position;
-            Vector3 contactPoint = collision.bounds.center;
-
-            //vector from door to character: character's center - door's center position
-            Vector3 doorToChar = center - contactPoint;
-
-            float comeX = Vector3.Cross(doorToChar, xStandVect).z;
-            float comeY = Vector3.Cross(doorToChar, yStandVect).z;
-
-            valueXDict.Add(collision, comeX);
-            valueYDict.Add(collision, comeY);
-
-            //float come = Vector3.Cross(doorToChar, door).z;
-            //collToVect.Add(collision, come);
+            // Vector from door to character: character's center - door's center position
+            Vector3 doorToObj = (center - colliderCenter).normalized;
+            float enterSide = Vector3.Cross(_upVector, doorToObj).z;
+            _colliderEnterSide[collider] = enterSide;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
-            //RectTransform rt = GetComponent<RectTransform>();
+            Vector3 center = transform.position;
+            Vector3 colliderCenter = collider.bounds.center;
 
-            //Vector3[] corners = new Vector3[4];
-            //rt.GetWorldCorners(corners);
+            // Vector from door to character: character's center - door's center position
+            Vector3 doorToObj = (center - colliderCenter).normalized;
+            float leaveSide = Vector3.Cross(_upVector, doorToObj).z;
 
-            //Vector3 edge1 = (corners[0] + corners[1]) / 2;
-            //Vector3 edge2 = (corners[2] + corners[3]) / 2;
-
-            //Vector3 door = edge1 - edge2;
-
-
-            pc = collision.gameObject.GetComponent<PlayerController>();
-
-            Vector3 center = this.transform.position;
-            Vector3 contactPoint = collision.bounds.center;
-
-            //vector from door to character: character's center - door's center position
-            //if cross value z is negative, character is from left(maybe)
-            Vector3 doorToChar = center - contactPoint;
-            float leaveX = Vector3.Cross(doorToChar, xStandVect).z;
-            float leaveY = Vector3.Cross(doorToChar, yStandVect).z;
-
-            //float leave = Vector3.Cross(doorToChar, door).z;
-
-            if (valueXDict.ContainsKey(collision) && valueYDict.ContainsKey(collision))
+            if (_colliderEnterSide.ContainsKey(collider))
             {
-                float comeX = valueXDict[collision];
-                float comeY = valueYDict[collision];
-                //float come = collToVect[collision];
-
-                //if (leave * come < 0)
-                //{
-                //    collision.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
-                //    pc.changeReversed();
-                //}
-
-                //collToVect.Remove(collision);
-
-
-                //come and leave in different position
-                if (leaveY * comeY < 0 || leaveX * comeX < 0)
+                float enterSide = _colliderEnterSide[collider];
+                if (enterSide * leaveSide < 0.0)
                 {
-                    collision.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
-                    pc.Reverse();
-
+                    collider.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
+                    collider.gameObject.GetComponent<PlayerController>().Reverse();
                 }
-
-                valueXDict.Remove(collision);
-                valueYDict.Remove(collision);
             }
         }
     }
