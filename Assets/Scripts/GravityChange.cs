@@ -18,38 +18,41 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
-        {
-            Vector3 center = transform.position;
-            Vector3 colliderCenter = collider.bounds.center;
+        //ignore player with box collider
+        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
 
-            // Vector from door to character: character's center - door's center position
-            Vector3 doorToObj = (center - colliderCenter).normalized;
-            float enterSide = Vector3.Cross(_upVector, doorToObj).z;
-            _colliderEnterSide[collider] = enterSide;
-        }
+          
+        Vector3 center = transform.position;
+        Vector3 colliderCenter = collider.bounds.center;
+
+        // Vector from door to character: character's center - door's center position
+        Vector3 doorToObj = (center - colliderCenter).normalized;
+        float enterSide = Vector3.Cross(_upVector, doorToObj).z;
+        _colliderEnterSide[collider] = enterSide;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        //ignore player with box collider
+        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+
+        Vector3 center = transform.position;
+        Vector3 colliderCenter = collider.bounds.center;
+
+        // Vector from door to character: character's center - door's center position
+        Vector3 doorToObj = (center - colliderCenter).normalized;
+        float leaveSide = Vector3.Cross(_upVector, doorToObj).z;
+
+        if (_colliderEnterSide.ContainsKey(collider))
         {
-            Vector3 center = transform.position;
-            Vector3 colliderCenter = collider.bounds.center;
+            float enterSide = _colliderEnterSide[collider];
 
-            // Vector from door to character: character's center - door's center position
-            Vector3 doorToObj = (center - colliderCenter).normalized;
-            float leaveSide = Vector3.Cross(_upVector, doorToObj).z;
-
-            if (_colliderEnterSide.ContainsKey(collider))
+            if (enterSide * leaveSide < 0.0)
             {
-                float enterSide = _colliderEnterSide[collider];
-                if (enterSide * leaveSide < 0.0)
-                {
-                    collider.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
-                    collider.gameObject.GetComponent<PlayerController>().Reverse();
-                }
+                collider.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
+                collider.gameObject.GetComponent<PlayerController>().Reverse();
             }
         }
+  
     }
 }
