@@ -3,6 +3,12 @@ guid: 311a80499d9364efeb2133114474b4dd
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
+<<<<<<< HEAD
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+=======
   userData:
   assetBundleName:
   assetBundleVariant:
+>>>>>>> 7bfea40a6987e3e7d4a099b6fbaf9da1e826ba3d
