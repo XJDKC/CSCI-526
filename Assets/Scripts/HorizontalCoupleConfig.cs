@@ -8,19 +8,22 @@ public class HorizontalCoupleConfig : MonoBehaviour
     [SerializeField] private float speed = 1;
     [SerializeField] private float moveDistancce = 1;
     [SerializeField] private float gapBetweenEnemy = 1;
-    [SerializeField] private int isReverse = 1;
-    private Transform whiteEnemy;
-    private Transform blackEnemy;
-
+    [SerializeField] private bool EnemyReverse = false;
+    private GameObject whiteEnemy;
+    private GameObject blackEnemy;
+    private int isReverse;
     private bool direction = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        whiteEnemy = transform.GetChild(0);
-        blackEnemy = transform.GetChild(1);
-        whiteEnemy.localPosition = new Vector3(0, -gapBetweenEnemy * isReverse, 0);
-        blackEnemy.localPosition = new Vector3(0, +gapBetweenEnemy * isReverse, 0);
+        isReverse = EnemyReverse == false ? 1 : -1;
+        whiteEnemy = transform.GetChild(0).gameObject;
+        blackEnemy = transform.GetChild(1).gameObject;
+        whiteEnemy.transform.localPosition = new Vector3(0, -gapBetweenEnemy * isReverse, 0);
+        blackEnemy.transform.localPosition = new Vector3(0, +gapBetweenEnemy * isReverse, 0);
+        whiteEnemy.GetComponent<Rigidbody2D>().gravityScale = -1 * isReverse;
+        blackEnemy.GetComponent<Rigidbody2D>().gravityScale = 1 * isReverse;
     }
 
     // Update is called once per frame
@@ -28,29 +31,33 @@ public class HorizontalCoupleConfig : MonoBehaviour
     {
         if (!transform.IsDestroyed())
         {
-            if (direction == true && whiteEnemy.position.x - transform.position.x >= moveDistancce)
+            if (direction == true && whiteEnemy.transform.position.x - transform.position.x >= moveDistancce)
             {
                 direction = false;
             }
 
-            if (direction == false && transform.position.x - whiteEnemy.position.x >= moveDistancce)
+            if (direction == false && transform.position.x - whiteEnemy.transform.position.x >= moveDistancce)
             {
                 direction = true;
             }
 
             if (direction == true)
             {
-                whiteEnemy.position =
-                    new Vector3(whiteEnemy.position.x + Time.deltaTime * speed, isReverse * whiteEnemy.position.y, 0);
-                blackEnemy.position =
-                    new Vector3(blackEnemy.position.x + Time.deltaTime * speed, isReverse * blackEnemy.position.y, 0);
+                whiteEnemy.transform.position =
+                    new Vector3(whiteEnemy.transform.position.x + Time.deltaTime * speed,
+                        isReverse * whiteEnemy.transform.position.y * isReverse, 0);
+                blackEnemy.transform.position =
+                    new Vector3(blackEnemy.transform.position.x + Time.deltaTime * speed,
+                        isReverse * blackEnemy.transform.position.y * isReverse, 0);
             }
             else
             {
-                whiteEnemy.position =
-                    new Vector3(whiteEnemy.position.x - Time.deltaTime * speed, isReverse * whiteEnemy.position.y, 0);
-                blackEnemy.position =
-                    new Vector3(blackEnemy.position.x - Time.deltaTime * speed, isReverse * blackEnemy.position.y, 0);
+                whiteEnemy.transform.position =
+                    new Vector3(whiteEnemy.transform.position.x - Time.deltaTime * speed,
+                        isReverse * whiteEnemy.transform.position.y * isReverse, 0);
+                blackEnemy.transform.position =
+                    new Vector3(blackEnemy.transform.position.x - Time.deltaTime * speed,
+                        isReverse * blackEnemy.transform.position.y * isReverse, 0);
             }
         }
     }

@@ -49,7 +49,7 @@ MonoBehaviour:
   speed: 2
   moveDistancce: 1
   gapBetweenEnemy: 3
-  isReverse: 1
+  EnemyReverse: 0
 --- !u!1 &904669210406876779
 GameObject:
   m_ObjectHideFlags: 0
