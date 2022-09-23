@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class VerticalCoupleConfig : MonoBehaviour
 {
-    [SerializeField] private float distanceBetweenEnemies = 4;
-    [SerializeField] private bool EnemyReverse = false;
+    public float distanceBetweenEnemies = 4;
+    public bool enemyReverse = false;
 
     private GameObject whiteEnemy;
     private GameObject blackEnemy;
@@ -16,7 +16,7 @@ public class VerticalCoupleConfig : MonoBehaviour
     void Start()
 
     {
-        isReverse = EnemyReverse == false ? 1 : -1;
+        isReverse = enemyReverse == false ? 1 : -1;
         whiteEnemy = transform.GetChild(0).gameObject;
         blackEnemy = transform.GetChild(1).gameObject;
         whiteEnemy.transform.localPosition = new Vector3(0, -(distanceBetweenEnemies * isReverse), 0);

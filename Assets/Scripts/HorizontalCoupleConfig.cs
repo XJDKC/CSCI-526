@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class HorizontalCoupleConfig : MonoBehaviour
 {
-    [SerializeField] private float speed = 1;
-    [SerializeField] private float moveDistancce = 1;
-    [SerializeField] private float gapBetweenEnemy = 1;
-    [SerializeField] private bool EnemyReverse = false;
+    public float speed = 1;
+    public float moveDistancce = 1;
+    public float gapBetweenEnemy = 1;
+    public bool enemyReverse = false;
     private GameObject whiteEnemy;
     private GameObject blackEnemy;
     private int isReverse;
@@ -17,7 +17,7 @@ public class HorizontalCoupleConfig : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isReverse = EnemyReverse == false ? 1 : -1;
+        isReverse = enemyReverse == false ? 1 : -1;
         whiteEnemy = transform.GetChild(0).gameObject;
         blackEnemy = transform.GetChild(1).gameObject;
         whiteEnemy.transform.localPosition = new Vector3(0, -gapBetweenEnemy * isReverse, 0);

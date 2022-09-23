@@ -1002,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894740963227437672, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
       propertyPath: EnemyReverse
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
@@ -14210,7 +14210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894740963227437672, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
       propertyPath: EnemyReverse
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
