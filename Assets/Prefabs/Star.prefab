@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 9210360460991643768}
   - component: {fileID: 9210360460991643769}
   - component: {fileID: 9210360460991643767}
-  - component: {fileID: 9210360460991643764}
   - component: {fileID: 9210360460991643765}
   - component: {fileID: 9210360460991643762}
-  - component: {fileID: 9210360460991643770}
   - component: {fileID: 9210360460991643771}
+  - component: {fileID: 1462108464539911599}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
   m_Color: {r: 1, g: 1, b: 0.007843138, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,15 +98,15 @@ BoxCollider2D:
   m_GameObject: {fileID: 9210360460991643763}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: a55d59049e76e45cfa1e31dbf513a13b, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.020964146, y: 0.0000011920929}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.984375, y: 0.984375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -116,22 +115,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1257887, y: 1.1677146}
   m_EdgeRadius: 0
---- !u!114 &9210360460991643764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210360460991643763}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf21dcebbf8c429b9ba501c4a6ae4f40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 2
 --- !u!50 &9210360460991643765
 Rigidbody2D:
   serializedVersion: 4
@@ -148,7 +131,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 999ead754197147eda327a3bb9831eca, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -160,28 +143,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210360460991643763}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9eb7ad9eaf8941b8b1349c4e6774f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delaySecond: 5
---- !u!58 &9210360460991643770
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210360460991643763}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: a55d59049e76e45cfa1e31dbf513a13b, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &9210360460991643771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,3 +161,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae51ccdf1ec9548f6ac76c00a777f659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1462108464539911599
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210360460991643763}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.984375, y: 0.984375}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.984375, y: 0.984375}
+  m_EdgeRadius: 0
