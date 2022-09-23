@@ -19,8 +19,8 @@ public class HorizontalCoupleConfig : MonoBehaviour
     {
         whiteEnemy = transform.GetChild(0);
         blackEnemy = transform.GetChild(1);
-        whiteEnemy.localPosition = new Vector3(0, -gapBetweenEnemy*isReverse, 0);
-        blackEnemy.localPosition = new Vector3(0, +gapBetweenEnemy*isReverse, 0);
+        whiteEnemy.localPosition = new Vector3(0, -gapBetweenEnemy * isReverse, 0);
+        blackEnemy.localPosition = new Vector3(0, +gapBetweenEnemy * isReverse, 0);
     }
 
     // Update is called once per frame
@@ -41,16 +41,16 @@ public class HorizontalCoupleConfig : MonoBehaviour
             if (direction == true)
             {
                 whiteEnemy.position =
-                    new Vector3(whiteEnemy.position.x + Time.deltaTime * speed, isReverse*whiteEnemy.position.y, 0);
+                    new Vector3(whiteEnemy.position.x + Time.deltaTime * speed, isReverse * whiteEnemy.position.y, 0);
                 blackEnemy.position =
-                    new Vector3(blackEnemy.position.x + Time.deltaTime * speed, isReverse*blackEnemy.position.y, 0);
+                    new Vector3(blackEnemy.position.x + Time.deltaTime * speed, isReverse * blackEnemy.position.y, 0);
             }
             else
             {
                 whiteEnemy.position =
-                    new Vector3(whiteEnemy.position.x - Time.deltaTime * speed, isReverse*whiteEnemy.position.y, 0);
+                    new Vector3(whiteEnemy.position.x - Time.deltaTime * speed, isReverse * whiteEnemy.position.y, 0);
                 blackEnemy.position =
-                    new Vector3(blackEnemy.position.x - Time.deltaTime * speed, isReverse*blackEnemy.position.y, 0);
+                    new Vector3(blackEnemy.position.x - Time.deltaTime * speed, isReverse * blackEnemy.position.y, 0);
             }
         }
     }

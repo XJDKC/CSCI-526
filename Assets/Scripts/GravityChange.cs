@@ -21,7 +21,7 @@ public class GravityChange : MonoBehaviour
         //ignore player with box collider
         if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
 
-          
+
         Vector3 center = transform.position;
         Vector3 colliderCenter = collider.bounds.center;
 
@@ -53,6 +53,5 @@ public class GravityChange : MonoBehaviour
                 collider.gameObject.GetComponent<PlayerController>().Reverse();
             }
         }
-  
     }
 }
