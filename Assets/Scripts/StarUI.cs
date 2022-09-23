@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class StarUI : MonoBehaviour
 {
     public int startStarQuantity;
-    public Text starQuantity;
-
     public static int CurrentStarQuantity;
 
     // Start is called before the first frame update
@@ -19,6 +17,6 @@ public class StarUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //starQuantity.text = CurrentStarQuantity.ToString();
+        GetComponent<Text>().text = "Score: " + CurrentStarQuantity;
     }
 }
