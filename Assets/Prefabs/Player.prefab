@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4757692587049867936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.33, y: 1.33, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerType: 1
-  playerSpeed: 4
-  jumpSpeed: 6
+  playerSpeed: 6
+  jumpSpeed: 12
 --- !u!50 &4757692587049867961
 Rigidbody2D:
   serializedVersion: 4
@@ -202,7 +202,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -221,8 +221,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_Size: {x: 0.65, y: 0.8}
+  m_Offset: {x: 0, y: -0.125}
+  m_Size: {x: 0.65, y: 0.75}
   m_Direction: 0
 --- !u!61 &9079302316269220868
 BoxCollider2D:
