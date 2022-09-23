@@ -35,13 +35,14 @@ public class GenerateStars : MonoBehaviour
     //Generate fragments
     private void GetStars()
     {
-        Debug.Log("---Generating Stars---");
+        //Debug.Log("---Generating Stars---");
+        //TODO: hard code position, need further improve
         float[] shift = new float[] { -0.8F, -0.6F, -0.3F, -0.1F, 0.1F, 0.3F, 0.5F, 0.7F};
         float centerX = gameObject.transform.position.x - gameObject.transform.localScale.x / 2;
         float centerY = gameObject.transform.position.y - gameObject.transform.localScale.y / 2;
         for (int i = 0; i < fragmentNum; i++)
         {
-            Vector2 position = new Vector2(centerX + shift[i], centerY);
+            Vector2 position = new Vector2(centerX + shift[i], centerY + 1F);
             stars.Add(CreateStar(position));
         }
     }
@@ -63,7 +64,6 @@ public class GenerateStars : MonoBehaviour
     {
         //Debug.Log("---Creating Stars---");
         GameObject star = Instantiate(Resources.Load("Star", typeof(GameObject))) as GameObject;
-        //TODO: avoid collision with player object
         //fragment.layer = LayerMask.NameToLayer("Default");
         star.transform.position = position;
         return star;
@@ -72,7 +72,7 @@ public class GenerateStars : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start crashing");
+        //Debug.Log("Start crashing");
     }
 
     // Update is called once per frame
