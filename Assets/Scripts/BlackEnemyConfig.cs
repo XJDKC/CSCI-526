@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Playerlife : MonoBehaviour
+public class BlackEnemyConfig : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
 
@@ -17,7 +16,7 @@ public class Playerlife : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("BlackTag"))
+        if (col.gameObject.tag == "Player")
         {
             Die();
         }
