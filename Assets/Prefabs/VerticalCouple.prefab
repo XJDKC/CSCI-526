@@ -393,4 +393,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenEnemies: 4
-  isReverse: 1
+  EnemyReverse: 0
