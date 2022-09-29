@@ -90,11 +90,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837bb74ff8ba7449ea4711aa4bdb8308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDown0: 0
-  countDown1: 0
-  countDown2: 0
-  countDown3: 0
-  countDown4: 0
+  guideInfos:
+  - countDown: 0
+    start: -30
+    end: -12
+    dropStart: 250
+    dropEnd: 5000
+    dropSpeed: 0.2
+    heightUp: -40
+    heightDown: 50
+  - countDown: 0
+    start: -12
+    end: 7
+    dropStart: 250
+    dropEnd: 5000
+    dropSpeed: 0.2
+    heightUp: -40
+    heightDown: 50
+  - countDown: 0
+    start: 7
+    end: 60
+    dropStart: 250
+    dropEnd: 5000
+    dropSpeed: 0.2
+    heightUp: -40
+    heightDown: 50
+  - countDown: 0
+    start: 60
+    end: 120
+    dropStart: 250
+    dropEnd: 5000
+    dropSpeed: 0.2
+    heightUp: -40
+    heightDown: 50
+  - countDown: 0
+    start: 120
+    end: 200
+    dropStart: 250
+    dropEnd: 5000
+    dropSpeed: 0.2
+    heightUp: -40
+    heightDown: 50
   player1: {fileID: 0}
   player2: {fileID: 0}
 --- !u!1 &7367976973931212386
@@ -192,3 +228,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 0}
   player2: {fileID: 0}
+  messages:
+  - text: 'Player1: W S A D.  Player2: Up Down Left Right.      ENJOY!'
+    start: -30
+    end: -12
+  - text: Try to go through the door to change the gravity.
+    start: -12
+    end: 7
+  - text: Kill enemies by hitting their white spirits,                         and
+      don't forget to collect stars from other side.
+    start: 7
+    end: 60
+  - text: How about....build a 'Human Ladder?'
+    start: 60
+    end: 120
+  - text: Wait... Isn't it too high even for 'Human Ladder'?            Maybe it's
+      a good idea to use the platform over there.
+    start: 120
+    end: 200

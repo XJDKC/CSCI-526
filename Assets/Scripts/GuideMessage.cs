@@ -4,35 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-
 public struct Message
 {
     public string text;
     public int start;
     public int end;
-
-
 }
+
+//Default value of Level 1:
+//Text1: "Player1: W S A D.  Player2: Up Down Left Right.      ENJOY!"
+//Text2: "Try to go through the door to change the gravity."
+//Text3: "Kill enemies by hitting their white spirits, \n and don't forget to collect stars from other side."
+//Text4: "How about....build a 'Human Ladder?'"
+//Text5: "Wait... Isn't it too high even for 'Human Ladder'?            Maybe it's a good idea to use the platform over there."
+//Change point: -30, -12, 7, 60, 120, 200
 
 public class GuideMessage : MonoBehaviour
 {
-
     public GameObject player1;
     public GameObject player2;
     public Message[] messages;
 
-
-    //public List<string> listString;
-    //public int a;
-    //public List<int[]> listPos;
-    //public int[][] a = new int[2][10];
-    //public int startStarQuantity;
-    //public static int CurrentStarQuantity;
-
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -48,34 +43,5 @@ public class GuideMessage : MonoBehaviour
                 GetComponent<Text>().text = messages[i].text;
             }
         }
-            //print(startStarQuantity);
-            //GetComponent<RectTransform>().offsetMax.y
-        //if (mid_x > -30 && mid_x < -12)
-        //{
-        //    GetComponent<Text>().text = messages[0].text;
-        //}
-        //if (mid_x > -12 && mid_x < 7)
-        //{
-        //    GetComponent<Text>().text = listString[1];
-        //}
-        //if (mid_x > 7 && mid_x < 60)
-        //{
-        //    if (StarUI.CurrentStarQuantity == 0)
-        //    {
-        //        GetComponent<Text>().text = "Kill enemies by hitting their white spirits, \n and don't forget to collect stars from enemys.";
-        //    }
-        //    else
-        //    {
-        //        GetComponent<Text>().text = "Hooray!!! You got them!!";
-        //    }
-        //}
-        //if (mid_x > 60 && mid_x < 120)
-        //{
-        //    GetComponent<Text>().text = "How about....'double jump' on each other?";
-        //}
-        //if (mid_x > 120 && mid_x < 200)
-        //{
-        //    GetComponent<Text>().text = "Wait... Isn't it too high even for 'double jump'? \n Maybe it's a good idea to use the platform over there.";
-        //}
     }
 }
