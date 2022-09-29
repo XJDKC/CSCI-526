@@ -15,17 +15,8 @@ public class WhiteEnemyConfig : MonoBehaviour
             GameObject parent = transform.parent.gameObject;
             GameObject blackEnemy = parent.transform.GetChild(1).gameObject;
             bool isReversed = false;
-            if (parent.GetComponent<VerticalCoupleConfig>())
-            {
-                isReversed = parent.GetComponent<VerticalCoupleConfig>().enemyReverse;
-            }
-
-            if (parent.GetComponent<HorizontalCoupleConfig>())
-            {
-                isReversed = parent.GetComponent<HorizontalCoupleConfig>().enemyReverse;
-            }
-
-            if (startPrefab)
+            isReversed = parent.GetComponent<EnemyController>().enemyReverse;
+                if (startPrefab)
             {
                 Quaternion rotation = new Quaternion();
                 rotation.eulerAngles = new Vector3(0.0f, 0.0f, Random.Range(0, 180.0f));
