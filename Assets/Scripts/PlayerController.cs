@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour, IReversible
     void UpdateAnimation()
     {
         var runId = Animator.StringToHash("run");
-        bool isMoving = (_playerState & (PlayerState.LeftMoving | PlayerState.LeftMoving)) != 0;
+        bool isMoving = (_playerState & (PlayerState.LeftMoving | PlayerState.RightMoving)) != 0;
         _playerAnimator.SetBool(runId, isMoving);
 
         var jumpId = Animator.StringToHash("jump");
