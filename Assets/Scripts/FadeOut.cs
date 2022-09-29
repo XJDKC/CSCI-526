@@ -6,7 +6,7 @@ using UnityEngine;
 public class FadeOut : MonoBehaviour
 {
     public float delaySecond = 5F;
-
+    public float initialSpeed=6;
     private SpriteRenderer spriteRenderer = null;
     private float fadeSpeed = 0;
 
@@ -16,6 +16,7 @@ public class FadeOut : MonoBehaviour
         if (TryGetComponent(out SpriteRenderer spriteRenderer))
             this.spriteRenderer = spriteRenderer;
         fadeSpeed = this.spriteRenderer.color.a * Time.fixedDeltaTime / delaySecond;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0,initialSpeed);
         StartCoroutine(DestroyNow());
     }
 
