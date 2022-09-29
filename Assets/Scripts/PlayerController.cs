@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,25 +7,74 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IReversible
 {
     public enum PlayerType { Player1 = 1, Player2 = 2 };
 
     public PlayerType playerType = PlayerType.Player1;
-    public float playerSpeed = 3.0f;
-    public float jumpSpeed = 5.0f;
+    public float moveSpeed = 6.0f;
+    public float jumpSpeed = 10.0f;
+    public RuntimeAnimatorController animatorController1;
+    public RuntimeAnimatorController animatorController2;
 
     [Flags]
     private enum PlayerState { Idle = 0, LeftMoving = 1, RightMoving = 2, Jumping = 4, Reversed = 8 };
 
-    private float _moveInput = 0.0f;
-    private float _jumpInput = 0.0f;
+    private static readonly string[] KeyboardSchemes = { "Keyboard1", "Keyboard2" };
+
+    private float _moveInput;
+    private float _jumpInput;
     private Animator _playerAnimator;
+    private PlayerInput _playerInput;
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
     private CapsuleCollider2D _capsuleCollider2D;
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
+
+    private void Awake()
+    {
+        // Assign control scheme for players
+        _playerInput = GetComponent<PlayerInput>();
+        _playerAnimator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+    }
+
+    private void Start()
+    {
+        if (playerType == PlayerType.Player1)
+        {
+            _playerInput.SwitchCurrentControlScheme(KeyboardSchemes[0], Keyboard.current);
+            if (animatorController1)
+            {
+                _playerAnimator.runtimeAnimatorController = animatorController1;
+            }
+        }
+        else
+        {
+            _playerInput.SwitchCurrentControlScheme(KeyboardSchemes[1], Keyboard.current);
+            if (animatorController2)
+            {
+                _playerAnimator.runtimeAnimatorController = animatorController2;
+            }
+        }
+    }
+
+    void Update()
+    {
+        UpdateState();
+        UpdateVelocity();
+        UpdateRotation();
+        UpdateAnimation();
+    }
+
+
+    public void Reverse()
+    {
+        _playerState ^= PlayerState.Reversed;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -39,41 +86,6 @@ public class PlayerController : MonoBehaviour
         _jumpInput = context.ReadValue<float>();
     }
 
-    public void Reverse()
-    {
-        _playerState ^= PlayerState.Reversed;
-    }
-
-    private void Awake()
-    {
-        // Assign control scheme for players
-        PlayerInput input = GetComponent<PlayerInput>();
-        if (playerType == PlayerType.Player1)
-        {
-            input.SwitchCurrentControlScheme("Keyboard1", Keyboard.current);
-        }
-        else
-        {
-            input.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
-        }
-    }
-
-    private void Start()
-    {
-        _playerAnimator = GetComponent<Animator>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _boxCollider2D = GetComponent<BoxCollider2D>();
-        _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
-    }
-
-    void Update()
-    {
-        UpdateState();
-        UpdateVelocity();
-        UpdateRotation();
-        UpdateAnimation();
-    }
-
     bool IsOnGround()
     {
         return _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
@@ -83,7 +95,7 @@ public class PlayerController : MonoBehaviour
     void UpdateVelocity()
     {
         bool onGround = IsOnGround();
-        Vector2 velocity = new Vector2(_moveInput * playerSpeed, _rigidbody2D.velocity.y);
+        Vector2 velocity = new Vector2(_moveInput * moveSpeed, _rigidbody2D.velocity.y);
         // Changes the vertical speed of the player.
         if (onGround && ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f ||
                          (_playerState & PlayerState.Reversed) != 0 && _jumpInput < 0.0f))
@@ -135,22 +147,12 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAnimation()
     {
-        if ((_playerState & PlayerState.LeftMoving) != 0 || (_playerState & PlayerState.RightMoving) != 0)
-        {
-            _playerAnimator.SetBool("run", true);
-        }
-        else
-        {
-            _playerAnimator.SetBool("run", false);
-        }
+        var runId = Animator.StringToHash("run");
+        bool isMoving = (_playerState & (PlayerState.LeftMoving | PlayerState.LeftMoving)) != 0;
+        _playerAnimator.SetBool(runId, isMoving);
 
-        if ((_playerState & PlayerState.Jumping) != 0)
-        {
-            _playerAnimator.SetBool("jump", true);
-        }
-        else
-        {
-            _playerAnimator.SetBool("jump", false);
-        }
+        var jumpId = Animator.StringToHash("jump");
+        bool isJumping = (_playerState & PlayerState.Jumping) != 0;
+        _playerAnimator.SetBool(jumpId, isJumping);
     }
 }

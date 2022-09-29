@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4757692587049867965}
   - component: {fileID: 4757692587049867966}
   - component: {fileID: 4757692587049867967}
-  - component: {fileID: 4757692587049867963}
   - component: {fileID: 4757692587049867964}
+  - component: {fileID: 4757692587049867963}
   - component: {fileID: 4757692587049867961}
   - component: {fileID: 4757692587049867962}
   - component: {fileID: 9079302316269220868}
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4757692587049867936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.33, y: 1.33, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,6 +110,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4757692587049867964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4757692587049867936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61e0d654e12443f89d5dab74bc5473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerType: 1
+  moveSpeed: 6
+  jumpSpeed: 10
+  animatorController1: {fileID: 9100000, guid: 88b53c118026845c8afa1429069576b7, type: 2}
+  animatorController2: {fileID: 9100000, guid: 07c27a381a9a049c1b6cd64d4dbe062f, type: 2}
 --- !u!114 &4757692587049867963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,21 +189,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4757692587049867964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4757692587049867936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e61e0d654e12443f89d5dab74bc5473a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerType: 1
-  playerSpeed: 6
-  jumpSpeed: 12
 --- !u!50 &4757692587049867961
 Rigidbody2D:
   serializedVersion: 4
