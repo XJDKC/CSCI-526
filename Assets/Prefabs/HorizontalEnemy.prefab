@@ -53,7 +53,7 @@ MonoBehaviour:
     speed: 2
   verticalEnemy:
     enemyHeight: 3
-  enemyReverse: 1
+  enemyReverse: 0
 --- !u!1 &904669210406876779
 GameObject:
   m_ObjectHideFlags: 0
