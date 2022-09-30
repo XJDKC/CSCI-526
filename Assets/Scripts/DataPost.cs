@@ -6,8 +6,7 @@ using UnityEngine.Networking;
 
 public class DataPost : MonoBehaviour
 {
-    [SerializeField]
-    private string url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc2_3lUNjf_LrLXkZq4bnL_1r7bl3CenBpxwVnB6e0eVjFZJg/formResponse";
+    [SerializeField] private string url;
     //private long sessionID;
     //public static DataPost Sender;
 
@@ -50,5 +49,10 @@ public class DataPost : MonoBehaviour
                 Debug.Log("Data upload complete");
             }
         }
+    }
+
+    void Start()
+    {
+        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc2_3lUNjf_LrLXkZq4bnL_1r7bl3CenBpxwVnB6e0eVjFZJg/formResponse";
     }
 }
