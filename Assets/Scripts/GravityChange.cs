@@ -36,7 +36,7 @@ public class GravityChange : MonoBehaviour
         // ignore player with box collider
         if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
 
-        float currSide = _colliderPrevSide[collider] = GetSide(collider);
+        float currSide = GetSide(collider);
 
         // compare the previous side with current side vector cross product
         if (_colliderPrevSide.ContainsKey(collider))
@@ -61,7 +61,7 @@ public class GravityChange : MonoBehaviour
         // ignore player with box collider
         if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
 
-        float currSide = _colliderPrevSide[collider] = GetSide(collider);
+        float currSide = GetSide(collider);
 
         // compare the previous side with current side vector cross product
         if (_colliderPrevSide.ContainsKey(collider))
