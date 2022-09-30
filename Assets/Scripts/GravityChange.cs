@@ -8,8 +8,7 @@ using UnityEngine;
 public class GravityChange : MonoBehaviour
 {
     private Vector3 _upVector = Vector3.up;
-    private Dictionary<Collider2D, float> _colliderEnterSide = new Dictionary<Collider2D, float>();
-    private Dictionary<Collider2D, float> _colliderEnterMid = new Dictionary<Collider2D, float>();
+    private Dictionary<Collider2D, float> _colliderPrevSide = new Dictionary<Collider2D, float>();
 
     private void Start()
     {
@@ -19,21 +18,20 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // ignore player with box collider
-        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
 
-        // if player do not have much velocity when cross the horizontal door, add a force
-        Rigidbody2D player = collider.GetComponent<Rigidbody2D>();
-        if (Math.Abs(player.velocity.y) < 2)
-        {
-            if (player.velocity.y > 0)  player.AddForce(new Vector2(0, 300));
-            if (player.velocity.y < 0)  player.AddForce(new Vector2(0, -300));
-        }
+        // ignore player with box collider
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
     }
 
-    private void OnTriggerStay2D(Collider2D collider) {
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
+
         // ignore player with box collider
-        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
 
         // find door's center and player's center
         Vector3 center = transform.position;
@@ -44,22 +42,26 @@ public class GravityChange : MonoBehaviour
         float side = Vector3.Cross(_upVector, doorToObj).z;
 
         // compare the previous side with current side vector cross product
-        if (_colliderEnterMid.ContainsKey(collider)){
-            float prevSide = _colliderEnterMid[collider];
+        if (_colliderPrevSide.ContainsKey(collider))
+        {
+            float prevSide = _colliderPrevSide[collider];
 
             if (side * prevSide < 0.0)
             {
-                collider.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
-                collider.gameObject.GetComponent<PlayerController>().Reverse();
+                reversibleObject.Reverse();
             }
         }
 
-        _colliderEnterMid[collider] = side;
+        // update collider prev side
+        _colliderPrevSide[collider] = side;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
+
         // ignore player with box collider
-        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
     }
 }
