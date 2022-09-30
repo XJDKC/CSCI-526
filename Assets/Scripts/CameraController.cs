@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class AnchorPoints
+{
+    public Transform upperPoint;
+    public Transform rightPoint;
+    public Transform lowerPoint;
+    public Transform leftPoint;
+}
+
 public class CameraController : MonoBehaviour
 {
     // Transfroms of the two players, assign these in the Inspector
@@ -11,21 +20,29 @@ public class CameraController : MonoBehaviour
 
     // Transform of the background, assign this in the Inspector
     // this is used to restrict the location of the camera
-    public GameObject backgroundObj;
+
+    // anchors to confine the camera;
+    public AnchorPoints anchorPoints;
+
 
     // Interface: Control the zoom ratio of the Camera, the larger the value, the boarder the view is.
-    // [Range(1, 2)]
-    // public float camZoomRatio = 1.0f;
+    [Range(1, 3)]
+    public float targetZoomRatio = 1;
+
 
     // Default size of the camera, should be set in the Inspector
     // by definition, in orthographic mode, the camera size is half-size of screen's height
-    public float defaultCamSize;
+    private const float defaultCamSize = 6.7f;
+    private float customCamSize;
+
+    // Current zoom ratio of the camera
+    private float camZoomRatio = 1.0f;
+
+
 
     // A flag to change the defaultCamSize, default value is false
     // If you want to trigger the camera to zoom in/out by your designated size, set it to true to zoom;
     // it will be set back to false when new size is applied
-    public bool defaultCamSizeTrigger;
-
     private Camera cam;
     private Transform camTransform;
 
@@ -36,19 +53,16 @@ public class CameraController : MonoBehaviour
     private float cameraWidth;
 
     // Threshold Ratio from x and y axises. if either of them reached, the camera start zooming
-    private float zoomThresholdRatioX = 0.67f;
+    private float zoomThresholdRatioX = 0.8f;
     private float zoomThresholdRatioY = 0.8f;
 
-    // background's width, height and position
-    private float bgWidth;
-    private float bgHeight;
-    private Vector3 bgPos;
+
 
     // the x, y bounds of background, to confine the camera movement
-    private float bgLeftX;
-    private float bgRightX;
-    private float bgUpperY;
-    private float bgLowerY;
+    private float anchorLeftX;
+    private float anchorRightX;
+    private float anchorUpperY;
+    private float anchorLowerY;
 
 
     // Start is called before the first frame update
@@ -61,8 +75,9 @@ public class CameraController : MonoBehaviour
         aspectRatio = Screen.width * 1.0f / Screen.height;
         cameraHeight = defaultCamSize * 2;
         cameraWidth = cameraHeight * aspectRatio;
+        customCamSize = defaultCamSize * camZoomRatio;
 
-        defaultCamSizeTrigger = false;
+        targetZoomRatio = camZoomRatio;
 
         // initialize the camera attributes
         if (cam)
@@ -77,22 +92,20 @@ public class CameraController : MonoBehaviour
         }
 
         // initialize the border of background, for confining camera
-        if (backgroundObj)
+        if (anchorPoints.leftPoint && anchorPoints.rightPoint && anchorPoints.upperPoint && anchorPoints.lowerPoint)
         {
-            bgPos = backgroundObj.GetComponent<Transform>().position;
-            bgWidth = backgroundObj.GetComponent<Renderer>().bounds.size.x;
-            bgHeight = backgroundObj.GetComponent<Renderer>().bounds.size.y;
-
-            bgLeftX = bgPos.x - (bgWidth / 2);
-            bgRightX = bgPos.x + (bgWidth / 2);
-
-
-            bgUpperY = bgPos.y + (bgHeight / 2);
-            bgLowerY = bgPos.y - (bgHeight / 2);
+            anchorLeftX = anchorPoints.leftPoint.position.x;
+            anchorRightX = anchorPoints.rightPoint.position.x;
+            anchorUpperY = anchorPoints.upperPoint.position.x;
+            anchorLowerY = anchorPoints.lowerPoint.position.x;
         }
+    }
 
-
-
+    private void Update()
+    {
+        // Debug.Log ("player1Transform.position.x = " + player1Transform.position.x);
+        camZoomRatio = Mathf.Lerp(camZoomRatio, targetZoomRatio, 2 * Time.deltaTime);
+        customCamSize = defaultCamSize * camZoomRatio;
     }
 
     void LateUpdate()
@@ -100,18 +113,14 @@ public class CameraController : MonoBehaviour
 
         if (cam && player1Transform && player2Transform)
         {
-            if (defaultCamSizeTrigger)
-            {
-                cam.orthographicSize = defaultCamSize;
-                defaultCamSizeTrigger = false;
-                return;
-            }
 
             // 1. update the camera size;
             // get current size of the camera
             float curCamSize = cam.orthographicSize;
             cameraHeight = curCamSize * 2;
             cameraWidth = cameraHeight * aspectRatio;
+            float camDiagnose = (float)Math.Sqrt(cameraHeight * cameraHeight + cameraWidth * cameraWidth);
+            float ratioHeight2Diagnose = cameraHeight / camDiagnose;
 
             // get camera and two players's positions
             Vector3 camPos = camTransform.position;
@@ -120,29 +129,43 @@ public class CameraController : MonoBehaviour
 
             // calculate the ratio of x-distance and y-distance
             // if the ratio of the distance between two players takes zoomThresholdRatio, start zooming
-            float nextCamSize = curCamSize;
+            float nextCamSize = customCamSize;
             float xDistance = Math.Abs(playerPos1.x - playerPos2.x);
             float yDistance = Math.Abs(playerPos1.y - playerPos2.y);
+            float xyDistance = (playerPos1 - playerPos2).magnitude;
+
 
             float distanceRatioX = xDistance / cameraWidth;
             float distanceRatioY = yDistance / cameraHeight;
-            if (Math.Abs(distanceRatioX - zoomThresholdRatioX) < 0.01f)
+            float distanceRatioXY = xyDistance / camDiagnose;
+            if (Math.Abs(distanceRatioX - zoomThresholdRatioX) < 0.1f)
             {
                 float nextCamWidth = xDistance / zoomThresholdRatioX;
                 float nextCamHeight = nextCamWidth / aspectRatio;
                 nextCamSize = nextCamHeight / 2;
+                // Debug.Log ("distanceRatioX,  zoomThresholdRatioX = " + distanceRatioX + ", " + zoomThresholdRatioX);
+
             }
 
             if (Math.Abs(distanceRatioY - zoomThresholdRatioY) < 0.1f)
             {
                 float nextCamHeight = yDistance / zoomThresholdRatioY;
                 nextCamSize = nextCamHeight / 2;
+                // Debug.Log ("distanceRatioY,  zoomThresholdRatioY = " + distanceRatioY + ", " + zoomThresholdRatioY);
+            }
+
+            if (Math.Abs(distanceRatioXY - zoomThresholdRatioX) < 0.1f)
+            {
+                float nextCamDiagnose = xyDistance / zoomThresholdRatioX;
+                nextCamSize = nextCamDiagnose * ratioHeight2Diagnose / 2;
+                // Debug.Log ("distanceRatioY,  zoomThresholdRatioY = " + distanceRatioY + ", " + zoomThresholdRatioY);
             }
 
             // camera size could not be smaller than the default size;
-            if (nextCamSize < defaultCamSize)
+            if (nextCamSize < customCamSize)
             {
-                nextCamSize = defaultCamSize;
+                // Debug.Log ("Reverse back to default size");
+                nextCamSize = customCamSize;
             }
 
             // cam.orthographicSize = nextCamSize * camZoomRatio;
@@ -154,33 +177,44 @@ public class CameraController : MonoBehaviour
 
 
             // camera position could not leave the following bounded area
-            if (backgroundObj)
+            if (anchorPoints.leftPoint && anchorPoints.rightPoint && anchorPoints.upperPoint && anchorPoints.lowerPoint)
+
             {
-                if (mid_x < bgLeftX + cameraWidth / 2)
+                if (mid_x < anchorLeftX + cameraWidth / 2)
                 {
-                    mid_x = bgLeftX + cameraWidth / 2;
+                    mid_x = anchorLeftX + cameraWidth / 2;
                 }
 
-                if (mid_x > bgRightX - cameraWidth / 2)
+                if (mid_x > anchorRightX - cameraWidth / 2)
                 {
-                    mid_x = bgRightX - cameraWidth / 2;
+                    mid_x = anchorRightX - cameraWidth / 2;
+
                 }
 
                 // for future use, if y-axis is needed
-                if (mid_y > bgUpperY - cameraHeight / 2)
-                {
-                    mid_y = bgUpperY - cameraHeight / 2;
-                }
 
-                if (mid_y < bgLowerY + cameraHeight / 2)
-                {
-                    mid_y = bgLowerY + cameraHeight / 2;
-                }
+                // if (mid_y > bgUpperY - cameraHeight / 2)
+                // {
+                //     mid_y = bgUpperY - cameraHeight / 2;
+                // }
+                //
+                // if (mid_y < bgLowerY + cameraHeight / 2)
+                // {
+                //     mid_y = bgLowerY + cameraHeight / 2;
+                // }
 
             }
             camTransform.position = new Vector3(mid_x, mid_y, camPos.z);
         }
+    }
 
+    /**
+     * @param: zoomRatio, recommended to be set between 1 to 2.5
+     */
+    public void setZoomRatio(float zoomRatio)
+    {
+        targetZoomRatio = zoomRatio;
+        // Debug.Log ("Set Zoom Ratio");
 
     }
 
