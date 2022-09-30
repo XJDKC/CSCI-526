@@ -8,7 +8,7 @@ using UnityEngine;
 public class GravityChange : MonoBehaviour
 {
     private Vector3 _upVector = Vector3.up;
-    private Dictionary<Collider2D, float> _colliderEnterSide = new Dictionary<Collider2D, float>();
+    private Dictionary<Collider2D, float> _colliderPrevSide = new Dictionary<Collider2D, float>();
 
     private void Start()
     {
@@ -18,40 +18,50 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //ignore player with box collider
-        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
 
+        // ignore player with box collider
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
+    }
 
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
+
+        // ignore player with box collider
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
+
+        // find door's center and player's center
         Vector3 center = transform.position;
         Vector3 colliderCenter = collider.bounds.center;
 
-        // Vector from door to character: character's center - door's center position
+        // vector from door to character: character's center - door's center position
         Vector3 doorToObj = (center - colliderCenter).normalized;
-        float enterSide = Vector3.Cross(_upVector, doorToObj).z;
-        _colliderEnterSide[collider] = enterSide;
+        float side = Vector3.Cross(_upVector, doorToObj).z;
+
+        // compare the previous side with current side vector cross product
+        if (_colliderPrevSide.ContainsKey(collider))
+        {
+            float prevSide = _colliderPrevSide[collider];
+
+            if (side * prevSide < 0.0)
+            {
+                reversibleObject.Reverse();
+            }
+        }
+
+        // update collider prev side
+        _colliderPrevSide[collider] = side;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        //ignore player with box collider
-        if (collider.gameObject.tag == "Player" && collider.GetType() == typeof(BoxCollider2D)) return;
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return;
 
-        Vector3 center = transform.position;
-        Vector3 colliderCenter = collider.bounds.center;
-
-        // Vector from door to character: character's center - door's center position
-        Vector3 doorToObj = (center - colliderCenter).normalized;
-        float leaveSide = Vector3.Cross(_upVector, doorToObj).z;
-
-        if (_colliderEnterSide.ContainsKey(collider))
-        {
-            float enterSide = _colliderEnterSide[collider];
-
-            if (enterSide * leaveSide < 0.0)
-            {
-                collider.gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
-                collider.gameObject.GetComponent<PlayerController>().Reverse();
-            }
-        }
+        // ignore player with box collider
+        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
     }
 }

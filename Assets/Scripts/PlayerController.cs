@@ -73,7 +73,9 @@ public class PlayerController : MonoBehaviour, IReversible
 
     public void Reverse()
     {
+        if (_rigidbody2D) _rigidbody2D.gravityScale *= -1.0f;
         _playerState ^= PlayerState.Reversed;
+        UpdateRotation();
     }
 
     public void OnMove(InputAction.CallbackContext context)
