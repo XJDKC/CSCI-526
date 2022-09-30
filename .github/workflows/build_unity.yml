@@ -36,7 +36,9 @@ jobs:
       - name: Caching Unity Library
         uses: actions/cache@v2
         with:
-          path: Library
+          path: |
+            Library
+            build
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
 
