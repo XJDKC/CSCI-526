@@ -22,7 +22,10 @@ public class GravityChange : MonoBehaviour
         if (reversibleObject == null) return;
 
         // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
+        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+
+        // update collider prev side
+        _colliderPrevSide[collider] = GetSide(collider);
     }
 
     private void OnTriggerStay2D(Collider2D collider)
@@ -31,29 +34,23 @@ public class GravityChange : MonoBehaviour
         if (reversibleObject == null) return;
 
         // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
+        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
 
-        // find door's center and player's center
-        Vector3 center = transform.position;
-        Vector3 colliderCenter = collider.bounds.center;
-
-        // vector from door to character: character's center - door's center position
-        Vector3 doorToObj = (center - colliderCenter).normalized;
-        float side = Vector3.Cross(_upVector, doorToObj).z;
+        float currSide = _colliderPrevSide[collider] = GetSide(collider);
 
         // compare the previous side with current side vector cross product
         if (_colliderPrevSide.ContainsKey(collider))
         {
             float prevSide = _colliderPrevSide[collider];
 
-            if (side * prevSide < 0.0)
+            if (currSide * prevSide < 0.0)
             {
                 reversibleObject.Reverse();
             }
         }
 
         // update collider prev side
-        _colliderPrevSide[collider] = side;
+        _colliderPrevSide[collider] = currSide;
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -62,6 +59,35 @@ public class GravityChange : MonoBehaviour
         if (reversibleObject == null) return;
 
         // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider.GetType() == typeof(BoxCollider2D)) return;
+        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+
+        float currSide = _colliderPrevSide[collider] = GetSide(collider);
+
+        // compare the previous side with current side vector cross product
+        if (_colliderPrevSide.ContainsKey(collider))
+        {
+            float prevSide = _colliderPrevSide[collider];
+
+            if (currSide * prevSide < 0.0)
+            {
+                reversibleObject.Reverse();
+            }
+        }
+
+        // update collider prev side
+        _colliderPrevSide[collider] = currSide;
+    }
+
+    private float GetSide(Collider2D collider)
+    {
+        // find door's center and player's center
+        Vector3 center = transform.position;
+        Vector3 colliderCenter = collider.bounds.center;
+
+        // vector from door to character: character's center - door's center position
+        Vector3 doorToObj = (colliderCenter - center).normalized;
+        float side = Vector3.Cross(_upVector, doorToObj).z;
+
+        return side;
     }
 }
