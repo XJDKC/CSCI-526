@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 
     // Interface: Control the zoom ratio of the Camera, the larger the value, the boarder the view is.
     [Range(1, 3)]
-    public float targetZoomRatio = 1;
+    private float targetZoomRatio = 1;
 
 
     // Default size of the camera, should be set in the Inspector
