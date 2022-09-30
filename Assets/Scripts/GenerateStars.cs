@@ -10,7 +10,7 @@ public class GenerateStars : MonoBehaviour
     //explode force
     private float forceMultiply = 10F;
     //disappear delay time
-    private float delaySecond = 5F;
+    //private float delaySecond = 5F;
 
     private Vector2 originalPosition;
 

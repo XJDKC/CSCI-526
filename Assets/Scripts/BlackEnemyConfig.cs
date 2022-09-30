@@ -16,9 +16,13 @@ public class BlackEnemyConfig : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D col)
     {
+        DataPost dp = GetComponent<DataPost>();
         if (col.gameObject.tag == "Player")
         {
+            string parent = gameObject.transform.parent.name;
             Die();
+            dp.deathReason = parent;
+            dp.Send();
         }
     }
 
