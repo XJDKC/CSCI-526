@@ -269,6 +269,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 753
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 446
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 82.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638328378849937392, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -41.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5638328380224258912, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -377,6 +401,66 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 746902954}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropEnd
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[1].dropEnd
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[2].dropEnd
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[3].dropEnd
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[4].dropEnd
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[1].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[2].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[3].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[4].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[1].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[2].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[3].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[4].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!4 &223514526 stripped
