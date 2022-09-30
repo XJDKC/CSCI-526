@@ -21,7 +21,7 @@ public class BlackEnemyConfig : MonoBehaviour
         {
             string parent = gameObject.transform.parent.name;
             Die();
-            dp.DeathReason = parent;
+            dp.deathReason = parent;
             dp.Send();
         }
     }
