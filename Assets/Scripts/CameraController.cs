@@ -27,19 +27,21 @@ public class CameraController : MonoBehaviour
     private const float DefaultCamSize = 6.7f;
     private float _customCamSize;
 
-
-
     private Camera _cam;
     private Transform _camTransform;
     private float _curCamSize;
+    private Vector3 _curCamPos;
 
     // The ratio of the screen, which is used to calculate the camera's width
     private float _aspectRatio;
 
+    // Zoom ratio by two players, ensure the distance of two players to the length of the screen is not smaller than ZoomRatioByPlayers
+    private const float ZoomRatioByPlayers = 0.5f;
 
-    // Threshold Ratio of the distance to the length of camera's diagnose. if reached, the camera start zooming
-    private const float zoomThresholdRatio = 0.5f;
+    // Factor to control the smoothness when camera size is changing
+    private const float ZoomSmoothFactor = 2.0f;
 
+    private Vector3 _velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -61,20 +63,16 @@ public class CameraController : MonoBehaviour
             //enables the orthographic mode and set its initial size
             _cam.orthographic = true;
             _cam.orthographicSize = DefaultCamSize;
-
         }
-
     }
 
     private void Update()
     {
-        _customCamSize = Mathf.Lerp(_customCamSize,  DefaultCamSize * _camZoomRatio, 2 * Time.deltaTime);
-        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _curCamSize, 1.7f * Time.deltaTime);
+        _customCamSize = DefaultCamSize * _camZoomRatio;
     }
 
     void LateUpdate()
     {
-
         if (_cam && player1 && player2)
         {
             // get current size of the camera
@@ -85,7 +83,7 @@ public class CameraController : MonoBehaviour
             float ratioHeight2Diagnose = cameraHeight / camDiagnose;
 
             // 1. update the camera size;
-            UpdateCameraSize(camDiagnose, ratioHeight2Diagnose);
+            UpdateCameraSize(ratioHeight2Diagnose);
 
             // 2. update the position of camera, (within background if assigned)
             UpdateCameraPosition(cameraWidth, cameraHeight);
@@ -93,27 +91,18 @@ public class CameraController : MonoBehaviour
         }
     }
 
-
-
     /**
      * Update the camera size based on the distance of two players
      *
-     * @Param camDiagnose: length of diagnose of the camera
      * @Param ratioHeight2Diagnose: the ratio of the height to diagnose of the camera
      */
-    private void UpdateCameraSize(float camDiagnose, float ratioHeight2Diagnose)
+    private void UpdateCameraSize(float ratioHeight2Diagnose)
     {
-        float nextCamSize = _customCamSize;
-        float xyDistance = (player1.transform.position - player2.transform.position).magnitude;
-        float distanceRatioXY = xyDistance / camDiagnose;
+        float playerDistance = (player1.transform.position - player2.transform.position).magnitude;
 
-        // if the ratio of the distance between two players takes zoomThresholdRatio, start zooming
-        if (Math.Abs(distanceRatioXY - zoomThresholdRatio) < 0.1f)
-        {
-            float nextCamDiagnose = xyDistance / zoomThresholdRatio;
-            nextCamSize = nextCamDiagnose * ratioHeight2Diagnose / 2;
-            // Debug.Log ("distanceRatioY,  zoomThresholdRatioY = " + distanceRatioY + ", " + zoomThresholdRatioY);
-        }
+        // zoom the camera by the distance of two players
+        float nextCamDiagnose = playerDistance / ZoomRatioByPlayers;
+        float nextCamSize = nextCamDiagnose * ratioHeight2Diagnose / 2;
 
         // camera size could not be smaller than the default size;
         if (nextCamSize < _customCamSize)
@@ -124,6 +113,8 @@ public class CameraController : MonoBehaviour
 
         // cam.orthographicSize = nextCamSize * camZoomRatio;
         _curCamSize = nextCamSize;
+
+        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _curCamSize, ZoomSmoothFactor * Time.deltaTime);
     }
 
     /**
@@ -140,37 +131,27 @@ public class CameraController : MonoBehaviour
         float midY = (playerPos1.y + playerPos2.y) / 2;
 
 
-        // camera position could not leave the following bounded area, if applied
+        // camera position could not leave the bounded area, if applied by two anchor points
         if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
 
         {
-            if (midX < anchorPoints.buttonLeftPoint.position.x + cameraWidth / 2)
-            {
-                midX = anchorPoints.buttonLeftPoint.position.x + cameraWidth / 2;
-            }
-
-            if (midX > anchorPoints.topRightPoint.position.x - cameraWidth / 2)
-            {
-                midX = anchorPoints.topRightPoint.position.x - cameraWidth / 2;
-
-            }
+            // Debug.Log ("Camera Confined");
+            var buttonLeftPos = anchorPoints.buttonLeftPoint.position;
+            var topRightPos = anchorPoints.topRightPoint.position;
+            midX = Mathf.Clamp(midX, buttonLeftPos.x + cameraWidth / 2, topRightPos.x - cameraWidth / 2);
 
             // for future use, if y-axis is needed
-
-            if (midY > anchorPoints.topRightPoint.position.y - cameraHeight / 2)
-            {
-                midY = anchorPoints.topRightPoint.position.y - cameraHeight / 2;
-            }
-
-            if (midY < anchorPoints.buttonLeftPoint.position.y + cameraHeight / 2)
-            {
-                midY = anchorPoints.buttonLeftPoint.position.y + cameraHeight / 2;
-            }
+            midY = Mathf.Clamp(midY, buttonLeftPos.y + cameraHeight / 2, topRightPos.y - cameraHeight / 2);
 
         }
 
         var curCamPos = _camTransform.position;
-        _camTransform.position = Vector3.Lerp(curCamPos, new Vector3(midX, midY, curCamPos.z), 0.01f);
+        var newCamPos = new Vector3(midX, midY, curCamPos.z);
+        // _camTransform.position = Vector3.Lerp(curCamPos, new Vector3(midX, midY, curCamPos.z), 2 * Time.deltaTime);
+        // _camTransform.position = newCamPos;
+
+        // _camTransform.position = Vector3.SmoothDamp(_camTransform.position, newCamPos, ref _velocity, 0.1f);
+        _camTransform.position = Vector3.Lerp(_camTransform.position, newCamPos, 10f);
     }
 
     /**
@@ -178,7 +159,7 @@ public class CameraController : MonoBehaviour
      *
      * @param: zoomRatio, recommended to be set between 1 to 2.5
      */
-    public void setZoomRatio(float zoomRatio)
+    public void SetZoomRatio(float zoomRatio)
     {
         _camZoomRatio = zoomRatio;
         // Debug.Log ("Set Zoom Ratio");
