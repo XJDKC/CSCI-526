@@ -6,17 +6,20 @@ using UnityEngine;
 public class FadeOut : MonoBehaviour
 {
     public float delaySecond = 5F;
-    public float initialSpeed=6;
+    //public float initialSpeed = 6;
     private SpriteRenderer spriteRenderer = null;
     private float fadeSpeed = 0;
+
+    private int _isReverse;
 
     // Start is called before the first frame update
     void Start()
     {
+        //_isReverse = transform.parent.GetComponent<EnemyController>().enemyReverse == false ? -1 : 1;
         if (TryGetComponent(out SpriteRenderer spriteRenderer))
             this.spriteRenderer = spriteRenderer;
         fadeSpeed = this.spriteRenderer.color.a * Time.fixedDeltaTime / delaySecond;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0,initialSpeed);
+       // GetComponent<Rigidbody2D>().velocity = new Vector2(0,  initialSpeed);
         StartCoroutine(DestroyNow());
     }
 
@@ -38,6 +41,5 @@ public class FadeOut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 }
