@@ -5,8 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void PlayLevel1()
+    {
+        SceneManager.LoadScene(5);
+    }
+
+    public void PlayTutorialLevel0()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void PlayTutorialLevel1()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void PlayTutorialLevel2()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void PlayTutorialLevel3()
+    {
+        SceneManager.LoadScene(4);
     }
 }
