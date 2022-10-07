@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BlackEnemyConfig : MonoBehaviour
+public class BlackEnemy : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
 
