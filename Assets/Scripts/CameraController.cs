@@ -22,10 +22,10 @@ public class CameraController : MonoBehaviour
     // By definition, in orthographic mode, the camera size is half-size of screen's height
     public float defaultCameraSize = 6.7f;
 
-    // The smoothing time used when changing camera position
+    // The smoothing time used when changing the camera position
     public float moveSmoothTime = 0.25f;
 
-    // Factor to control the smoothness when camera size is changing
+    // The smoothing time used when zooming the camera
     public float zoomSmoothTime = 0.5f;
 
     // Zoom ratio by two players, ensure the distance of two players to the length of the screen is not greater than ZoomRatioByPlayers
