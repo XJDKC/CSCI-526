@@ -7,13 +7,53 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class GravityChange : MonoBehaviour
 {
+    public enum GateMode { BothPlayers, FirstPlayer, SecondPlayer }
+
+    public GateMode gateMode = GateMode.BothPlayers;
+    public float motivateThreshold = 2.0f;
+    public float motivateMagnitude = 2.5f;
+
+    private BoxCollider2D _boxCollider2D;
     private Vector3 _upVector = Vector3.up;
     private Dictionary<Collider2D, float> _colliderPrevSide = new Dictionary<Collider2D, float>();
 
-    private void Start()
+    private void Awake()
     {
+        // find box collider
+        foreach (var collider2D in GetComponents<BoxCollider2D>())
+        {
+            if (!collider2D.isTrigger)
+            {
+                _boxCollider2D = collider2D;
+            }
+        }
+
+        // calculate up vector
         float anglesZ = transform.rotation.eulerAngles.z;
         _upVector = Quaternion.AngleAxis(anglesZ, Vector3.forward) * Vector3.up;
+    }
+
+    private void Start()
+    {
+        IgnoreCollisions();
+    }
+
+    private void IgnoreCollisions()
+    {
+        if (!_boxCollider2D) return;
+
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            var playerType = player.GetComponent<PlayerController>().playerType;
+            if (playerType == PlayerController.PlayerType.Player1 && gateMode != GateMode.SecondPlayer ||
+                playerType == PlayerController.PlayerType.Player2 && gateMode != GateMode.FirstPlayer)
+            {
+                foreach (var playerCollider in player.GetComponents<Collider2D>())
+                {
+                    Physics2D.IgnoreCollision(playerCollider, _boxCollider2D);
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -26,6 +66,8 @@ public class GravityChange : MonoBehaviour
 
         // update collider prev side
         _colliderPrevSide[collider] = GetSide(collider);
+
+        MotivatePlayer(collider);
     }
 
     private void OnTriggerStay2D(Collider2D collider)
@@ -51,6 +93,8 @@ public class GravityChange : MonoBehaviour
 
         // update collider prev side
         _colliderPrevSide[collider] = currSide;
+
+        MotivatePlayer(collider);
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -89,5 +133,10 @@ public class GravityChange : MonoBehaviour
         float side = Vector3.Cross(_upVector, doorToObj).z;
 
         return side;
+    }
+
+    private void MotivatePlayer(Collider2D collider)
+    {
+        
     }
 }
