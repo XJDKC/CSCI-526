@@ -10,8 +10,8 @@ public class GravityChange : MonoBehaviour
     public enum GateMode { BothPlayers, FirstPlayer, SecondPlayer }
 
     public GateMode gateMode = GateMode.BothPlayers;
-    public float motivateThreshold = 2.0f;
-    public float motivateMagnitude = 2.5f;
+    public float motivateThreshold = 1.0f;
+    public float motivateMagnitude = 3.0f;
 
     private BoxCollider2D _boxCollider2D;
     private Vector3 _upVector = Vector3.up;
@@ -64,10 +64,10 @@ public class GravityChange : MonoBehaviour
         // ignore player with box collider
         if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
 
+        MotivatePlayer(collider);
+
         // update collider prev side
         _colliderPrevSide[collider] = GetSide(collider);
-
-        MotivatePlayer(collider);
     }
 
     private void OnTriggerStay2D(Collider2D collider)
@@ -77,6 +77,8 @@ public class GravityChange : MonoBehaviour
 
         // ignore player with box collider
         if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+
+        MotivatePlayer(collider);
 
         float currSide = GetSide(collider);
 
@@ -93,8 +95,6 @@ public class GravityChange : MonoBehaviour
 
         // update collider prev side
         _colliderPrevSide[collider] = currSide;
-
-        MotivatePlayer(collider);
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -137,6 +137,15 @@ public class GravityChange : MonoBehaviour
 
     private void MotivatePlayer(Collider2D collider)
     {
-        
+        var rigidbody2D = collider.gameObject.GetComponent<Rigidbody2D>();
+        if (Mathf.Abs(Vector3.Dot(_upVector, Vector3.up)) < 0.1f)
+        {
+            if (Mathf.Abs(Vector2.Dot(rigidbody2D.velocity, Vector2.up)) < motivateThreshold)
+            {
+                bool leftSide = GetSide(collider) > 0.0f;
+                var force = (leftSide ? Vector2.down : Vector2.up) * rigidbody2D.mass * motivateMagnitude;
+                rigidbody2D.AddForce(force, ForceMode2D.Impulse);
+            }
+        }
     }
 }
