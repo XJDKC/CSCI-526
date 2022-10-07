@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6790066601307290046}
   - component: {fileID: 222467577596609851}
   - component: {fileID: 222467577596609850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +152,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gateMode: 0
+  motivateThreshold: 1
+  motivateMagnitude: 3
