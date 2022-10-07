@@ -54,7 +54,6 @@ MonoBehaviour:
   verticalEnemy:
     enemyHeight: 3
   enemyReverse: 0
-  starInitialSpeed: 6
 --- !u!1 &904669210406876779
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPrefab: {fileID: 9210360460991643763, guid: 32fad81da6fd54d91a99fac98767f35d, type: 3}
-  starNumber: 6
 --- !u!1 &904669212145469634
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,4 +388,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: 
-  DeathReason: 
+  deathReason: 

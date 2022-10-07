@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     private GameObject _blackEnemy;
     private int _isReverse;
     private bool _direction = true;
-    public float starInitialSpeed = 6;
+
     // Start is called before the first frame update
     public EnemyController()
     {
