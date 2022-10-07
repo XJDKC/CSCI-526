@@ -72,6 +72,10 @@ public class GravityChange : MonoBehaviour
             {
                 reversibleObject.Reverse();
             }
+
+            //Data collection
+            StarUI.numsThroughGate += 1;
+            Debug.Log(StarUI.numsThroughGate);
         }
 
         // update collider prev side
