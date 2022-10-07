@@ -365,6 +365,23 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 1670574933}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].end
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: Kill enemies by hitting their white spirits, and don't forget to collect
+        stars from other side.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].start
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: player1
       value: 
@@ -373,6 +390,54 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 1670574933}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].end
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[1].end
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[2].end
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[3].end
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].start
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[1].start
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[2].start
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[3].start
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropEnd
+      value: 7000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropStart
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!4 &1192236400 stripped

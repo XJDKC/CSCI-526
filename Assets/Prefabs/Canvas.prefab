@@ -328,6 +328,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[0].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[1].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[2].heightUp
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 7367976973931212387, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 701.819
@@ -347,6 +359,20 @@ PrefabInstance:
     - target: {fileID: 7367976973931212388, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973931212392, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: 'Player1: W S A D.  Player2: Up Down Left Right. ENJOY!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973931212392, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: messages.Array.data[2].text
+      value: Kill enemies by hitting their white spirits, and don't forget to collect
+        stars from other side.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973931212392, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: messages.Array.data[4].text
+      value: Wait... Isn't it too high even for 'Human Ladder'? Maybe it's a good
+        idea to use the platform over there.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}

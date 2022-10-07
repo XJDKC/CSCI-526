@@ -630,6 +630,23 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 999040268}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].end
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: Wait... Isn't it too high even for 'Human Ladder'? Maybe it's a good
+        idea to use the platform over there.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].start
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: player1
       value: 
@@ -638,6 +655,30 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 999040268}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].end
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].start
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropEnd
+      value: 7000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].heightUp
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropStart
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!1 &1657034701
