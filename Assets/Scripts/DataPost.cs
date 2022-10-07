@@ -23,19 +23,21 @@ public class DataPost : MonoBehaviour
     {
         Debug.Log("--Collecting data--");
         int starQuantity = StarUI.CurrentStarQuantity;
+        int numThroughPortal = StarUI.numsThroughGate;
         //Debug.Log("starQuantity: " + starQuantity);
-        StartCoroutine(Post(starQuantity.ToString(), deathReason));
+        StartCoroutine(Post(starQuantity.ToString(), deathReason, numThroughPortal.ToString()));
         //PostData(starQuantity.ToString());
     }
 
     //arg1: coinQuantity(read from STarUI), arg2: deathReason(read from BlackEnemyConfig, get parent.name)
-    private IEnumerator Post(string coinQuantity, string death)
+    private IEnumerator Post(string coinQuantity, string death, string numThroughPortal)
     {
         Debug.Log("--Posting data--");
         WWWForm form = new WWWForm();
         //Change according to google form html
         form.AddField("entry.431904651", coinQuantity);
         form.AddField("entry.63869635", death);
+        form.AddField("entry.1109710923", numThroughPortal);
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             //Debug.Log("--Sending request--");
