@@ -340,6 +340,26 @@ PrefabInstance:
       propertyPath: guideInfos.Array.data[2].heightUp
       value: -60
       objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[0].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[1].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[2].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[3].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.data[4].dropSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7367976973931212387, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 701.819
