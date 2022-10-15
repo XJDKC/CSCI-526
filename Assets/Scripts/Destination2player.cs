@@ -10,11 +10,23 @@ public class Destination2player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player")){
             if(other.GetComponent<PlayerController>().playerType ==PlayerController.PlayerType.Player1){
-                Debug.Log("player1 reached");
+                //Debug.Log("player1 reached");
                 player1Arr = true;
             }else{
-                Debug.Log("Player2 reached");
+                //Debug.Log("Player2 reached");
                 player2Arr = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.CompareTag("Player")){
+            if(other.GetComponent<PlayerController>().playerType ==PlayerController.PlayerType.Player1){
+                //Debug.Log("player1 reached");
+                player1Arr = false;
+            }else{
+                //Debug.Log("Player2 reached");
+                player2Arr = false;
             }
         }
     }
