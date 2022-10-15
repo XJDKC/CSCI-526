@@ -20,8 +20,9 @@ public class ButtonDefault : MonoBehaviour
             Debug.Log("curr playe is " + playerSelfType);
             Debug.Log("Other player is" + playerType);
             if (playerType!= playerSelfType){
-                player.GetComponent<PlayerController>().jumpSpeed = 12.0f;
-            }
+                //player.GetComponent<PlayerController>().jumpSpeed = 12.0f;
+                player.transform.localScale = new Vector3(0.5f,0.5f,1);
+                }
             // if (playerType == PlayerController.PlayerType.Player1)
             // {
             //     foreach (var playerCollider in player.GetComponents<Collider2D>())
