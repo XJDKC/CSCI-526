@@ -8,12 +8,10 @@ using UnityEngine.SceneManagement;
 // to help the other player get through narrow tunnels
 public class ButtonDefault : MonoBehaviour
 {
-    private bool isOn;
     private GameObject target;
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player")){
             getSmall(other);
-            isOn = true;
         }
         
     }
@@ -46,7 +44,6 @@ public class ButtonDefault : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other){
         if(other.CompareTag("Player")){
             getLarge(other);
-            isOn = false;
         }
     }
     void Update(){

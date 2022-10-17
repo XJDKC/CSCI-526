@@ -45,7 +45,7 @@ public class ButtonChangeGravityScale : MonoBehaviour
                 }
 
                 otherPlayer.GetComponent<Rigidbody2D>().gravityScale = currGravityScale;
-                Debug.Log(otherPlayer.GetComponent<PlayerController>().playerType + ", gravity scale " + currGravityScale);  ///////////////
+                //Debug.Log(otherPlayer.GetComponent<PlayerController>().playerType + ", gravity scale " + currGravityScale);  ///////////////
             }
 
         }
