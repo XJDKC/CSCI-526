@@ -68,8 +68,16 @@ public class GravityReverse : MonoBehaviour
             collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
         {
             countDown--;
-            player1.GetComponent<PlayerController>().Reverse();
-            player2.GetComponent<PlayerController>().Reverse();
+            // let the cookie only change one player gravity
+            if(collider.GetComponent<PlayerController>().playerType == player1.GetComponent<PlayerController>().playerType){
+                player1.GetComponent<PlayerController>().Reverse();
+            }
+
+            if(collider.GetComponent<PlayerController>().playerType == player2.GetComponent<PlayerController>().playerType){
+                player2.GetComponent<PlayerController>().Reverse();
+            }
+            // player1.GetComponent<PlayerController>().Reverse();
+            // player2.GetComponent<PlayerController>().Reverse();
             if (countDown <= 0)
             {
                 Destroy(gameObject);
