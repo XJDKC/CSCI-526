@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+// This button changes the size of the other player
+// to help the other player get through narrow tunnels
 public class ButtonDefault : MonoBehaviour
 {
     private bool isOn;
     private GameObject target;
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player")){
-            Debug.Log("Player is on");
             getSmall(other);
             isOn = true;
         }
@@ -48,7 +50,6 @@ public class ButtonDefault : MonoBehaviour
         }
     }
     void Update(){
-        Debug.Log("current state is " + isOn);
 
     }
 
