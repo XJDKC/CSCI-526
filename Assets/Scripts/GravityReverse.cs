@@ -43,7 +43,6 @@ public class GravityReverse : MonoBehaviour
         {
             yPositive = true;
         }
-
         if (xPositive)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
@@ -51,9 +50,7 @@ public class GravityReverse : MonoBehaviour
         else
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
-
         }
-
         if (yPositive)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y + 0.0005f,gameObject.transform.position.z);
@@ -62,11 +59,6 @@ public class GravityReverse : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y - 0.0005f,gameObject.transform.position.z);
         }
-
-
-
-
-        // gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.01f,gameObject.transform.position.y - 0.01f,gameObject.transform.position.z);
         gameObject.GetComponentInChildren<Text>().text = countDown + "";
     }
 
@@ -84,6 +76,4 @@ public class GravityReverse : MonoBehaviour
             }
         }
     }
-
-
 }
