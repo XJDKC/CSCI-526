@@ -21,9 +21,19 @@ public class SpringController : MonoBehaviour
         if (col is BoxCollider2D)
         {
             var playerBottom = col.gameObject.GetComponent<Renderer>().bounds.min.y;
+            var playerTop = col.gameObject.GetComponent<Renderer>().bounds.max.y;
+            var springButtom = gameObject.GetComponent<Renderer>().bounds.min.y;
             var springTop = gameObject.GetComponent<Renderer>().bounds.max.y;
-            if (col.GameObject().CompareTag("Player") && playerBottom + 0.05 >= springTop)
+
+            if (col.GameObject().CompareTag("Player") && playerBottom + 0.05 >= springTop && isReverse == false)
+            {
                 col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1 * _reverse) * force);
+            }
+
+            if (col.GameObject().CompareTag("Player") && playerTop - 0.05 <= springButtom && isReverse == true)
+            {
+                col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1 * _reverse) * force);
+            }
         }
     }
 }
