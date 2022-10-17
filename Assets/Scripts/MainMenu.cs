@@ -29,4 +29,8 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(4);
     }
+    public void PlayTutorialLevel5()
+    {
+        SceneManager.LoadScene(6);
+    }
 }
