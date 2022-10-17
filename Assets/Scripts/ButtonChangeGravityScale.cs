@@ -8,38 +8,46 @@ public class ButtonChangeGravityScale : MonoBehaviour
     public enum ButtonType { Minus = 1, Plus = 2 };
 
     public ButtonType buttonType = ButtonType.Minus;
-    public float delta;
+    public float minusDelta;
+    public float plusDelta;
     public float lowerBound;
     public float upperBound;
-    public GameObject player1;
-    public GameObject player2;
+
+    private void Start()
+    {
+        if (buttonType == ButtonType.Plus)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(230, 90, 90);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            var player = other.gameObject.GetComponent<PlayerController>();
+            var thisPlayer = other;
+            var otherPlayer = player;
 
-            if (player.playerType == PlayerController.PlayerType.Player1)
+            if (thisPlayer.GetComponent<PlayerController>().playerType != otherPlayer.GetComponent<PlayerController>().playerType)
             {
-                var curr = player2.GetComponent<Rigidbody2D>().gravityScale;
+                var currGravityScale = otherPlayer.GetComponent<Rigidbody2D>().gravityScale;
+
                 if (buttonType == ButtonType.Minus)
                 {
-                    curr = (curr > 0 ? Math.Max(lowerBound, curr - delta) : Math.Min(-lowerBound, curr + delta));
+                    currGravityScale = (currGravityScale > 0 ?
+                        Math.Max(lowerBound, currGravityScale - minusDelta) : Math.Min(-lowerBound, currGravityScale + minusDelta));
                 }
-                player2.GetComponent<Rigidbody2D>().gravityScale = curr;
-                Debug.Log(player.playerType + ", gravity scale " + curr);  ////////////////
-            }
-            else if (player.playerType == PlayerController.PlayerType.Player2)
-            {
-                var curr = player1.GetComponent<Rigidbody2D>().gravityScale;
-                if (buttonType == ButtonType.Minus)
+
+                else if (buttonType == ButtonType.Plus)
                 {
-                    curr = (curr > 0 ? Math.Max(lowerBound, curr - delta) : Math.Min(-lowerBound, curr + delta));
+                    currGravityScale = (currGravityScale > 0 ?
+                        Math.Min(upperBound, currGravityScale + plusDelta) : Math.Max(-upperBound, currGravityScale - plusDelta));
                 }
-                player1.GetComponent<Rigidbody2D>().gravityScale = curr;
-                Debug.Log(player.playerType + ", gravity scale " + curr);  ////////////////
+
+                otherPlayer.GetComponent<Rigidbody2D>().gravityScale = currGravityScale;
+                Debug.Log(otherPlayer.GetComponent<PlayerController>().playerType + ", gravity scale " + currGravityScale);  ///////////////
             }
+
         }
     }
 }
