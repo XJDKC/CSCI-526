@@ -6,44 +6,50 @@ using UnityEngine.UI;
 
 public class GravityReverse : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
+    // public GameObject player1;
+    // public GameObject player2;
     public int countDown;
-    private float x;
-    private float y;
-    private Boolean xPositive;
-    private Boolean yPositive;
+    private float _x;
+    private float _y;
+    private Boolean _xPositive;
+    private Boolean _yPositive;
+    private Text _text;
 
+    private void Awake()
+    {
+        var position = gameObject.transform.position;
+        _x = position.x;
+        _y = position.y;
+        _xPositive = true;
+        _yPositive = true;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        _text = gameObject.GetComponentInChildren<Text>();
         // countDown = 5;
-        x = gameObject.transform.position.x;
-        y = gameObject.transform.position.y;
-        xPositive = true;
-        yPositive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x > x + 0.03)
+        if (gameObject.transform.position.x > _x + 0.03)
         {
-            xPositive = false;
+            _xPositive = false;
         }
-        if (gameObject.transform.position.x < x - 0.03)
+        if (gameObject.transform.position.x < _x - 0.03)
         {
-            xPositive = true;
+            _xPositive = true;
         }
-        if (gameObject.transform.position.y > y + 0.1)
+        if (gameObject.transform.position.y > _y + 0.1)
         {
-            yPositive = false;
+            _yPositive = false;
         }
-        if (gameObject.transform.position.y < y - 0.1)
+        if (gameObject.transform.position.y < _y - 0.1)
         {
-            yPositive = true;
+            _yPositive = true;
         }
-        if (xPositive)
+        if (_xPositive)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
         }
@@ -51,7 +57,7 @@ public class GravityReverse : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
         }
-        if (yPositive)
+        if (_yPositive)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y + 0.0005f,gameObject.transform.position.z);
         }
@@ -59,7 +65,7 @@ public class GravityReverse : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y - 0.0005f,gameObject.transform.position.z);
         }
-        gameObject.GetComponentInChildren<Text>().text = countDown + "";
+        _text.text = countDown + "";
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -68,16 +74,15 @@ public class GravityReverse : MonoBehaviour
             collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
         {
             countDown--;
-            // let the cookie only change one player gravity
-            if(collider.GetComponent<PlayerController>().playerType == player1.GetComponent<PlayerController>().playerType){
-                player1.GetComponent<PlayerController>().Reverse();
+            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                // var playerType = player.GetComponent<PlayerController>().playerType;
+                if (collider.GetComponent<PlayerController>().playerType == player.GetComponent<PlayerController>().playerType)
+                {
+                    collider.GetComponent<PlayerController>().Reverse();
+                }
             }
 
-            if(collider.GetComponent<PlayerController>().playerType == player2.GetComponent<PlayerController>().playerType){
-                player2.GetComponent<PlayerController>().Reverse();
-            }
-            // player1.GetComponent<PlayerController>().Reverse();
-            // player2.GetComponent<PlayerController>().Reverse();
             if (countDown <= 0)
             {
                 Destroy(gameObject);
