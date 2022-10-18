@@ -91,16 +91,18 @@ public class CameraController : MonoBehaviour
     {
         float cameraHeight = _camera.orthographicSize * 2;
         float cameraWidth = cameraHeight * _camera.aspect;
-        // float cameraDiagonal = Mathf.Sqrt(cameraHeight * cameraHeight + cameraWidth * cameraWidth);
-        // float playerDistance = (player1.transform.position - player2.transform.position).magnitude;
+
         var pos1 = _player1.transform.position;
         var pos2 = _player2.transform.position;
+        float cameraDiagonal = Mathf.Sqrt(cameraHeight * cameraHeight + cameraWidth * cameraWidth);
+        float playerDistance = (pos1 - pos2).magnitude;
         float playerDistanceX = Mathf.Abs(pos1.x - pos2.x);
         float playerDistanceY = Mathf.Abs(pos1.y - pos2.y);
 
         // zoom the camera by the distance of two players
-        // float nextCameraDiagonal = playerDistance / zoomRatioByPlayers;
-        // float nextCameraSize = (nextCameraHeight / cameraDiagonal) * cameraHeight / 2;
+        float nextCameraDiagonal = playerDistance / ZoomRatioByPlayers;
+        float nextCameraSizeByDiagnal = (nextCameraDiagonal / cameraDiagonal) * cameraHeight / 2;
+
         float nextCameraHeight = playerDistanceY / ZoomRatioByPlayers;
         float nextCameraSizeByHeight = nextCameraHeight / 2;
 
@@ -109,7 +111,10 @@ public class CameraController : MonoBehaviour
 
         float minimumCameraSize = defaultCameraSize * _cameraZoomRatio;
 
-        var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
+        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
+        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
+        float [] camSizes = {nextCameraSizeByDiagnal, nextCameraSizeByHeight, nextCameraSizeByWidth};
+        var nextCameraSize = Mathf.Max(camSizes);
 
         // camera size could not be smaller than the default size;
         if (nextCameraSize < minimumCameraSize)
