@@ -44,4 +44,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(8);
     }
+
+    public void PlayTutorialBounceBelt()
+    {
+        SceneManager.LoadScene(9);
+    }
 }
