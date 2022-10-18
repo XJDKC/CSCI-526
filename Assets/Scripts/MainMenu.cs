@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayLevel1()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(6);
     }
 
     public void PlayTutorialLevel0()
@@ -28,5 +28,15 @@ public class MainMenu : MonoBehaviour
     public void PlayTutorialLevel3()
     {
         SceneManager.LoadScene(4);
+    }
+
+    public void PlayTutorialLevel4()
+    {
+        SceneManager.LoadScene(5);
+    }
+    
+    public void PlayTutorialLevel5()
+    {
+        SceneManager.LoadScene(6);
     }
 }
