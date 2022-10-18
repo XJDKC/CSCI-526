@@ -12,8 +12,8 @@ public class AnchorPoints
 public class CameraController : MonoBehaviour
 {
     // Game Object of the two players, assign these in the Inspector
-    public GameObject player1;
-    public GameObject player2;
+    private GameObject _player1;
+    private GameObject _player2;
 
     // Anchors to confine the camera , assign these in the Inspector
     public AnchorPoints anchorPoints;
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
     public float zoomSmoothTime = 0.5f;
 
     // Zoom ratio by two players, ensure the distance of two players to the length of the screen is not greater than ZoomRatioByPlayers
-    public float zoomRatioByPlayers = 0.5f;
+    private const float ZoomRatioByPlayers = 0.7f;
 
 
     // Related Components
@@ -45,6 +45,18 @@ public class CameraController : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         _cameraTransform = GetComponent<Transform>();
+
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _player1 = player;
+            }
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                _player2 = player;
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -64,13 +76,11 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_camera && player1 && player2)
+        if (_camera && _player1 && _player2)
         {
-            // 1. update the camera size;
+            UpdateCameraPosition();
             UpdateCameraSize();
 
-            // 2. update the position of camera, (within background if assigned)
-            UpdateCameraPosition();
         }
     }
 
@@ -81,19 +91,39 @@ public class CameraController : MonoBehaviour
     {
         float cameraHeight = _camera.orthographicSize * 2;
         float cameraWidth = cameraHeight * _camera.aspect;
-        float cameraDiagonal = Mathf.Sqrt(cameraHeight * cameraHeight + cameraWidth * cameraWidth);
-        float playerDistance = (player1.transform.position - player2.transform.position).magnitude;
+        // float cameraDiagonal = Mathf.Sqrt(cameraHeight * cameraHeight + cameraWidth * cameraWidth);
+        // float playerDistance = (player1.transform.position - player2.transform.position).magnitude;
+        var pos1 = _player1.transform.position;
+        var pos2 = _player2.transform.position;
+        float playerDistanceX = Mathf.Abs(pos1.x - pos2.x);
+        float playerDistanceY = Mathf.Abs(pos1.y - pos2.y);
 
         // zoom the camera by the distance of two players
-        float nextCameraDiagonal = playerDistance / zoomRatioByPlayers;
-        float nextCameraSize = (nextCameraDiagonal / cameraDiagonal) * cameraHeight / 2;
+        // float nextCameraDiagonal = playerDistance / zoomRatioByPlayers;
+        // float nextCameraSize = (nextCameraHeight / cameraDiagonal) * cameraHeight / 2;
+        float nextCameraHeight = playerDistanceY / ZoomRatioByPlayers;
+        float nextCameraSizeByHeight = nextCameraHeight / 2;
+
+        float nextCameraWidth = playerDistanceX / ZoomRatioByPlayers;
+        float nextCameraSizeByWidth = nextCameraWidth / _camera.aspect / 2;
 
         float minimumCameraSize = defaultCameraSize * _cameraZoomRatio;
+
+        var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
 
         // camera size could not be smaller than the default size;
         if (nextCameraSize < minimumCameraSize)
         {
             nextCameraSize = minimumCameraSize;
+        }
+
+        if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
+        {
+            var camMaxSize = (anchorPoints.topRightPoint.position.y - anchorPoints.buttonLeftPoint.position.y) / 2;
+            if (nextCameraSize > camMaxSize)
+            {
+                nextCameraSize = camMaxSize;
+            }
         }
 
         _camera.orthographicSize =
@@ -105,8 +135,8 @@ public class CameraController : MonoBehaviour
      */
     private void UpdateCameraPosition()
     {
-        var playerPos1 = player1.transform.position;
-        var playerPos2 = player2.transform.position;
+        var playerPos1 = _player1.transform.position;
+        var playerPos2 = _player2.transform.position;
         float midX = (playerPos1.x + playerPos2.x) / 2;
         float midY = (playerPos1.y + playerPos2.y) / 2;
 
