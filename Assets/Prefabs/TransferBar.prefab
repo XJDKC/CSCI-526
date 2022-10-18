@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  activeBarColor: {r: 1, g: 1, b: 0, a: 1}
   transferMode: 1
 --- !u!50 &382221499427604631
 Rigidbody2D:

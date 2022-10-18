@@ -8,6 +8,7 @@ public class TransferBarController : MonoBehaviour
     public enum TransferMode { SameSide, OppositeSide }
 
     public Color barColor = Color.yellow;
+    public Color activeBarColor = new Color(255, 255, 0);
     public TransferMode transferMode = TransferMode.OppositeSide;
 
     private GameObject _firstBar = null;
@@ -66,6 +67,8 @@ public class TransferBarController : MonoBehaviour
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
             }
         }
+
+        SetRendererColor();
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -85,6 +88,22 @@ public class TransferBarController : MonoBehaviour
         else
         {
             _touchingObjects2.Remove(player);
+        }
+
+        SetRendererColor();
+    }
+
+    void SetRendererColor()
+    {
+        if (_touchingObjects1.Count != 0 || _touchingObjects2.Count != 0)
+        {
+            _firstBar.GetComponent<SpriteRenderer>().color = activeBarColor;
+            _secondBar.GetComponent<SpriteRenderer>().color = activeBarColor;
+        }
+        else
+        {
+            _firstBar.GetComponent<SpriteRenderer>().color = barColor;
+            _secondBar.GetComponent<SpriteRenderer>().color = barColor;
         }
     }
 }
