@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class TransferBarController : MonoBehaviour
 {
+    public enum TransferMode { SameSide, OppositeSide }
+
     public Color barColor = Color.yellow;
+    public TransferMode transferMode = TransferMode.OppositeSide;
+
     private GameObject _firstBar = null;
     private GameObject _secondBar = null;
     private HashSet<GameObject> _touchingObjects1 = new HashSet<GameObject>();
@@ -42,13 +46,15 @@ public class TransferBarController : MonoBehaviour
 
         var player = playerCollider.gameObject;
         var playerType = player.GetComponent<PlayerController>().playerType;
+        float relativeVelocityY = collision.relativeVelocity.y;
+        float velocityY = transferMode == TransferMode.OppositeSide ? relativeVelocityY : -relativeVelocityY;
         if (barCollider.gameObject == _firstBar)
         {
             _touchingObjects1.Add(player);
             foreach (var otherPlayer in _touchingObjects2)
             {
                 var rigidbody2D = otherPlayer.GetComponent<Rigidbody2D>();
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, collision.relativeVelocity.y);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
             }
         }
         else
@@ -57,7 +63,7 @@ public class TransferBarController : MonoBehaviour
             foreach (var otherPlayer in _touchingObjects1)
             {
                 var rigidbody2D = otherPlayer.GetComponent<Rigidbody2D>();
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, collision.relativeVelocity.y);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
             }
         }
     }
