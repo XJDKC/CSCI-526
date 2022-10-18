@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 
 public class Destination : MonoBehaviour
-{   
+{
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player")){
-            
+            //data collect
+            DataManager.Instance.CompleteLevel();
             SceneManager.LoadScene("Menu");
 
         }
@@ -16,12 +17,12 @@ public class Destination : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

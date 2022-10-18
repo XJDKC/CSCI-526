@@ -13,6 +13,8 @@ public class DataManager : MonoBehaviour
     public static string endStatus;
     public static long startTime;
     public static long endTime;
+    public static string levelName;
+    public static float gameSeconds;
 
     //point for a single star
     private int _starPoint = 1;
@@ -22,7 +24,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        sessionId = DateTime.Now.Ticks;
+        //sessionId = DateTime.Now.Ticks;
         _instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -31,7 +33,7 @@ public class DataManager : MonoBehaviour
     void Start()
     {
         currentStarPoints = 0;
-        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc2_3lUNjf_LrLXkZq4bnL_1r7bl3CenBpxwVnB6e0eVjFZJg/formResponse";
+        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLMoxH4aXAOXu_kRxxODsHIG14is4OP-7tnWGqBNDjygMTZw/formResponse";
     }
 
     // Update is called once per frame
@@ -85,6 +87,8 @@ public class DataManager : MonoBehaviour
         //Debug.Log("starQuantity: " + starQuantity);
         if (_instance == null)
             Debug.Log("Null Instance2");
+        gameSeconds = (endTime - startTime) / 10000000;
+        Debug.Log(gameSeconds);
         StartCoroutine(Post());
         currentStarPoints = 0;
         //PostData(starQuantity.ToString());
@@ -96,9 +100,11 @@ public class DataManager : MonoBehaviour
         Debug.Log("--Posting data--");
         WWWForm form = new WWWForm();
         //Change according to google form html
-        form.AddField("entry.431904651", sessionId.ToString());
-        form.AddField("entry.63869635", endStatus);
-        form.AddField("entry.1109710923", currentStarPoints.ToString());
+        form.AddField("entry.244983340", sessionId.ToString());
+        form.AddField("entry.1862673262", endStatus);
+        form.AddField("entry.1387275365", currentStarPoints.ToString());
+        form.AddField("entry.1737131638", levelName);
+        form.AddField("entry.232040088", gameSeconds.ToString());
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             //Debug.Log("--Sending request--");
