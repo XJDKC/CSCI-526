@@ -10,6 +10,9 @@ public class GravityChange : MonoBehaviour
     public enum GateMode { BothPlayers, FirstPlayer, SecondPlayer }
 
     public GateMode gateMode = GateMode.BothPlayers;
+    public Color normalColor = Color.white;
+    public Color firstPlayerColor = new Color(92, 200, 231);
+    public Color secondPlayerColor = new Color(234, 54, 127);
     public float motivateThreshold = 1.0f;
     public float motivateMagnitude = 3.0f;
 
@@ -35,6 +38,19 @@ public class GravityChange : MonoBehaviour
 
     private void Start()
     {
+        switch (gateMode)
+        {
+            case GateMode.BothPlayers:
+                GetComponent<SpriteRenderer>().color = normalColor;
+                break;
+            case GateMode.FirstPlayer:
+                GetComponent<SpriteRenderer>().color = firstPlayerColor;
+                break;
+            case GateMode.SecondPlayer:
+                GetComponent<SpriteRenderer>().color = secondPlayerColor;
+                break;
+        }
+
         IgnoreCollisions();
     }
 
