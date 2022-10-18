@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2354344463029303044}
   - component: {fileID: 2354344463029303045}
   - component: {fileID: 2354344463029303046}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GravitySlide-Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
