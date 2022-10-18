@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Press key R to restart the game
-public class RestartBtn : MonoBehaviour
+public class ExitBtn : MonoBehaviour
 {
-    [SerializeField] private string scene;
 
-    // get active scence
-    private void Start() {
-        scene = SceneManager.GetActiveScene().name;
-    }
+    [SerializeField] private string scene = "Menu";
 
     // reload the same active scence after pressing the button
     public void OnButtonPress(){
