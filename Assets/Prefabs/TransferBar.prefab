@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 382221499371137952}
   - component: {fileID: 382221499371137954}
   - component: {fileID: 382221499371137955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SecondBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 382221499427604625}
   - component: {fileID: 382221499427604630}
   - component: {fileID: 382221499427604631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TransferBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 382221499592609429}
   - component: {fileID: 382221499592609431}
   - component: {fileID: 382221499592609428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirstBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
