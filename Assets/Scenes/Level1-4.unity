@@ -768,14 +768,22 @@ CompositeCollider2D:
         Y: -185000000
       - X: 60000000
         Y: -185000000
-    - - X: 240000000
-        Y: 22500000
-      - X: 222500000
-        Y: 22500000
-      - X: 222500000
-        Y: 20000000
-      - X: 240000000
-        Y: 20000000
+    - - X: 242500100
+        Y: 19999959
+      - X: 242500100
+        Y: 22500041
+      - X: 242500041
+        Y: 22500100
+      - X: 224999959
+        Y: 22500100
+      - X: 224999900
+        Y: 22500041
+      - X: 224999900
+        Y: 19999959
+      - X: 224999959
+        Y: 19999900
+      - X: 242500041
+        Y: 19999900
     - - X: 225000000
         Y: 10000000
       - X: 210000000
@@ -820,10 +828,10 @@ CompositeCollider2D:
       - {x: 5.999971, y: 9.5}
       - {x: 0, y: 9.49997}
       - {x: 0.000029300001, y: -18.5}
-    - - {x: 23.999971, y: 2}
-      - {x: 23.999971, y: 2.25}
-      - {x: 22.25, y: 2.249971}
-      - {x: 22.250029, y: 2}
+    - - {x: 24.249975, y: 1.99999}
+      - {x: 24.249975, y: 2.25001}
+      - {x: 22.49999, y: 2.2499747}
+      - {x: 22.500027, y: 1.99999}
     - - {x: 22.499971, y: 0.75}
       - {x: 22.499971, y: 1}
       - {x: 21, y: 0.99997073}
@@ -45457,16 +45465,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 89, y: 8, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 90, y: 8, z: 0}
     second:
       serializedVersion: 2
@@ -45518,6 +45516,16 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: 95, y: 8, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 96, y: 8, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0

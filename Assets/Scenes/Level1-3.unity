@@ -82721,16 +82721,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -10, y: 15, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 27, y: 15, z: 0}
     second:
       serializedVersion: 2
@@ -120613,13 +120603,13 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 11985
+  - m_RefCount: 11984
     m_Data: {fileID: 11400000, guid: d529ceb9516e38d4f859a4227e992a45, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 11985
+  - m_RefCount: 11984
     m_Data: {fileID: 21300000, guid: cf128a4890ab14345b0238914be6cf14, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 11985
+  - m_RefCount: 11984
     m_Data:
       e00: 1
       e01: 0
@@ -120638,7 +120628,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 11985
+  - m_RefCount: 11984
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -120778,22 +120768,6 @@ CompositeCollider2D:
         Y: -117500100
       - X: -114999959
         Y: -117500100
-    - - X: -22499900
-        Y: 37499959
-      - X: -22499900
-        Y: 40000041
-      - X: -22499959
-        Y: 40000100
-      - X: -25000041
-        Y: 40000100
-      - X: -25000100
-        Y: 40000041
-      - X: -25000100
-        Y: 37499959
-      - X: -25000041
-        Y: 37499900
-      - X: -22499959
-        Y: 37499900
   m_CompositePaths:
     m_Paths:
     - - {x: -11.500026, y: -11.75001}
@@ -120816,10 +120790,6 @@ CompositeCollider2D:
       - {x: -11.50003, y: 9.5}
       - {x: -28, y: 9.49997}
       - {x: -27.999971, y: -11.75}
-    - - {x: -2.2500253, y: 3.74999}
-      - {x: -2.2500253, y: 4.00001}
-      - {x: -2.50001, y: 3.9999747}
-      - {x: -2.4999747, y: 3.74999}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1881582556
