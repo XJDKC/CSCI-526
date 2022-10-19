@@ -34,5 +34,6 @@ public class BlackEnemy : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DataManager.Instance.GetStartTime();
     }
 }

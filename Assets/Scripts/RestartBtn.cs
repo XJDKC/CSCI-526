@@ -19,5 +19,6 @@ public class RestartBtn : MonoBehaviour
         //data manage hook
         DataManager.Instance.RestartLevel();
         SceneManager.LoadScene(scene);
+        DataManager.Instance.GetStartTime();
     }
 }
