@@ -109,7 +109,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6459594, g: 0.7432855, b: 0.8962264, a: 0}
+  m_BackGroundColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   anchorPoints:
     topRightPoint: {fileID: 2612487711545587941}
     buttonLeftPoint: {fileID: 2612487711770450560}
-  defaultCameraSize: 5
+  defaultCameraSize: 6.7
   moveSmoothTime: 0.25
   zoomSmoothTime: 0.5
 --- !u!1 &2612487711770450563
