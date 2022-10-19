@@ -14,7 +14,10 @@ public class RestartBtn : MonoBehaviour
     }
 
     // reload the same active scence after pressing the button
-    public void OnButtonPress(){
-       SceneManager.LoadScene(scene);
+    public void OnButtonPress()
+    {
+        //data manage hook
+        DataManager.Instance.RestartLevel();
+        SceneManager.LoadScene(scene);
     }
 }

@@ -81,6 +81,13 @@ public class DataManager : MonoBehaviour
         Send();
     }
 
+    public void RestartLevel()
+    {
+        endStatus = "Restart";
+        GetEndTime();
+        Send();
+    }
+
     public void Send()
     {
         Debug.Log("--Collecting data--");
