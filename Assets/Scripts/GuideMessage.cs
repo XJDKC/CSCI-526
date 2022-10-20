@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,24 +25,33 @@ public class GuideMessage : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public Message[] messages;
-
+    private Boolean reach;
     // Start is called before the first frame update
     void Start()
     {
+        reach = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos1 = player1.GetComponent<Transform>().position;
-        Vector3 pos2 = player2.GetComponent<Transform>().position;
-        float mid_x = (pos1.x + pos2.x) / 2;
-        for (int i = 0; i < messages.Length; i++)
+        if (!reach)
         {
-            if (mid_x > messages[i].start && mid_x < messages[i].end)
+            Vector3 pos1 = player1.GetComponent<Transform>().position;
+            Vector3 pos2 = player2.GetComponent<Transform>().position;
+            float mid_x = (pos1.x + pos2.x) / 2;
+            for (int i = 0; i < messages.Length; i++)
             {
-                GetComponent<Text>().text = messages[i].text;
+                if (mid_x > messages[i].start && mid_x < messages[i].end)
+                {
+                    GetComponent<Text>().text = messages[i].text;
+                }
             }
         }
+    }
+    public void minimumScoreText()
+    {
+        reach = true;
+        GetComponent<Text>().text = "Minimum score requirement not reached. \n Try to get more stars!";
     }
 }
