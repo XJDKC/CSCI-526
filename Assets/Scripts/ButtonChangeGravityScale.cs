@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ButtonChangeGravityScale : MonoBehaviour
@@ -12,12 +13,23 @@ public class ButtonChangeGravityScale : MonoBehaviour
     public float plusDelta;
     public float lowerBound;
     public float upperBound;
+    public GameObject plus;
+    public GameObject minus;
 
+    private Vector3 position;
     private void Start()
     {
+        position = transform.position;
         if (buttonType == ButtonType.Plus)
         {
-            GetComponent<SpriteRenderer>().color = new Color(230, 90, 90);
+            GetComponent<SpriteRenderer>().color = new Color(240, 90, 90);
+            plus.SetActive(true);
+            plus.transform.position = new Vector3(position.x - 0.6f, position.y, position.z);
+        }
+        else
+        {
+            minus.SetActive(true);
+            minus.transform.position = new Vector3(position.x -0.6f, position.y, position.z);
         }
     }
 
@@ -45,9 +57,32 @@ public class ButtonChangeGravityScale : MonoBehaviour
                 }
 
                 otherPlayer.GetComponent<Rigidbody2D>().gravityScale = currGravityScale;
+
+                if(otherPlayer.GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Ground")))
+                {
+                    Vector2 jumpVel = new Vector2(0.0f, otherPlayer.GetComponent<PlayerController>().jumpSpeed);
+                    otherPlayer.GetComponent<Rigidbody2D>().velocity = currGravityScale > 0 ? Vector2.up * jumpVel: Vector2.down * jumpVel;
+                }
                 //Debug.Log(otherPlayer.GetComponent<PlayerController>().playerType + ", gravity scale " + currGravityScale);  ///////////////
             }
 
         }
     }
+
+    /*
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            var thisPlayer = other;
+            var otherPlayer = player;
+            if (thisPlayer.GetComponent<PlayerController>().playerType != otherPlayer.GetComponent<PlayerController>().playerType)
+            {
+                var currGravityScale = otherPlayer.GetComponent<Rigidbody2D>().gravityScale;
+                currGravityScale = currGravityScale > 0 ? 2 : -2;
+                otherPlayer.GetComponent<Rigidbody2D>().gravityScale = currGravityScale;
+            }
+        }
+    }
+    */
 }
