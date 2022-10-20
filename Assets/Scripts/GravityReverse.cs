@@ -14,6 +14,7 @@ public class GravityReverse : MonoBehaviour
     private Boolean _xPositive;
     private Boolean _yPositive;
     private Text _text;
+    private Boolean limited;
 
     private void Awake()
     {
@@ -27,7 +28,15 @@ public class GravityReverse : MonoBehaviour
     void Start()
     {
         _text = gameObject.GetComponentInChildren<Text>();
-        // countDown = 5;
+        if (countDown==0)
+        {
+            limited = false;
+            _text.text = "";
+        }
+        else
+        {
+            limited = true;
+        }
     }
 
     // Update is called once per frame
@@ -65,7 +74,11 @@ public class GravityReverse : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y - 0.0005f,gameObject.transform.position.z);
         }
-        _text.text = countDown + "";
+
+        if (limited)
+        {
+            _text.text = countDown + "";
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -73,7 +86,6 @@ public class GravityReverse : MonoBehaviour
         if (collider.gameObject.CompareTag("Player") &&
             collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
         {
-            countDown--;
             foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
             {
                 // var playerType = player.GetComponent<PlayerController>().playerType;
@@ -83,9 +95,13 @@ public class GravityReverse : MonoBehaviour
                 }
             }
 
-            if (countDown <= 0)
+            if (limited)
             {
-                Destroy(gameObject);
+                countDown--;
+                if (countDown <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
