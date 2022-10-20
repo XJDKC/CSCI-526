@@ -46,16 +46,19 @@ public class GuideMessage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!reach)
+        if (_player1 != null || _player2 != null)
         {
-            Vector3 pos1 = _player1.transform.position;
-            Vector3 pos2 = _player2.transform.position;
-            float mid_x = (pos1.x + pos2.x) / 2;
-            for (int i = 0; i < messages.Length; i++)
+            if (!reach)
             {
-                if (mid_x > messages[i].start && mid_x < messages[i].end)
+                Vector3 pos1 = _player1.transform.position;
+                Vector3 pos2 = _player2.transform.position;
+                float mid_x = (pos1.x + pos2.x) / 2;
+                for (int i = 0; i < messages.Length; i++)
                 {
-                    GetComponent<Text>().text = messages[i].text;
+                    if (mid_x > messages[i].start && mid_x < messages[i].end)
+                    {
+                        GetComponent<Text>().text = messages[i].text;
+                    }
                 }
             }
         }
