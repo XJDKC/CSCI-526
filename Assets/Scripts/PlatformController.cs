@@ -54,30 +54,30 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.collider is BoxCollider2D)
         {
-            col.transform.parent = gameObject.transform;
+            collision.transform.parent = gameObject.transform;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        var player = collision.gameObject;
+        if (player.CompareTag("Player") && collision.collider is BoxCollider2D)
         {
-            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
-                other.transform.parent = _playerTransform1;
+                player.transform.parent = _playerTransform1;
             }
 
-            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
             {
-                other.transform.parent = _playerTransform2;
+                player.transform.parent = _playerTransform2;
             }
         }
     }
-
 
     void HorizontalMove()
     {
