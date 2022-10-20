@@ -15,6 +15,9 @@ public class DataManager : MonoBehaviour
     public static long endTime;
     public static string levelName;
     public static float gameSeconds;
+    public static int portalTimes;
+    public static int springTimes;
+    public static int cookieTimes;
 
     //point for a single star
     private int _starPoint = 1;
@@ -25,7 +28,14 @@ public class DataManager : MonoBehaviour
     void Awake()
     {
         //sessionId = DateTime.Now.Ticks;
-        _instance = this;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         DontDestroyOnLoad(gameObject);
     }
 
@@ -92,10 +102,8 @@ public class DataManager : MonoBehaviour
     {
         Debug.Log("--Collecting data--");
         //Debug.Log("starQuantity: " + starQuantity);
-        if (_instance == null)
-            Debug.Log("Null Instance2");
         gameSeconds = (endTime - startTime) / 10000000;
-        Debug.Log(gameSeconds);
+        //Debug.Log(gameSeconds);
         StartCoroutine(Post());
         currentStarPoints = 0;
         //PostData(starQuantity.ToString());
