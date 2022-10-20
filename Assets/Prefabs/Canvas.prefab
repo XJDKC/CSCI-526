@@ -1133,6 +1133,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: guideInfos.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765934, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: guideInfos.Array.data[0].heightUp
       value: -60
       objectReference: {fileID: 0}
@@ -1183,6 +1187,10 @@ PrefabInstance:
     - target: {fileID: 7367976973931212388, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973931212392, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: messages.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7367976973931212392, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: messages.Array.data[0].text
