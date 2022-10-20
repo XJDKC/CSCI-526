@@ -28,8 +28,6 @@ public class BlackEnemy : MonoBehaviour
 
     private void Die()
     {
-        BoxCollider2D boxCollider2D = new BoxCollider2D();
-        _rigidbody2D.bodyType = RigidbodyType2D.Static;
         RestartLevel();
     }
 
