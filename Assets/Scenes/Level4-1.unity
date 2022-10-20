@@ -25002,7 +25002,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7667106774909561967, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
       propertyPath: verticalEnemy.enemyHeight
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8810523016645508833, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
       propertyPath: m_RootOrder
