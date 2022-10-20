@@ -1,35 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TransferBarController : MonoBehaviour
 {
     public enum TransferMode { SameSide, OppositeSide }
 
-    public Color barColor = Color.yellow;
+    public Color barColor = Color.yellow * 0.95f;
     public Color activeBarColor = new Color(255, 255, 0);
     public TransferMode transferMode = TransferMode.OppositeSide;
 
-    private GameObject _firstBar = null;
-    private GameObject _secondBar = null;
-    private HashSet<GameObject> _touchingObjects1 = new HashSet<GameObject>();
-    private HashSet<GameObject> _touchingObjects2 = new HashSet<GameObject>();
+    private Dictionary<GameObject, HashSet<GameObject>> _bar2TouchingObjects = new();
 
     private void Awake()
     {
         var childTransforms = transform.GetComponentsInChildren<Transform>();
-        if (childTransforms.Length < 3) return;
-        _firstBar = childTransforms[1].gameObject;
-        _secondBar = childTransforms[2].gameObject;
+        foreach (var barObject in childTransforms.Skip(1))
+        {
+            _bar2TouchingObjects.Add(barObject.gameObject, new HashSet<GameObject>());
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!_firstBar || !_secondBar) return;
-        _firstBar.GetComponent<SpriteRenderer>().color = barColor;
-        _secondBar.GetComponent<SpriteRenderer>().color = barColor;
+        foreach (var (barObject, touchingObjects) in _bar2TouchingObjects)
+        {
+            barObject.GetComponent<SpriteRenderer>().color = barColor;
+        }
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class TransferBarController : MonoBehaviour
     {
         var barCollider = collision.otherCollider;
         var playerCollider = collision.collider;
-        if (!_firstBar || !_secondBar) return;
+        if (!_bar2TouchingObjects.ContainsKey(barCollider.gameObject)) return;
         if (!playerCollider.gameObject.CompareTag("Player")) return;
         if (playerCollider is not BoxCollider2D) return;
 
@@ -49,22 +49,20 @@ public class TransferBarController : MonoBehaviour
         var playerType = player.GetComponent<PlayerController>().playerType;
         float relativeVelocityY = collision.relativeVelocity.y;
         float velocityY = transferMode == TransferMode.OppositeSide ? relativeVelocityY : -relativeVelocityY;
-        if (barCollider.gameObject == _firstBar)
+
+        foreach (var (barObject, touchingObjects) in _bar2TouchingObjects)
         {
-            _touchingObjects1.Add(player);
-            foreach (var otherPlayer in _touchingObjects2)
+            if (barObject == barCollider.gameObject)
             {
-                var rigidbody2D = otherPlayer.GetComponent<Rigidbody2D>();
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
+                touchingObjects.Add(player);
             }
-        }
-        else
-        {
-            _touchingObjects2.Add(player);
-            foreach (var otherPlayer in _touchingObjects1)
+            else
             {
-                var rigidbody2D = otherPlayer.GetComponent<Rigidbody2D>();
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
+                foreach (var otherPlayer in touchingObjects)
+                {
+                    var rigidbody2D = otherPlayer.GetComponent<Rigidbody2D>();
+                    rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, velocityY);
+                }
             }
         }
 
@@ -75,35 +73,40 @@ public class TransferBarController : MonoBehaviour
     {
         var barCollider = collision.otherCollider;
         var playerCollider = collision.collider;
-        if (!_firstBar || !_secondBar) return;
+
+        if (!_bar2TouchingObjects.ContainsKey(barCollider.gameObject)) return;
         if (!playerCollider.gameObject.CompareTag("Player")) return;
         if (playerCollider is not BoxCollider2D) return;
 
         var player = playerCollider.gameObject;
         var playerType = player.GetComponent<PlayerController>().playerType;
-        if (barCollider.gameObject == _firstBar)
-        {
-            _touchingObjects1.Remove(player);
-        }
-        else
-        {
-            _touchingObjects2.Remove(player);
-        }
+        _bar2TouchingObjects[barCollider.gameObject].Remove(player);
 
         SetRendererColor();
     }
 
     void SetRendererColor()
     {
-        if (_touchingObjects1.Count != 0 || _touchingObjects2.Count != 0)
+        bool actived = false;
+        foreach (var (barObject, touchingObjects) in _bar2TouchingObjects)
         {
-            _firstBar.GetComponent<SpriteRenderer>().color = activeBarColor;
-            _secondBar.GetComponent<SpriteRenderer>().color = activeBarColor;
+            if (touchingObjects.Count != 0)
+            {
+                actived = true;
+                break;
+            }
         }
-        else
+
+        foreach (var (barObject, touchingObjects) in _bar2TouchingObjects)
         {
-            _firstBar.GetComponent<SpriteRenderer>().color = barColor;
-            _secondBar.GetComponent<SpriteRenderer>().color = barColor;
+            if (actived)
+            {
+                barObject.GetComponent<SpriteRenderer>().color = activeBarColor;
+            }
+            else
+            {
+                barObject.GetComponent<SpriteRenderer>().color = barColor;
+            }
         }
     }
 }
