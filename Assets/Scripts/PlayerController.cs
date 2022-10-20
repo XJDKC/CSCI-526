@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour, IReversible
     {
         return _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
                _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")) ||
+               _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Platform")) ||
                _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Gate"));
     }
 
