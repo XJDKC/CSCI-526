@@ -9,6 +9,8 @@ public class PlatformController : MonoBehaviour
     public float moveDistance = 3f;
     public float speed = 3f;
     public bool isReverse;
+    private Transform _playerTransform1=null;
+    private Transform _playerTransform2=null;
 
     public enum PlatformType
     {
@@ -29,6 +31,13 @@ public class PlatformController : MonoBehaviour
         _direction = isReverse;
         _initialPositionX = transform.position.x;
         _initialPositionY = transform.position.y;
+
+        _playerTransform1 = GameObject.Find("Player1").transform.parent == null
+            ? null
+            : GameObject.Find("Player1").transform.parent;
+        _playerTransform2 = GameObject.Find("Player2").transform.parent == null
+            ? null
+            : GameObject.Find("Player2").transform.parent;
     }
 
     // Update is called once per frame
@@ -42,6 +51,38 @@ public class PlatformController : MonoBehaviour
         if (type == PlatformType.VerticalEnemy)
         {
             VerticalMove();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            col.transform.parent = gameObject.transform;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            col.transform.parent = gameObject.transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                other.transform.parent = _playerTransform1;
+            }
+
+            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                other.transform.parent = _playerTransform2;
+            }
         }
     }
 
