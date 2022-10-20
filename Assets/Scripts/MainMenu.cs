@@ -7,11 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayLevel1_1()
     {
-<<<<<<< HEAD
-        // SceneManager.LoadScene(1);/
-=======
         // SceneManager.LoadScene(1);
->>>>>>> master
     }
 
     public void PlayLevel1_2()
