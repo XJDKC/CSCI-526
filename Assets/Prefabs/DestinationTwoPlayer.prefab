@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5093152108109811071}
   - component: {fileID: 5093152108109811056}
   m_Layer: 0
-  m_Name: Destination_star_twoPlayer
+  m_Name: DestinationTwoPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.9811321, g: 0.41298956, b: 0.07775002, a: 1}
+  m_Color: {r: 0.98039216, g: 0.90388703, b: 0.07843135, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,9 +99,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006585121, y: 0}
+  m_Offset: {x: 0.0023965836, y: 0}
   serializedVersion: 2
-  m_Radius: 0.19053936
+  m_Radius: 0.5172758
 --- !u!114 &5093152108109811056
 MonoBehaviour:
   m_ObjectHideFlags: 0
