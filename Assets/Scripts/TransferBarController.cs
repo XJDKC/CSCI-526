@@ -7,7 +7,7 @@ public class TransferBarController : MonoBehaviour
 {
     public enum TransferMode { SameSide, OppositeSide }
 
-    public Color barColor = Color.yellow;
+    public Color barColor = Color.yellow * 0.95f;
     public Color activeBarColor = new Color(255, 255, 0);
     public TransferMode transferMode = TransferMode.OppositeSide;
 

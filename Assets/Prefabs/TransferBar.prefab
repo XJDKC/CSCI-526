@@ -94,7 +94,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 382221499371137953}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6d7b65b7625ba485a86d5d5e66f3023d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461bb6327d7b74d8280ba3de88f7d404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  activeBarColor: {r: 1, g: 1, b: 0, a: 1}
+  barColor: {r: 0.9490196, g: 0.8745098, b: 0.015686275, a: 1}
+  activeBarColor: {r: 1, g: 1, b: 0.015686275, a: 1}
   transferMode: 1
 --- !u!50 &382221499427604631
 Rigidbody2D:
@@ -257,7 +257,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_Color: {r: 0.9490196, g: 0.8745098, b: 0.015686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -276,7 +276,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 382221499592609450}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6d7b65b7625ba485a86d5d5e66f3023d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
