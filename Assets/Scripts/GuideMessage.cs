@@ -22,14 +22,25 @@ public struct Message
 
 public class GuideMessage : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
+    private GameObject _player1;
+    private GameObject _player2;
     public Message[] messages;
     private Boolean reach;
     // Start is called before the first frame update
     void Start()
     {
         reach = false;
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _player1 = player;
+            }
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                _player2 = player;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -37,8 +48,8 @@ public class GuideMessage : MonoBehaviour
     {
         if (!reach)
         {
-            Vector3 pos1 = player1.GetComponent<Transform>().position;
-            Vector3 pos2 = player2.GetComponent<Transform>().position;
+            Vector3 pos1 = _player1.transform.position;
+            Vector3 pos2 = _player2.transform.position;
             float mid_x = (pos1.x + pos2.x) / 2;
             for (int i = 0; i < messages.Length; i++)
             {

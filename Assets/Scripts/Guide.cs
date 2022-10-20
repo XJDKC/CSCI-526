@@ -23,13 +23,13 @@ public struct GuideInfo
 //dropEnd: 5000
 //dropSpeed: 0.4
 //heightUp: -60
-//heightDown: 50
+//heightDown: 70
 
 public class Guide : MonoBehaviour
 {
     public GuideInfo[] guideInfos;
-    public GameObject player1;
-    public GameObject player2;
+    private GameObject _player1;
+    private GameObject _player2;
     private Boolean reach;
     public int hU;
     public float dS;
@@ -46,6 +46,17 @@ public class Guide : MonoBehaviour
         {
             dS = 0.4f;
         }
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _player1 = player;
+            }
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                _player2 = player;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -53,8 +64,8 @@ public class Guide : MonoBehaviour
     {
         if (!reach)
         {
-            Vector3 pos1 = player1.GetComponent<Transform>().position;
-            Vector3 pos2 = player2.GetComponent<Transform>().position;
+            Vector3 pos1 = _player1.transform.position;
+            Vector3 pos2 = _player2.transform.position;
             float mid_x = (pos1.x + pos2.x) / 2;
             for (int i = 0; i < guideInfos.Length; i++)
             {
