@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    void Awake()
+    {
+        DataManager.GetSessionID();
+    }
+
     public void PlayLevel1_1()
     {
         // SceneManager.LoadScene(1);

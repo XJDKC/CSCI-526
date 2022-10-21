@@ -47,7 +47,8 @@ public class Star : MonoBehaviour, IReversible
         var player = col.gameObject;
         if (player.CompareTag("Player") && col.collider is CapsuleCollider2D)
         {
-            StarUI.CurrentStarQuantity += 1;
+            //data collect
+            DataManager.AddStarPoints();
             Destroy(gameObject);
         }
     }

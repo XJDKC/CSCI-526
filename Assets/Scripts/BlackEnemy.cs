@@ -16,13 +16,13 @@ public class BlackEnemy : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D col)
     {
-        DataPost dp = GetComponent<DataPost>();
+        //DataPost dp = GetComponent<DataPost>();
         if (col.gameObject.tag == "Player")
         {
-            string parent = gameObject.transform.parent.name;
+            //data collect hook
+            //Debug.Log(gameObject);
+            DataManager.GetDeathReason(gameObject);
             Die();
-            dp.deathReason = parent;
-            dp.Send();
         }
     }
 
@@ -34,5 +34,6 @@ public class BlackEnemy : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DataManager.GetStartTime();
     }
 }

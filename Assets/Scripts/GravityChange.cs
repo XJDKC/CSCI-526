@@ -134,8 +134,8 @@ public class GravityChange : MonoBehaviour
             }
 
             //Data collection
-            StarUI.numsThroughGate += 1;
-            Debug.Log(StarUI.numsThroughGate);
+            //StarUI.numsThroughGate += 1;
+            //Debug.Log(StarUI.numsThroughGate);
         }
 
         // update collider prev side
