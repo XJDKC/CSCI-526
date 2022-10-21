@@ -11,6 +11,7 @@ public class Spikes : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            DataManager.GetDeathReason(gameObject);
         }
     }
 }
