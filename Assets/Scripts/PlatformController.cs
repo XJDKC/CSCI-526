@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
-    public PlatformType type = PlatformType.HorizontalEnemy;
+    public PlatformType type = PlatformType.HorizontalPlatform;
     public float moveDistance = 3f;
     public float speed = 3f;
     public bool isReverse;
-    private Transform _playerTransform1=null;
-    private Transform _playerTransform2=null;
+    private Transform _playerTransform1 = null;
+    private Transform _playerTransform2 = null;
 
     public enum PlatformType
     {
-        HorizontalEnemy = 1,
-        VerticalEnemy = 2
+        HorizontalPlatform = 1,
+        VerticalPlatform = 2
     }
 
     private float _initialPositionX = 0;
@@ -43,45 +43,38 @@ public class PlatformController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (type == PlatformType.HorizontalEnemy)
+        if (type == PlatformType.HorizontalPlatform)
         {
             HorizontalMove();
         }
 
-        if (type == PlatformType.VerticalEnemy)
+        if (type == PlatformType.VerticalPlatform)
         {
             VerticalMove();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.collider is BoxCollider2D)
         {
-            col.transform.parent = gameObject.transform;
+            collision.transform.parent = gameObject.transform;
         }
     }
 
-    private void OnCollisionStay2D(Collision2D col)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (col.gameObject.CompareTag("Player"))
+        var player = collision.gameObject;
+        if (player.CompareTag("Player") && collision.collider is BoxCollider2D)
         {
-            col.transform.parent = gameObject.transform;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
-                other.transform.parent = _playerTransform1;
+                player.transform.parent = _playerTransform1;
             }
 
-            if (other.gameObject.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
             {
-                other.transform.parent = _playerTransform2;
+                player.transform.parent = _playerTransform2;
             }
         }
     }
