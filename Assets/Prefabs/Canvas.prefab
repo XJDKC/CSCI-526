@@ -1005,13 +1005,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextScore
       objectReference: {fileID: 0}
+    - target: {fileID: 6949408791056334823, guid: 17f97084931a847eda3a305b6720fff0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 144.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949408791056334823, guid: 17f97084931a847eda3a305b6720fff0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0024681
+      objectReference: {fileID: 0}
     - target: {fileID: 6949408791056334825, guid: 17f97084931a847eda3a305b6720fff0, type: 3}
       propertyPath: m_Text
       value: 'Score: 00/00'
       objectReference: {fileID: 0}
     - target: {fileID: 6949408791056334825, guid: 17f97084931a847eda3a305b6720fff0, type: 3}
       propertyPath: m_FontData.m_BestFit
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6949408791056334825, guid: 17f97084931a847eda3a305b6720fff0, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1183,6 +1191,10 @@ PrefabInstance:
     - target: {fileID: 7367976973931212387, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1.386
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973931212388, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7367976973931212388, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_FontData.m_FontSize

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8810523015990526183}
   - component: {fileID: 8810523015990526186}
   - component: {fileID: 5929544074797106113}
-  - component: {fileID: 2272215514510012509}
+  - component: {fileID: 4922533285082212805}
   m_Layer: 0
   m_Name: WhiteEnemy
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
+  m_Constraints: 1
 --- !u!114 &5929544074797106113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03644f304d08441189605b0c8585d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &2272215514510012509
-CircleCollider2D:
+--- !u!61 &4922533285082212805
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -134,8 +134,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8810523016120192030
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +158,7 @@ GameObject:
   - component: {fileID: 8810523016120192026}
   - component: {fileID: 8810523016120192025}
   - component: {fileID: 3708956585026942370}
-  - component: {fileID: 2343909978599534308}
+  - component: {fileID: 3503960829815433308}
   m_Layer: 0
   m_Name: BlackEnemy
   m_TagString: Untagged
@@ -243,7 +253,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
+  m_Constraints: 1
 --- !u!114 &3708956585026942370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6608dd91d5ca7471aaf791ff16ca92ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &2343909978599534308
-CircleCollider2D:
+--- !u!61 &3503960829815433308
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -270,8 +280,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8810523016645508838
 GameObject:
   m_ObjectHideFlags: 0

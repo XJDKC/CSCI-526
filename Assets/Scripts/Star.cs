@@ -45,7 +45,7 @@ public class Star : MonoBehaviour, IReversible
     private void OnCollisionEnter2D(Collision2D col)
     {
         var player = col.gameObject;
-        if (player.CompareTag("Player") && col.collider is CapsuleCollider2D)
+        if (player.CompareTag("Player"))
         {
             //data collect
             DataManager.AddStarPoints();
