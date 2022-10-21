@@ -12,7 +12,7 @@ public class GravityChange : MonoBehaviour
     public GateMode gateMode = GateMode.BothPlayers;
     public Color normalColor = Color.white;
     public Color firstPlayerColor = new Color(92, 200, 231);
-    public Color secondPlayerColor = new Color(234, 54, 127);
+    public Color secondPlayerColor = new Color(234, 113, 189);
     public float motivateThreshold = 1.0f;
     public float motivateMagnitude = 3.0f;
 
