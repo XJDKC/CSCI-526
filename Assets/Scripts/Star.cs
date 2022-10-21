@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Star : MonoBehaviour, IReversible
 {
-    private Rigidbody2D _rigidbody2D;
     public float delaySecond = 5F;
-    private SpriteRenderer spriteRenderer = null;
     private float fadeSpeed = 0;
 
     private int _isReverse;
+    private SpriteRenderer spriteRenderer = null;
+
+    private Rigidbody2D _rigidbody2D;
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +42,12 @@ public class Star : MonoBehaviour, IReversible
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Collecting stars and updating points
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (collider.gameObject.CompareTag("Player") &&
-            collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
+        var player = col.gameObject;
+        if (player.CompareTag("Player") && col.collider is CapsuleCollider2D)
         {
             StarUI.CurrentStarQuantity += 1;
-            Debug.Log(StarUI.CurrentStarQuantity);
             Destroy(gameObject);
         }
     }
