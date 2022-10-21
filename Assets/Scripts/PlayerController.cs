@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour, IReversible
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
 
+    private Transform _parentTransform = null;
+
     private void Awake()
     {
         // Assign control scheme for players
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour, IReversible
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        _parentTransform = transform.parent;
     }
 
     private void Start()
@@ -158,5 +161,27 @@ public class PlayerController : MonoBehaviour, IReversible
         var jumpId = Animator.StringToHash("jump");
         bool isJumping = (_playerState & PlayerState.Jumping) != 0;
         _playerAnimator.SetBool(jumpId, isJumping);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var bodyCollider = collision.collider;
+        var feetCollider = collision.otherCollider;
+        if (collision.gameObject.CompareTag("Player") && feetCollider is BoxCollider2D &&
+            bodyCollider is CapsuleCollider2D)
+        {
+            transform.parent = bodyCollider.gameObject.transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        var bodyCollider = collision.collider;
+        var feetCollider = collision.otherCollider;
+        if (collision.gameObject.CompareTag("Player") && feetCollider is BoxCollider2D &&
+            bodyCollider is CapsuleCollider2D)
+        {
+            transform.parent = _parentTransform;
+        }
     }
 }
