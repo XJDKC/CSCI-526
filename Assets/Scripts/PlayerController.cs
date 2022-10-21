@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour, IReversible
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
 
+    private Transform _parentTransform = null;
+
     private void Awake()
     {
         // Assign control scheme for players
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour, IReversible
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        _parentTransform = transform.parent;
     }
 
     private void Start()

@@ -948,7 +948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711545587941, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.76
+      value: 2.87
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711661047153, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: defaultCameraSize
