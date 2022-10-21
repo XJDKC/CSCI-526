@@ -32,12 +32,18 @@ public class PlatformController : MonoBehaviour
         _initialPositionX = transform.position.x;
         _initialPositionY = transform.position.y;
 
-        _playerTransform1 = GameObject.Find("Player1").transform.parent == null
-            ? null
-            : GameObject.Find("Player1").transform.parent;
-        _playerTransform2 = GameObject.Find("Player2").transform.parent == null
-            ? null
-            : GameObject.Find("Player2").transform.parent;
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _playerTransform1 = player.transform;
+            }
+
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                _playerTransform2 = player.transform;
+            }
+        }
     }
 
     // Update is called once per frame
