@@ -25,8 +25,9 @@ public class StarUI : MonoBehaviour
         if (DataManager.currentStarPoints >= minimum)
         {
             reached = true;
-            GetComponent<Text>().color = Color.black;
+            GetComponent<Text>().color = Color.green * 0.8f;
         }
+
         if (maximum == 0)
         {
             GetComponent<Text>().text = "Score: " + maximum;
