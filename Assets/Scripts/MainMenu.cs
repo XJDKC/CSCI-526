@@ -5,94 +5,98 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    void Awake()
-    {
-        DataManager.GetSessionID();
-    }
-
     public void PlayLevel1_1()
     {
-        // SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Level1-1");
     }
 
     public void PlayLevel1_2()
     {
-        // SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Level1-2");
     }
 
     public void PlayLevel1_3()
     {
-        // SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Level1-3");
     }
 
     public void PlayLevel1_4()
     {
-        // SceneManager.LoadScene(4);
-    }
-
-    public void PlayLevel1_5()
-    {
-        // SceneManager.LoadScene(5);
+        SceneManager.LoadScene("Level1-4");
     }
 
     public void PlayLevel2_1()
     {
-        // SceneManager.LoadScene(6);
+        SceneManager.LoadScene("Level2-1");
     }
 
     public void PlayLevel2_2()
     {
-        // SceneManager.LoadScene(7);
+        SceneManager.LoadScene("Level2-2");
+    }
+
+    public void PlayLevel2_3()
+    {
+        SceneManager.LoadScene("Level2-3");
     }
 
     public void PlayLevel3_1()
     {
-        // SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Level3-1");
     }
 
     public void PlayLevel3_2()
     {
-        // SceneManager.LoadScene(9);
+        SceneManager.LoadScene("Level3-2");
     }
 
     public void PlayLevel3_3()
     {
-        // SceneManager.LoadScene(10);
+        SceneManager.LoadScene("Level3-3");
     }
 
     public void PlayLevel3_4()
     {
-        // SceneManager.LoadScene(11);
+        SceneManager.LoadScene("Level3-4");
     }
 
     public void PlayLevel4_1()
     {
-        // SceneManager.LoadScene(12);
+        SceneManager.LoadScene("Level4-1");
     }
 
     public void PlayLevel4_2()
     {
-        // SceneManager.LoadScene(13);
+        SceneManager.LoadScene("Level4-2");
     }
 
+    public void PlayLevel4_3()
+    {
+        SceneManager.LoadScene("Level4-3");
+    }
 
     public void PlayLevel5_1()
     {
-        // SceneManager.LoadScene(14);
+        SceneManager.LoadScene("Level5-1");
     }
 
     public void PlayLevel5_2()
     {
-        // SceneManager.LoadScene(15);
+        SceneManager.LoadScene("Level5-2");
     }
 
     public void PlayLevel5_3()
     {
-        // SceneManager.LoadScene(16);
+        SceneManager.LoadScene("Level5-3");
     }
 
     public void PlayLevel6_1()
     {
-        // SceneManager.LoadScene(17);
+        SceneManager.LoadScene("Level6-1");
+    }
+
+    public void PlayLevel6_2()
+    {
+        SceneManager.LoadScene("Level6-2");
     }
 }
