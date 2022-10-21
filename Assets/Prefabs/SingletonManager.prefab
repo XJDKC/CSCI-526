@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2329486292278044765}
   - component: {fileID: 2329486292278044738}
+  - component: {fileID: 7327135890861882582}
   m_Layer: 0
-  m_Name: StarManager
+  m_Name: SingletonManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,3 +48,16 @@ MonoBehaviour:
   startPrefab: {fileID: 9210360460991643763, guid: 32fad81da6fd54d91a99fac98767f35d, type: 3}
   starNumber: 8
   starInitialSpeed: 5
+--- !u!114 &7327135890861882582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329486292278044739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f260530b21645ec8232d8eabb678f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: 

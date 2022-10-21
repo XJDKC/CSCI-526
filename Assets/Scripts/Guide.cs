@@ -40,7 +40,7 @@ public class Guide : MonoBehaviour
         reach = false;
         if (hU == 0)
         {
-            hU = -60;
+            hU = 0;
         }
         if (dS == 0)
         {
