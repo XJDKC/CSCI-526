@@ -48,6 +48,7 @@ public class Destination2player : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("Menu");
+                DataManager.CompleteLevel();
             }
         }
     }

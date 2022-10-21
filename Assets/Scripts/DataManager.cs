@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
     public static int cookieTimes;
 
     //point for a single star
-    private int _starPoint = 1;
+    private static int _starPoint = 1;
 
     private static DataManager _instance;
     public static DataManager Instance { get { return _instance;  } }
@@ -44,6 +44,7 @@ public class DataManager : MonoBehaviour
     {
         currentStarPoints = 0;
         url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLMoxH4aXAOXu_kRxxODsHIG14is4OP-7tnWGqBNDjygMTZw/formResponse";
+        levelName = "";
     }
 
     // Update is called once per frame
@@ -52,29 +53,50 @@ public class DataManager : MonoBehaviour
 
     }
 
-    // Update current starPoints
-    public void AddStarPoints()
+    // Get session id
+    public static void GetSessionID()
     {
-        currentStarPoints += _starPoint;
+        if (Instance)
+        {
+            if (sessionId == 0)
+            {
+                sessionId = DateTime.Now.Ticks;
+            }
+        }
+    }
+
+    // Update current starPoints
+    public static void AddStarPoints()
+    {
+        if (Instance)
+        {
+            currentStarPoints += _starPoint;
+        }
         //Debug.Log("points: " + currentStarPoints);
     }
 
-    public void GetDeathReason(GameObject Enemy)
+    public static void GetDeathReason(GameObject Enemy)
     {
-        string parent = Enemy.transform.parent.name;
-        Debug.Log("enemy: " + parent);
-        endStatus = parent;
-        GetEndTime();
-        //TODO: call data post
-        if (_instance == null)
-            Debug.Log("Null Instance1");
-        Send();
+        Debug.Log("Check");
+        if (DataManager.Instance)
+        {
+            string parent = Enemy.transform.parent.name;
+            Debug.Log("enemy: " + parent);
+            endStatus = parent;
+            Instance.GetEndTime();
+            //TODO: call data post
+            if (_instance == null)
+                Debug.Log("Null Instance1");
+            Instance.Send();
+        }
     }
 
     //get start time when a level starts
-    public void GetStartTime()
+    public static void GetStartTime()
     {
-        startTime = DateTime.Now.Ticks;
+        if(Instance){
+            startTime = DateTime.Now.Ticks;
+        }
     }
 
     //get end time when a level ends(die or complete)
@@ -83,19 +105,24 @@ public class DataManager : MonoBehaviour
         endTime = DateTime.Now.Ticks;
     }
 
-    public void CompleteLevel()
+    public static void CompleteLevel()
     {
-        endStatus = "Completed";
-        GetEndTime();
-        //TODO: call data post
-        Send();
+        if (Instance)
+        {
+            endStatus = "Completed";
+            Instance.GetEndTime();
+            Instance.Send();
+        }
     }
 
-    public void RestartLevel()
+    public static void RestartLevel()
     {
-        endStatus = "Restart";
-        GetEndTime();
-        Send();
+        if (Instance)
+        {
+            endStatus = "Restart";
+            Instance.GetEndTime();
+            Instance.Send();
+        }
     }
 
     public void Send()

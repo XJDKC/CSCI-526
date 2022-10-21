@@ -34,7 +34,7 @@ public class StarUI : MonoBehaviour
             reached = true;
             GetComponent<Text>().color = Color.black;
         }
-        GetComponent<Text>().text = "Score: " + CurrentStarQuantity + "/" + maximum;
+        GetComponent<Text>().text = "Score: " + DataManager.currentStarPoints + "/" + maximum;
     }
 
     public Boolean getStatus()

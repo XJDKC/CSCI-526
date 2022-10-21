@@ -16,9 +16,9 @@ public class RestartBtn : MonoBehaviour
     // reload the same active scence after pressing the button
     public void OnButtonPress()
     {
-        //data manage hook
-        DataManager.Instance.RestartLevel();
         SceneManager.LoadScene(scene);
-        DataManager.Instance.GetStartTime();
+        //data manage hook
+        DataManager.RestartLevel();
+        DataManager.GetStartTime();
     }
 }

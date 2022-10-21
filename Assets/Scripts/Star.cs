@@ -48,7 +48,7 @@ public class Star : MonoBehaviour, IReversible
             collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
         {
             //data collect
-            DataManager.Instance.AddStarPoints();
+            DataManager.AddStarPoints();
 
             Destroy(gameObject);
         }

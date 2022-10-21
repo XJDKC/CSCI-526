@@ -20,8 +20,8 @@ public class BlackEnemy : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             //data collect hook
-            Debug.Log(gameObject);
-            DataManager.Instance.GetDeathReason(gameObject);
+            //Debug.Log(gameObject);
+            DataManager.GetDeathReason(gameObject);
             Die();
         }
     }
@@ -34,6 +34,6 @@ public class BlackEnemy : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        DataManager.Instance.GetStartTime();
+        DataManager.GetStartTime();
     }
 }
