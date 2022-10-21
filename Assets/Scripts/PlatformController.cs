@@ -36,12 +36,12 @@ public class PlatformController : MonoBehaviour
         {
             if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
-                _playerTransform1 = player.transform;
+                _playerTransform1 = player.transform.parent;
             }
 
             if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
             {
-                _playerTransform2 = player.transform;
+                _playerTransform2 = player.transform.parent;
             }
         }
     }
