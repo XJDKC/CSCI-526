@@ -162,26 +162,4 @@ public class PlayerController : MonoBehaviour, IReversible
         bool isJumping = (_playerState & PlayerState.Jumping) != 0;
         _playerAnimator.SetBool(jumpId, isJumping);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var bodyCollider = collision.collider;
-        var feetCollider = collision.otherCollider;
-        if (collision.gameObject.CompareTag("Player") && feetCollider is BoxCollider2D &&
-            bodyCollider is CapsuleCollider2D)
-        {
-            transform.parent = bodyCollider.gameObject.transform;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        var bodyCollider = collision.collider;
-        var feetCollider = collision.otherCollider;
-        if (collision.gameObject.CompareTag("Player") && feetCollider is BoxCollider2D &&
-            bodyCollider is CapsuleCollider2D)
-        {
-            transform.parent = _parentTransform;
-        }
-    }
 }
