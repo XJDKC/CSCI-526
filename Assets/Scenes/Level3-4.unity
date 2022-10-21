@@ -610,7 +610,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9221228889321278235, guid: ddd3c1073fe914445bef78b55e785061, type: 3}
       propertyPath: force
-      value: 700
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 9221228889321278235, guid: ddd3c1073fe914445bef78b55e785061, type: 3}
       propertyPath: isReverse
