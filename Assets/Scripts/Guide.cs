@@ -23,13 +23,13 @@ public struct GuideInfo
 //dropEnd: 5000
 //dropSpeed: 0.4
 //heightUp: -60
-//heightDown: 50
+//heightDown: 70
 
 public class Guide : MonoBehaviour
 {
     public GuideInfo[] guideInfos;
-    public GameObject player1;
-    public GameObject player2;
+    private GameObject _player1;
+    private GameObject _player2;
     private Boolean reach;
     public int hU;
     public float dS;
@@ -46,44 +46,58 @@ public class Guide : MonoBehaviour
         {
             dS = 0.4f;
         }
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _player1 = player;
+            }
+            if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
+            {
+                _player2 = player;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!reach)
+        if (_player1 != null || _player2 != null)
         {
-            Vector3 pos1 = player1.GetComponent<Transform>().position;
-            Vector3 pos2 = player2.GetComponent<Transform>().position;
-            float mid_x = (pos1.x + pos2.x) / 2;
-            for (int i = 0; i < guideInfos.Length; i++)
+            if (!reach)
             {
-                if (mid_x > guideInfos[i].start && mid_x < guideInfos[i].end)
+                Vector3 pos1 = _player1.transform.position;
+                Vector3 pos2 = _player2.transform.position;
+                float mid_x = (pos1.x + pos2.x) / 2;
+                for (int i = 0; i < guideInfos.Length; i++)
                 {
-                    if (guideInfos[i].countDown <= 6000)
+                    if (mid_x > guideInfos[i].start && mid_x < guideInfos[i].end)
                     {
-                        guideInfos[i].countDown = guideInfos[i].countDown + 1;
-                    }
-
-                    if (guideInfos[i].countDown > guideInfos[i].dropStart && guideInfos[i].countDown < 1990 &&
-                        GetComponent<RectTransform>().offsetMax.y > guideInfos[i].heightUp)
-                    {
-                        gameObject.transform.position = new Vector3(transform.position.x,
-                            transform.position.y - guideInfos[i].dropSpeed, transform.position.z);
-                    }
-
-                    if (guideInfos[i].countDown > guideInfos[i].dropEnd &&
-                        GetComponent<RectTransform>().offsetMax.y < guideInfos[i].heightDown)
-                    {
-                        gameObject.transform.position = new Vector3(transform.position.x,
-                            transform.position.y + guideInfos[i].dropSpeed, transform.position.z);
-                    }
-
-                    for (int j = 0; j < guideInfos.Length; j++)
-                    {
-                        if (j != i)
+                        if (guideInfos[i].countDown <= 6000)
                         {
-                            guideInfos[j].countDown = 0;
+                            guideInfos[i].countDown = guideInfos[i].countDown + 1;
+                        }
+
+                        if (guideInfos[i].countDown > guideInfos[i].dropStart && guideInfos[i].countDown < 1990 &&
+                            GetComponent<RectTransform>().offsetMax.y > guideInfos[i].heightUp)
+                        {
+                            gameObject.transform.position = new Vector3(transform.position.x,
+                                transform.position.y - guideInfos[i].dropSpeed, transform.position.z);
+                        }
+
+                        if (guideInfos[i].countDown > guideInfos[i].dropEnd &&
+                            GetComponent<RectTransform>().offsetMax.y < guideInfos[i].heightDown)
+                        {
+                            gameObject.transform.position = new Vector3(transform.position.x,
+                                transform.position.y + guideInfos[i].dropSpeed, transform.position.z);
+                        }
+
+                        for (int j = 0; j < guideInfos.Length; j++)
+                        {
+                            if (j != i)
+                            {
+                                guideInfos[j].countDown = 0;
+                            }
                         }
                     }
                 }
