@@ -9,9 +9,8 @@ public class SpringController : MonoBehaviour
     public float force = 1000f;
     public bool isReverse = false;
 
-    private void OnCollisionEnter2D(Collision2D obj)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        var col = obj.collider;
         if (col is BoxCollider2D&&col.GameObject().CompareTag("Player"))
         {   col.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
             var playerBottom = col.gameObject.GetComponent<Renderer>().bounds.min.y;
