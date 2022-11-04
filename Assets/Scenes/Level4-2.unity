@@ -12884,6 +12884,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Check out these buttons that increase/decrease gravity
       objectReference: {fileID: 0}
+    - target: {fileID: 8756006130416338980, guid: 20e5941f0b70c4147bbbfb51341502ba, type: 3}
+      propertyPath: m_margin.z
+      value: -1.6496334
+      objectReference: {fileID: 0}
     - target: {fileID: 8756006130416338983, guid: 20e5941f0b70c4147bbbfb51341502ba, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -5.25
