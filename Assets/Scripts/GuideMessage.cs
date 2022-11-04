@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +58,7 @@ public class GuideMessage : MonoBehaviour
                 {
                     if (mid_x > messages[i].start && mid_x < messages[i].end)
                     {
-                        GetComponent<Text>().text = messages[i].text;
+                        GetComponent<TextMeshProUGUI>().text = messages[i].text;
                     }
                 }
             }
@@ -66,6 +67,6 @@ public class GuideMessage : MonoBehaviour
     public void minimumScoreText()
     {
         reach = true;
-        GetComponent<Text>().text = "Minimum score requirement not reached. \n Try to get more stars!";
+        GetComponent<TextMeshProUGUI>().text = "Minimum score requirement not reached. \n Try to get more stars!";
     }
 }

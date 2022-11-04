@@ -14093,6 +14093,14 @@ PrefabInstance:
       propertyPath: minimum
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6010899730178351641, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: maximum
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010899730178351641, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: minimum
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: player1
       value: 
@@ -14194,6 +14202,10 @@ PrefabInstance:
     - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: guideInfos.Array.data[0].heightDown
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613381721980987054, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_text
+      value: 'Minimum score requirement: 3'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}

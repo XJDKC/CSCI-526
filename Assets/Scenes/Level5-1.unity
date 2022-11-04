@@ -493,6 +493,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].end
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: Wanna get higher? Try to transfer energy through the paired yellow bars!
+      objectReference: {fileID: 0}
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].start
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 5638328380224258912, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_Pivot.x
       value: 0

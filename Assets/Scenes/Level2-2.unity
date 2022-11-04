@@ -704,6 +704,10 @@ PrefabInstance:
       propertyPath: messages.Array.data[0].start
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6373653101215486772, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: player1
       value: 

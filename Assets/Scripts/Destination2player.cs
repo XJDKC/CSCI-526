@@ -40,7 +40,7 @@ public class Destination2player : MonoBehaviour
     void Update()
     {
         if(player1Arr&&player2Arr){
-            if (!GameObject.Find("TextScore").GetComponent<StarUI>().getStatus())
+            if (!GameObject.Find("ScoreTMP").GetComponent<StarUI>().getStatus())
             {
                 GameObject.Find("PanelPrompt").GetComponent<Guide>().mininumScorePanel();
                 GameObject.Find("TextPrompt").GetComponent<GuideMessage>().minimumScoreText();
