@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class StarUI : MonoBehaviour
     void Start()
     {
         reached = false;
-        GetComponent<Text>().color = Color.red;
+        GetComponent<TextMeshProUGUI>().color = Color.red;
     }
 
     // Update is called once per frame
@@ -25,16 +26,16 @@ public class StarUI : MonoBehaviour
         if (DataManager.currentStarPoints >= minimum)
         {
             reached = true;
-            GetComponent<Text>().color = Color.green * 0.8f;
+            GetComponent<TextMeshProUGUI>().color = Color.green * 0.8f;
         }
 
         if (maximum == 0)
         {
-            GetComponent<Text>().text = "Score: " + maximum;
+            GetComponent<TextMeshProUGUI>().text = "Score: " + maximum;
         }
         else
         {
-            GetComponent<Text>().text = "Score: " + DataManager.currentStarPoints + "/" + maximum;
+            GetComponent<TextMeshProUGUI>().text = "Score: " + DataManager.currentStarPoints + "/" + maximum;
         }
     }
 
