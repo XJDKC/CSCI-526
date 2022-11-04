@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IReversible
     public RuntimeAnimatorController animatorController2;
 
     [Flags]
-    private enum PlayerState { Idle = 0, LeftMoving = 1, RightMoving = 2, Jumping = 4, Reversed = 8 };
+    private enum PlayerState { Idle = 0, LeftMoving = 1, RightMoving = 2, OnGround = 4, Jumping = 8, Reversed = 16 };
 
     private static readonly string[] KeyboardSchemes = { "Keyboard1", "Keyboard2" };
 
@@ -93,21 +93,51 @@ public class PlayerController : MonoBehaviour, IReversible
 
     bool IsOnGround()
     {
-        return _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
-               _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")) ||
-               _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Platform")) ||
-               _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Gate"));
+        if (_boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+            _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")) ||
+            _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Platform")))
+        {
+            return true;
+        }
+
+        foreach (var gate in FindObjectsOfType<GravityChange>())
+        {
+            if (playerType == PlayerType.Player1 && gate.gateMode != GravityChange.GateMode.SecondPlayer ||
+                playerType == PlayerType.Player2 && gate.gateMode != GravityChange.GateMode.FirstPlayer)
+            {
+                continue;
+            }
+
+            foreach (var gateCollider in gate.gameObject.GetComponents<BoxCollider2D>())
+            {
+                if (gateCollider.isTrigger && _boxCollider2D.IsTouching(gateCollider) &&
+                    gateCollider.transform.rotation != Quaternion.identity)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     void UpdateVelocity()
     {
         bool onGround = IsOnGround();
+        _playerState &= ~PlayerState.OnGround;
+        _playerState = onGround ? _playerState | PlayerState.OnGround : _playerState;
         Vector2 velocity = new Vector2(_moveInput * moveSpeed, _rigidbody2D.velocity.y);
         // Changes the vertical speed of the player.
-        if (onGround && ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f ||
-                         (_playerState & PlayerState.Reversed) != 0 && _jumpInput < 0.0f))
+        if (onGround)
         {
-            velocity.y = jumpSpeed * _jumpInput;
+            if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f)
+            {
+                velocity.y = jumpSpeed;
+            }
+            else if ((_playerState & PlayerState.Reversed) != 0 && _jumpInput != 0.0f)
+            {
+                velocity.y = -jumpSpeed;
+            }
         }
 
         _rigidbody2D.velocity = velocity;
@@ -128,12 +158,20 @@ public class PlayerController : MonoBehaviour, IReversible
         else if (_moveInput < 0.0f) _playerState |= PlayerState.LeftMoving;
         else _playerState &= ~(PlayerState.LeftMoving & PlayerState.RightMoving);
 
+        // Update OnGround state
+        bool onGround = IsOnGround();
+        _playerState &= ~PlayerState.OnGround;
+        _playerState = onGround ? _playerState | PlayerState.OnGround : _playerState;
+
         // Update Jumping State
-        _playerState &= ~PlayerState.Jumping;
-        if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f ||
-            (_playerState & PlayerState.Reversed) != 0 && _jumpInput < 0.0f)
+        if (onGround || (_playerState & PlayerState.Jumping) != 0)
         {
-            _playerState |= PlayerState.Jumping;
+            _playerState &= ~PlayerState.Jumping;
+            if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f ||
+                (_playerState & PlayerState.Reversed) != 0 && _jumpInput != 0.0f)
+            {
+                _playerState |= PlayerState.Jumping;
+            }
         }
     }
 

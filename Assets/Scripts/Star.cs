@@ -1,24 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Star : MonoBehaviour, IReversible
 {
-    public float delaySecond = 5F;
-    private float fadeSpeed = 0;
+    public float delaySecond = 6F;
+    public float fadeSecond = 2F;
 
-    private int _isReverse;
-    private SpriteRenderer spriteRenderer = null;
-
+    private int _isReversed;
+    private float _elapsedTime;
     private Rigidbody2D _rigidbody2D;
+    private SpriteRenderer _spriteRenderer = null;
+
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (TryGetComponent(out SpriteRenderer spriteRenderer))
-            this.spriteRenderer = spriteRenderer;
-        fadeSpeed = this.spriteRenderer.color.a * Time.fixedDeltaTime / delaySecond;
         StartCoroutine(DestroyNow());
     }
 
@@ -31,15 +37,13 @@ public class Star : MonoBehaviour, IReversible
 
     private void FixedUpdate()
     {
-        float alpha = spriteRenderer.color.a - fadeSpeed;
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.r, spriteRenderer.color.r, alpha);
-        if (alpha <= 0)
-            Destroy(gameObject);
-    }
-
-    private void Awake()
-    {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _elapsedTime += Time.fixedDeltaTime;
+        if (_elapsedTime >= delaySecond - fadeSecond)
+        {
+            Color newColor = _spriteRenderer.color;
+            newColor.a = Mathf.Max((delaySecond - fadeSecond - _elapsedTime) / fadeSecond, 0.0f);
+            _spriteRenderer.color = newColor;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -47,7 +51,7 @@ public class Star : MonoBehaviour, IReversible
         var player = col.gameObject;
         if (player.CompareTag("Player"))
         {
-            //data collect
+            // data collect
             DataManager.AddStarPoints();
             Destroy(gameObject);
         }
