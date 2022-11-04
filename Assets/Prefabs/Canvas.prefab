@@ -1176,6 +1176,14 @@ PrefabInstance:
       propertyPath: guideInfos.Array.data[4].dropSpeed
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765935, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367976973708765935, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a5fa748d02ca4691b3b8003fb27a8aa, type: 3}
     - target: {fileID: 7367976973931212387, guid: aa16b7f4bce0b4c109509e99b384295c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 701.819
