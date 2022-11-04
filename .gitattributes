@@ -127,3 +127,6 @@
 *.rar lfs
 *.tar lfs
 
+# Font
+*.ttf lfs
+*.otf lfs
