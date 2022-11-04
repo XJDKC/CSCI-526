@@ -667,6 +667,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].end
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 138465363235704607, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: messages.Array.data[0].text
+      value: Kill enemies by hitting their white spirits, and don't forget to collect
+        stars from other side.
+      objectReference: {fileID: 0}
     - target: {fileID: 4319197321524509005, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_Text
       value: 'Minimum score requirement: 25'
@@ -775,6 +788,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6010899730178351641, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: maximum
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010899730178351641, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: minimum
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6373653099290187696, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: player1
       value: 
@@ -814,7 +835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6373653101215486772, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6373653101215486773, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -883,6 +904,10 @@ PrefabInstance:
     - target: {fileID: 6373653101215486774, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: guideInfos.Array.data[0].heightDown
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613381721980987054, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_text
+      value: 'Minimum score requirement: 25'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
