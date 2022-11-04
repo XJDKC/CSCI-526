@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Star : MonoBehaviour, IReversible
 {
@@ -40,7 +41,7 @@ public class Star : MonoBehaviour, IReversible
         if (_elapsedTime >= delaySecond - fadeSecond)
         {
             Color newColor = _spriteRenderer.color;
-            newColor.a = Mathf.Max((1 - (_elapsedTime - delaySecond + fadeSecond) / fadeSecond), 0.0f);
+            newColor.a = Mathf.Max((delaySecond - fadeSecond - _elapsedTime) / fadeSecond, 0.0f);
             _spriteRenderer.color = newColor;
         }
     }
