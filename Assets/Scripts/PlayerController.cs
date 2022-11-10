@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IReversible
     public enum PlayerType { Player1 = 1, Player2 = 2 };
 
     public PlayerType playerType = PlayerType.Player1;
+    public float moveDrag = 50.0f;
     public float moveSpeed = 6.0f;
     public float jumpSpeed = 10.0f;
     public RuntimeAnimatorController animatorController1;
@@ -65,10 +66,14 @@ public class PlayerController : MonoBehaviour, IReversible
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateState();
-        UpdateVelocity();
+        UpdateMovement();
+    }
+
+    void Update()
+    {
         UpdateRotation();
         UpdateAnimation();
     }
@@ -121,28 +126,6 @@ public class PlayerController : MonoBehaviour, IReversible
         return false;
     }
 
-    void UpdateVelocity()
-    {
-        bool onGround = IsOnGround();
-        _playerState &= ~PlayerState.OnGround;
-        _playerState = onGround ? _playerState | PlayerState.OnGround : _playerState;
-        Vector2 velocity = new Vector2(_moveInput * moveSpeed, _rigidbody2D.velocity.y);
-        // Changes the vertical speed of the player.
-        if (onGround)
-        {
-            if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f)
-            {
-                velocity.y = jumpSpeed;
-            }
-            else if ((_playerState & PlayerState.Reversed) != 0 && _jumpInput != 0.0f)
-            {
-                velocity.y = -jumpSpeed;
-            }
-        }
-
-        _rigidbody2D.velocity = velocity;
-    }
-
     void UpdateState()
     {
         // Update Prev Movement State
@@ -173,6 +156,30 @@ public class PlayerController : MonoBehaviour, IReversible
                 _playerState |= PlayerState.Jumping;
             }
         }
+    }
+
+    void UpdateMovement()
+    {
+        bool onGround = (_playerState & PlayerState.OnGround) != 0;
+        var velocity = new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
+
+        // Add force in horizontal direction based on the speed.
+        _rigidbody2D.AddForce(new Vector2((_moveInput * moveSpeed - velocity.x) * moveDrag, 0.0f));
+
+        // Changes the vertical speed of the player.
+        if (onGround)
+        {
+            if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f)
+            {
+                velocity.y = jumpSpeed;
+            }
+            else if ((_playerState & PlayerState.Reversed) != 0 && _jumpInput != 0.0f)
+            {
+                velocity.y = -jumpSpeed;
+            }
+        }
+
+        _rigidbody2D.velocity = velocity;
     }
 
     void UpdateRotation()
