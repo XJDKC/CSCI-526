@@ -6,11 +6,10 @@ using UnityEngine;
 public class SwapGravityController : MonoBehaviour
 {
     public enum PortalMode { BothPlayers, FirstPlayer, SecondPlayer }
-
     public PortalMode portalMode = PortalMode.BothPlayers;
-    public Color normalColor = Color.white;
-    public Color firstPlayerColor = new Color(92, 200, 231);
-    public Color secondPlayerColor = new Color(234, 113, 189);
+    public Sprite bothSwapIcon;
+    public Sprite firstPlayerSwapIcon;
+    public Sprite secondSwapIcon;
     private GameObject _playerObject1;
 
     private GameObject _playerObject2;
@@ -36,13 +35,13 @@ public class SwapGravityController : MonoBehaviour
         switch (portalMode)
         {
             case PortalMode.BothPlayers:
-                GetComponent<SpriteRenderer>().color = normalColor;
+                GetComponent<SpriteRenderer>().sprite = bothSwapIcon;
                 break;
             case PortalMode.FirstPlayer:
-                GetComponent<SpriteRenderer>().color = firstPlayerColor;
+                GetComponent<SpriteRenderer>().sprite = firstPlayerSwapIcon;
                 break;
             case PortalMode.SecondPlayer:
-                GetComponent<SpriteRenderer>().color = secondPlayerColor;
+                GetComponent<SpriteRenderer>().sprite = secondSwapIcon;
                 break;
         }
     }
