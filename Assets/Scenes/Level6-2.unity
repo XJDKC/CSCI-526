@@ -1398,7 +1398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6168479094997727196, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
       propertyPath: countDown
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
