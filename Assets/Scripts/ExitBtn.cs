@@ -11,5 +11,6 @@ public class ExitBtn : MonoBehaviour
     // reload the same active scence after pressing the button
     public void OnButtonPress(){
        SceneManager.LoadScene(scene);
+       DataManager.ClearStarPoints();
     }
 }
