@@ -31,7 +31,7 @@ public class GravityReverse : MonoBehaviour
         if (countDown==0)
         {
             limited = false;
-            _text.text = "";
+            _text.text = "∞";
         }
         else
         {
