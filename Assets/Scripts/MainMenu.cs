@@ -142,4 +142,25 @@ public class MainMenu : MonoBehaviour
         DataManager.levelName = "Level6-2";
         DataManager.GetStartTime();
     }
+
+    public void PlayLevel7_1()
+    {
+        SceneManager.LoadScene("Level7-2");
+        DataManager.levelName = "Level7-2";
+        DataManager.GetStartTime();
+    }
+
+    public void PlayLevel7_2()
+    {
+        SceneManager.LoadScene("Level7-2");
+        DataManager.levelName = "Level7-2";
+        DataManager.GetStartTime();
+    }
+
+    public void PlayLevel7_3()
+    {
+        SceneManager.LoadScene("Level7-3");
+        DataManager.levelName = "Level7-3";
+        DataManager.GetStartTime();
+    }
 }
