@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
+[Serializable]
 public struct GuideInfo
 {
     public int countDown;
