@@ -26,12 +26,18 @@ public class ButtonChangeGravityScale : MonoBehaviour
         {
             // GetComponent<SpriteRenderer>().color = new Color(240, 90, 90);
             plus.SetActive(true);
-            plus.transform.position = new Vector3(_position.x - 0.6f, _position.y, _position.z);
+            if(transform.rotation.z.Equals(1))
+                plus.transform.position = new Vector3(_position.x, _position.y - 0.3f, _position.z);
+            else
+                plus.transform.position = new Vector3(_position.x, _position.y + 0.3f, _position.z);
         }
         else
         {
             minus.SetActive(true);
-            minus.transform.position = new Vector3(_position.x -0.6f, _position.y, _position.z);
+            if (transform.rotation.z.Equals(1))
+                minus.transform.position = new Vector3(_position.x, _position.y - 0.3f, _position.z);
+            else
+                minus.transform.position = new Vector3(_position.x, _position.y + 0.3f, _position.z);
         }
     }
 
