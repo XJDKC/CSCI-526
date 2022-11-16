@@ -41,7 +41,7 @@ public class Star : MonoBehaviour, IReversible
         if (_elapsedTime >= delaySecond - fadeSecond)
         {
             Color newColor = _spriteRenderer.color;
-            newColor.a = Mathf.Max((delaySecond - fadeSecond - _elapsedTime) / fadeSecond, 0.0f);
+            newColor.a = Mathf.Max((delaySecond - _elapsedTime) / fadeSecond, 0.0f);
             _spriteRenderer.color = newColor;
         }
     }

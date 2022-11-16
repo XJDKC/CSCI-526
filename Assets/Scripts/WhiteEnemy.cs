@@ -9,7 +9,7 @@ public class WhiteEnemy : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && col.collider is CapsuleCollider2D)
         {
             GameObject parent = transform.parent.gameObject;
             GameObject blackEnemy = parent.transform.GetChild(1).gameObject;

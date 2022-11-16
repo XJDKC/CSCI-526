@@ -125,6 +125,11 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public static void ClearStarPoints()
+    {
+        currentStarPoints = 0;
+    }
+
     public void Send()
     {
         Debug.Log("--Collecting data--");
