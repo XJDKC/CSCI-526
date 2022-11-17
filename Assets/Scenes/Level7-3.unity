@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: guideInfos.Array.data[0].heightDown
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 8613381721980987054, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_text
+      value: 'Minimum score requirement: 16'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!1001 &345341255
@@ -1324,6 +1328,10 @@ PrefabInstance:
       propertyPath: enemyReverse
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7667106774909561967, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
+      propertyPath: verticalEnemy.enemyHeight
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8810523015990526187, guid: 4d34f120992304fe9bcfaad181678b5e, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -1447,15 +1455,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711545587941, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.78
+      value: -22.84
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711545587941, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.81
+      value: -3.16
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711770450560, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -49.34
+      value: -50.85
       objectReference: {fileID: 0}
     - target: {fileID: 2612487711770450560, guid: 5f597b9b8193e4ba1a950413231b3268, type: 3}
       propertyPath: m_LocalPosition.y
