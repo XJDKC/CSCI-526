@@ -8,6 +8,16 @@ public class SpringController : MonoBehaviour
 {
     public float force = 1000f;
     public bool isReverse = false;
+    private Animator _springAnimator;
+
+    private void Start()
+    {
+        _springAnimator = GetComponent<Animator>();
+        if (isReverse)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180f));
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D obj)
     {
@@ -20,15 +30,30 @@ public class SpringController : MonoBehaviour
             var springBottom = gameObject.GetComponent<Renderer>().bounds.min.y;
             var springTop = gameObject.GetComponent<Renderer>().bounds.max.y;
 
+
             if (playerBottom + 0.05 >= springTop && isReverse == false)
             {
+                var isCollidedId = Animator.StringToHash("isCollided");
+                _springAnimator.SetBool(isCollidedId, true);
                 col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, isReverse ? -1 : 1) * force);
             }
 
             if (playerTop - 0.05 <= springBottom && isReverse == true)
             {
+                var isCollidedId = Animator.StringToHash("isCollided");
+                _springAnimator.SetBool(isCollidedId, true);
                 col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, isReverse ? -1 : 1) * force);
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        var col = other.collider;
+        if (col is BoxCollider2D && col.GameObject().CompareTag("Player"))
+        {
+            var isCollidedId = Animator.StringToHash("isCollided");
+            _springAnimator.SetBool(isCollidedId, false);
         }
     }
 }
