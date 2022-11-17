@@ -121876,8 +121876,16 @@ PrefabInstance:
       value: ButtonGravity2
       objectReference: {fileID: 0}
     - target: {fileID: 4576593971806507939, guid: dc94dacc8b95ca947a9b34466e9b5687, type: 3}
+      propertyPath: m_Name
+      value: ButtonRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576593971806507939, guid: dc94dacc8b95ca947a9b34466e9b5687, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576593972703172388, guid: dc94dacc8b95ca947a9b34466e9b5687, type: 3}
+      propertyPath: m_Name
+      value: ButtonBlue
       objectReference: {fileID: 0}
     - target: {fileID: 4576593972703172399, guid: dc94dacc8b95ca947a9b34466e9b5687, type: 3}
       propertyPath: m_LocalPosition.x
