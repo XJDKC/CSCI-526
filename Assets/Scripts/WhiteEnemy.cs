@@ -7,9 +7,39 @@ using UnityEngine;
 
 public class WhiteEnemy : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D col)
+    private Animator _whiteEnemy;
+
+    void Start()
     {
-        if (col.gameObject.CompareTag("Player") && col.collider is CapsuleCollider2D)
+        _whiteEnemy = GetComponent<Animator>();
+    }
+
+
+    //  private void OnCollisionEnter2D(Collision2D col)
+    // {
+    //     if (col.gameObject.CompareTag("Player") && col.collider is CapsuleCollider2D)
+    //     {
+    //         GameObject parent = transform.parent.gameObject;
+    //         GameObject blackEnemy = parent.transform.GetChild(1).gameObject;
+    //         bool isReversed = false;
+    //         isReversed = parent.GetComponent<EnemyController>().enemyReverse;
+    //
+    //         if (StarManager.Instance)
+    //         {
+    //             StarManager.Instance.InstanceStars(isReversed, blackEnemy);
+    //         }
+    //
+    //         Destroy(transform.parent.gameObject);
+    //     }
+    //     else if (_whiteEnemy != null)
+    //     {
+    //         var isCollidedId = Animator.StringToHash("isCollided");
+    //         _whiteEnemy.SetBool(isCollidedId, true);
+    //     }
+    // }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player") && col is CapsuleCollider2D)
         {
             GameObject parent = transform.parent.gameObject;
             GameObject blackEnemy = parent.transform.GetChild(1).gameObject;
@@ -22,6 +52,20 @@ public class WhiteEnemy : MonoBehaviour
             }
 
             Destroy(transform.parent.gameObject);
+        }
+        else if (_whiteEnemy != null)
+        {
+            var isCollidedId = Animator.StringToHash("isCollided");
+            _whiteEnemy.SetBool(isCollidedId, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (_whiteEnemy != null)
+        {
+            var isCollidedId = Animator.StringToHash("isCollided");
+            _whiteEnemy.SetBool(isCollidedId, false);
         }
     }
 }

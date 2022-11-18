@@ -46,10 +46,10 @@ public class Star : MonoBehaviour, IReversible
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         var player = col.gameObject;
-        if (player.CompareTag("Player"))
+        if (player.CompareTag("Player") )
         {
             // data collect
             DataManager.AddStarPoints();
