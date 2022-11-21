@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IReversible
     public enum PlayerType { Player1 = 1, Player2 = 2 };
 
     public PlayerType playerType = PlayerType.Player1;
+    public bool reversed = false;
     public float moveDrag = 50.0f;
     public float moveSpeed = 6.0f;
     public float jumpSpeed = 10.0f;
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour, IReversible
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+
+        if (reversed) Reverse();
     }
 
     private void Start()
