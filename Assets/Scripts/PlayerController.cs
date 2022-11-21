@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour, IReversible
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
 
-    private Transform _parentTransform = null;
+    private Matrix4x4 _rotationMatrix;
 
     private void Awake()
     {
@@ -43,7 +44,6 @@ public class PlayerController : MonoBehaviour, IReversible
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
-        _parentTransform = transform.parent;
     }
 
     private void Start()
@@ -68,7 +68,8 @@ public class PlayerController : MonoBehaviour, IReversible
 
     void FixedUpdate()
     {
-        UpdateState();
+        UpdateRotationMatrix();
+        UpdatePlayerState();
         UpdateMovement();
     }
 
@@ -126,7 +127,22 @@ public class PlayerController : MonoBehaviour, IReversible
         return false;
     }
 
-    void UpdateState()
+    void UpdateRotationMatrix()
+    {
+        // Update Rotation Matrix
+        if (Physics2D.gravity.y != 0)
+        {
+            var quaternion = Quaternion.Euler(0.0f, 0.0f, Physics2D.gravity.y < 0.0f ? 0.0f : 180.0f);
+            _rotationMatrix = Matrix4x4.Rotate(quaternion);
+        }
+        else
+        {
+            var quaternion = Quaternion.Euler(0.0f, 0.0f, Physics2D.gravity.x < 0.0f ? -90.0f : 90.0f);
+            _rotationMatrix = Matrix4x4.Rotate(quaternion);
+        }
+    }
+
+    void UpdatePlayerState()
     {
         // Update Prev Movement State
         if ((_playerState & (PlayerState.LeftMoving | PlayerState.RightMoving)) != PlayerState.Idle &&
@@ -161,40 +177,52 @@ public class PlayerController : MonoBehaviour, IReversible
     void UpdateMovement()
     {
         bool onGround = (_playerState & PlayerState.OnGround) != 0;
-        var velocity = new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y);
+        var velocity = new Vector4(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y, 0.0f, 1.0f);
 
         // Add force in horizontal direction based on the speed.
-        _rigidbody2D.AddForce(new Vector2((_moveInput * moveSpeed - velocity.x) * moveDrag, 0.0f));
+        var inversedVelocity = _rotationMatrix.inverse * velocity;
+        var horizontalForce = new Vector4((_moveInput * moveSpeed - inversedVelocity.x) * moveDrag, 0.0f, 0.0f, 1.0f);
+        _rigidbody2D.AddForce(_rotationMatrix * horizontalForce);
 
+        var jumpVelocity = inversedVelocity;
         // Changes the vertical speed of the player.
         if (onGround)
         {
+            // Can use up and down key to jump if the player is reversed
             if ((_playerState & PlayerState.Reversed) == 0 && _jumpInput > 0.0f)
             {
-                velocity.y = jumpSpeed;
+                jumpVelocity.y = jumpSpeed;
             }
             else if ((_playerState & PlayerState.Reversed) != 0 && _jumpInput != 0.0f)
             {
-                velocity.y = -jumpSpeed;
+                jumpVelocity.y = -jumpSpeed;
             }
         }
 
-        _rigidbody2D.velocity = velocity;
+        jumpVelocity = _rotationMatrix * new Vector4(jumpVelocity.x, jumpVelocity.y, 0.0f, 1.0f);
+
+        _rigidbody2D.velocity = jumpVelocity;
     }
 
     void UpdateRotation()
     {
+        if (Time.timeScale == 0.0f) return;
+
         bool reversed = (_playerState & PlayerState.Reversed) != 0;
+
+        var reverseQuaternion = new Quaternion();
         if ((_playerState & PlayerState.LeftMoving) != 0 || (_playerState & PlayerState.RightMoving) != 0)
         {
             bool leftMoving = (_playerState & PlayerState.LeftMoving) != 0;
-            transform.localRotation = Quaternion.Euler(reversed ? 180.0f : 0.0f, leftMoving ? 180.0f : 0.0f, 0.0f);
+            reverseQuaternion = Quaternion.Euler(reversed ? 180.0f : 0.0f, leftMoving ? 180.0f : 0.0f, 0.0f);
         }
         else
         {
             bool leftMoving = (_prevMoveState & PlayerState.LeftMoving) != 0;
-            transform.localRotation = Quaternion.Euler(reversed ? 180.0f : 0.0f, leftMoving ? 180.0f : 0.0f, 0.0f);
+            reverseQuaternion = Quaternion.Euler(reversed ? 180.0f : 0.0f, leftMoving ? 180.0f : 0.0f, 0.0f);
         }
+
+        transform.localRotation = _rotationMatrix.rotation * reverseQuaternion;
     }
 
     void UpdateAnimation()
