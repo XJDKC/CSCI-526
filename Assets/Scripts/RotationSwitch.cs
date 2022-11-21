@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RotationSwitch : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class RotationSwitch : MonoBehaviour
     private GameObject _player2;
     private Rigidbody2D _rigidbody2D;
     private HingeJoint2D _hingeJoint2D;
+
+    private static bool registeredSceneUnloadEvent = false;
 
     private static readonly float AngleEpsilon = 1.0f;
     private static readonly float RigidBodyMass = 40.0f;
@@ -56,6 +59,13 @@ public class RotationSwitch : MonoBehaviour
             {
                 _player2 = player;
             }
+        }
+
+
+        if (!registeredSceneUnloadEvent)
+        {
+            registeredSceneUnloadEvent = true;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
 
         _prevState = initState;
@@ -145,5 +155,12 @@ public class RotationSwitch : MonoBehaviour
         }
 
         Time.timeScale = 1.0f;
+    }
+
+    static void OnSceneUnloaded(Scene scene)
+    {
+        var gravity = Physics2D.gravity;
+        var magnitude = Mathf.Max(Mathf.Abs(gravity.x), Mathf.Abs(gravity.y));
+        Physics2D.gravity = new Vector2(0.0f, -magnitude);
     }
 }
