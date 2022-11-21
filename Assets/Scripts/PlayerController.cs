@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IReversible
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
 
-    private Matrix4x4 _rotationMatrix;
+    private Matrix4x4 _rotationMatrix = Matrix4x4.identity;
 
     private void Awake()
     {
