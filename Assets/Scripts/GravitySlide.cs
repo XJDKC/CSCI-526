@@ -11,7 +11,7 @@ public class GravitySlide : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collider) {
         var reversibleObject = collider.gameObject.GetComponent<IReversible>();
         if (reversibleObject == null) return;
-
+        
         // ignore player with box collider
         if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
 
