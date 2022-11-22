@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,24 @@ public class MainMenu : MonoBehaviour
     void Awake()
     {
         DataManager.GetSessionID();
+    }
+
+    void Start()
+    {
+        // Transform[] children = GetComponentsInChildren<Transform>();
+        // foreach (var child in children)
+        // {
+        //     Debug.Log(child.name);
+        // }
+        GameObject[] checks = GameObject.FindGameObjectsWithTag("Check");
+        for (var i = 0; i < checks.Length; i++)
+        {
+            Debug.Log(checks[i]);
+            string levelName = "Level" + checks[i].name;
+            Transform child = checks[i].gameObject.transform.GetChild(1);
+            Boolean status = LevelStatus.completeLevels.Contains(levelName);
+            child.gameObject.SetActive(status);
+        }
     }
 
     public void PlayLevel1_1()
