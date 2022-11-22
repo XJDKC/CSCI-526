@@ -137,18 +137,21 @@ public class RotationSwitch : MonoBehaviour
         // Do animations
         var elapsedTime = 0.0f;
         var deltaTime = animationTime / DivisionNumbers;
+        var cameraPosition = _camera.transform.position;
         var cameraRotation = _camera.transform.localRotation;
         var player1Rotation = _player1.transform.localRotation;
         var player2Rotation = _player2.transform.localRotation;
+        var targetPosition = GetCameraTargetPosition();
         while (elapsedTime <= animationTime)
         {
             var t = elapsedTime / animationTime;
+            _camera.transform.position = Vector3.Slerp(cameraPosition, targetPosition, t);
             var targetRotation = deltaAngle * cameraRotation;
-            _camera.transform.rotation = Quaternion.Slerp(cameraRotation, targetRotation, t);
+            _camera.transform.localRotation = Quaternion.Slerp(cameraRotation, targetRotation, t);
             targetRotation = deltaAngle * player1Rotation;
-            _player1.transform.rotation = Quaternion.Slerp(player1Rotation, targetRotation, t);
+            _player1.transform.localRotation = Quaternion.Slerp(player1Rotation, targetRotation, t);
             targetRotation = deltaAngle * player2Rotation;
-            _player2.transform.rotation = Quaternion.Slerp(player2Rotation, targetRotation, t);
+            _player2.transform.localRotation = Quaternion.Slerp(player2Rotation, targetRotation, t);
             elapsedTime += deltaTime;
 
             yield return new WaitForSecondsRealtime(deltaTime);
@@ -162,5 +165,19 @@ public class RotationSwitch : MonoBehaviour
         var gravity = Physics2D.gravity;
         var magnitude = Mathf.Max(Mathf.Abs(gravity.x), Mathf.Abs(gravity.y));
         Physics2D.gravity = new Vector2(0.0f, -magnitude);
+    }
+
+    private Vector3 GetCameraTargetPosition()
+    {
+        var cameraController = _camera.GetComponent<CameraController>();
+        var currCameraState = cameraController.GetCameraState();
+        if (currCameraState == CameraController.CameraState.Horizontal)
+        {
+            return cameraController.NextPosition(CameraController.CameraState.Vertical);
+        }
+        else
+        {
+            return cameraController.NextPosition(CameraController.CameraState.Horizontal);
+        }
     }
 }

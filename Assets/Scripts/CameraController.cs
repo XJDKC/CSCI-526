@@ -47,8 +47,7 @@ public class CameraController : MonoBehaviour
     private Vector3 _buttonLeftPos;
     private Vector3 _topRightPos;
 
-
-    private CameraState _currState;
+    private CameraState _currState = CameraState.Horizontal;
 
 
     private void Awake()
@@ -82,19 +81,14 @@ public class CameraController : MonoBehaviour
             // enables the orthographic mode and set its initial size
             _camera.orthographic = true;
             _camera.orthographicSize = defaultCameraSize;
-
-            // init current camera rotation state
-            _currState = CameraState.Horizontal;
         }
 
         if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
         {
             _anchored = true;
-            var blPos = anchorPoints.buttonLeftPoint.position;
-            var trPos = anchorPoints.topRightPoint.position;
-            _camMaxSize = (trPos.y - blPos.y) / 2;
-            _buttonLeftPos = blPos;
-            _topRightPos = trPos;
+            _buttonLeftPos = anchorPoints.buttonLeftPoint.position;
+            _topRightPos = anchorPoints.topRightPoint.position;
+            _camMaxSize = (_topRightPos.y - _buttonLeftPos.y) / 2;
         }
     }
 
@@ -155,6 +149,60 @@ public class CameraController : MonoBehaviour
             Vector3.SmoothDamp(_cameraTransform.position, nextCameraPos, ref _moveVelocity, moveSmoothTime);
     }
 
+
+    /**
+     * public interface for manually setting the zooming ratio of the camera
+     *
+     * @param: zoomRatio, recommended to be set between 1 to 2.5
+     */
+    public void SetZoomRatio(float zoomRatio)
+    {
+        _cameraZoomRatio = zoomRatio;
+    }
+
+    /**
+     * public interface for getting the camera state
+     *
+     * @return: camera rotating state: Horizontal = 0, Vertical = 1
+     */
+    public CameraState GetCameraState()
+    {
+        return _currState;
+    }
+
+    /**
+     * @param: next stage of camera
+     * @return: next position(Vector3) based on the next stage of camera
+     *
+     * Horizontal: next position should be clamped by four directions
+     * Vertical: next position doesn't have to be clamped
+     *
+     */
+    public Vector3 NextPosition(CameraState nextState)
+    {
+        _currState = nextState;
+
+        Vector3 nextPosition = GetMidPosition();
+        if (nextState == CameraState.Horizontal)
+        {
+            nextPosition = ClampPosition(nextPosition);
+        }
+
+        return nextPosition;
+    }
+
+    /**
+     * Get mid position of two players
+     */
+    private Vector3 GetMidPosition()
+    {
+        var playerPos1 = _player1.transform.position;
+        var playerPos2 = _player2.transform.position;
+        float midX = (playerPos1.x + playerPos2.x) / 2;
+        float midY = (playerPos1.y + playerPos2.y) / 2;
+        return new Vector3(midX, midY, transform.position.z);
+    }
+
     /**
      * clamp positions by anchor points
      */
@@ -177,56 +225,5 @@ public class CameraController : MonoBehaviour
         }
 
         return new Vector3(midX, midY, transform.position.z);
-    }
-
-    /*
-     * Get mid position of two players
-     */
-    private Vector3 GetMidPostion()
-    {
-        var playerPos1 = _player1.transform.position;
-        var playerPos2 = _player2.transform.position;
-        float midX = (playerPos1.x + playerPos2.x) / 2;
-        float midY = (playerPos1.y + playerPos2.y) / 2;
-        return new Vector3(midX, midY, transform.position.z);
-    }
-
-    /**
-     * public interface for manually setting the zooming ratio of the camera
-     *
-     * @param: zoomRatio, recommended to be set between 1 to 2.5
-     */
-    public void SetZoomRatio(float zoomRatio)
-    {
-        _cameraZoomRatio = zoomRatio;
-    }
-
-
-    /**
-     * @param: next stage of camera
-     * @return: next position(Vector3) based on the next stage of camera
-     *
-     * Horizontal: next position should be clamped by four directions
-     * Vertical: next position doesn't have to be clamped
-     * Rotating: #
-     *
-     */
-    public Vector3 NextPosition(CameraState nextState)
-    {
-        Vector3 nextPosition = GetMidPostion();
-        _currState = nextState;
-
-        if (nextState == CameraState.Vertical)
-        {
-            return nextPosition;
-        }
-
-        if (nextState == CameraState.Horizontal)
-        {
-            Vector3 clampedPosition = ClampPosition(nextPosition);
-            return clampedPosition;
-        }
-
-        return transform.position;
     }
 }
