@@ -74,11 +74,7 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
-        if (reversibleObject == null) return;
-
-        // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+        if (!CheckRestriction(collider)) return;
 
         MotivatePlayer(collider);
 
@@ -88,11 +84,7 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
-        if (reversibleObject == null) return;
-
-        // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+        if (!CheckRestriction(collider)) return;
 
         MotivatePlayer(collider);
 
@@ -105,7 +97,7 @@ public class GravityChange : MonoBehaviour
 
             if (currSide * prevSide < 0.0)
             {
-                reversibleObject.Reverse();
+                collider.GetComponent<IReversible>().Reverse();
             }
         }
 
@@ -115,11 +107,7 @@ public class GravityChange : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
-        if (reversibleObject == null) return;
-
-        // ignore player with box collider
-        if (collider.gameObject.CompareTag("Player") && collider is BoxCollider2D) return;
+        if (!CheckRestriction(collider)) return;
 
         float currSide = GetSide(collider);
 
@@ -130,29 +118,33 @@ public class GravityChange : MonoBehaviour
 
             if (currSide * prevSide < 0.0)
             {
-                reversibleObject.Reverse();
+                collider.GetComponent<IReversible>().Reverse();
             }
-
-            //Data collection
-            //StarUI.numsThroughGate += 1;
-            //Debug.Log(StarUI.numsThroughGate);
         }
 
         // update collider prev side
         _colliderPrevSide[collider] = currSide;
     }
 
-    private float GetSide(Collider2D collider)
+    private bool CheckRestriction(Collider2D collider)
     {
-        // find door's center and player's center
-        Vector3 center = transform.position;
-        Vector3 colliderCenter = collider.bounds.center;
+        // check if the collider is reversible
+        var reversibleObject = collider.gameObject.GetComponent<IReversible>();
+        if (reversibleObject == null) return false;
 
-        // vector from door to character: character's center - door's center position
-        Vector3 doorToObj = (colliderCenter - center).normalized;
-        float side = Vector3.Cross(_upVector, doorToObj).z;
+        // ignore player with box collider or wrong player type
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            var playerType = collider.gameObject.GetComponent<PlayerController>().playerType;
+            if (collider is BoxCollider2D ||
+                playerType == PlayerController.PlayerType.Player1 && gateMode == GateMode.SecondPlayer ||
+                playerType == PlayerController.PlayerType.Player2 && gateMode == GateMode.FirstPlayer)
+            {
+                return false;
+            }
+        }
 
-        return side;
+        return true;
     }
 
     private void MotivatePlayer(Collider2D collider)
@@ -167,5 +159,18 @@ public class GravityChange : MonoBehaviour
                 rigidbody2D.AddForce(force, ForceMode2D.Impulse);
             }
         }
+    }
+
+    private float GetSide(Collider2D collider)
+    {
+        // find door's center and player's center
+        Vector3 center = transform.position;
+        Vector3 colliderCenter = collider.bounds.center;
+
+        // vector from door to character: character's center - door's center position
+        Vector3 doorToObj = (colliderCenter - center).normalized;
+        float side = Vector3.Cross(_upVector, doorToObj).z;
+
+        return side;
     }
 }
