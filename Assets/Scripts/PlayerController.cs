@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour, IReversible
 
     void Update()
     {
+        if (Time.timeScale == 0.0f) return;
+        UpdateRotationMatrix();
         UpdateRotation();
         UpdateAnimation();
     }
@@ -209,8 +211,6 @@ public class PlayerController : MonoBehaviour, IReversible
 
     void UpdateRotation()
     {
-        if (Time.timeScale == 0.0f) return;
-
         bool reversed = (_playerState & PlayerState.Reversed) != 0;
 
         var reverseQuaternion = new Quaternion();
