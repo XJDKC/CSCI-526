@@ -7,15 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class BlackEnemy : MonoBehaviour
 {
-    private Rigidbody2D _rigidbody2D;
-
     private Animator _blackEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
         _blackEnemy = GetComponent<Animator>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
