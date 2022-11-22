@@ -11,12 +11,7 @@ public class AnchorPoints
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    [Flags]
-    public enum RotationState { Horizontal = 0, Vertical = 1, Rotating = 2 };
-
-    // Game Object of the two players, assign these in the Inspector
-    private GameObject _player1;
-    private GameObject _player2;
+    public enum CameraState { Horizontal = 0, Vertical = 1 }
 
     // Anchors to confine the camera , assign these in the Inspector
     public AnchorPoints anchorPoints;
@@ -34,6 +29,9 @@ public class CameraController : MonoBehaviour
     // Zoom ratio by two players, ensure the distance of two players to the length of the screen is not greater than ZoomRatioByPlayers
     private const float ZoomRatioByPlayers = 0.7f;
 
+    // Game Object of the two players, assign these in the Inspector
+    private GameObject _player1;
+    private GameObject _player2;
 
     // Related Components
     private Camera _camera;
@@ -49,8 +47,9 @@ public class CameraController : MonoBehaviour
     private Vector3 _buttonLeftPos;
     private Vector3 _topRightPos;
 
-    private float _prevAngle;
-    private RotationState _currState;
+
+    private CameraState _currState;
+
 
     private void Awake()
     {
@@ -84,56 +83,19 @@ public class CameraController : MonoBehaviour
             _camera.orthographic = true;
             _camera.orthographicSize = defaultCameraSize;
 
-            // camera's angle
-            _prevAngle = 0f;
-
             // init current camera rotation state
-            _currState = RotationState.Horizontal;
-
-            _prevAngle = 0;
+            _currState = CameraState.Horizontal;
         }
 
         if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
         {
             _anchored = true;
-            _camMaxSize = (anchorPoints.topRightPoint.position.y - anchorPoints.buttonLeftPoint.position.y) / 2;
-            _buttonLeftPos = anchorPoints.buttonLeftPoint.position;
-            _topRightPos = anchorPoints.topRightPoint.position;
+            var blPos = anchorPoints.buttonLeftPoint.position;
+            var trPos = anchorPoints.topRightPoint.position;
+            _camMaxSize = (trPos.y - blPos.y) / 2;
+            _buttonLeftPos = blPos;
+            _topRightPos = trPos;
         }
-    }
-
-    private void LateUpdate()
-    {
-        var currAngle = transform.eulerAngles.z;
-        bool rotating = Mathf.Abs(_prevAngle - currAngle) > 0;
-        _prevAngle = currAngle;
-
-        if (rotating)
-        {
-            _currState = RotationState.Rotating;
-        }
-
-        if (currAngle == 0 || Math.Abs(currAngle - 180) < 0.01f)
-        {
-            _currState = RotationState.Horizontal;
-        }
-        else if (Math.Abs(currAngle - 90) < 0.01f || Math.Abs(currAngle - 270) < 0.01f)
-        {
-            _currState = RotationState.Vertical;
-        }
-
-        // if (_currState == RotationState.Horizontal)
-        // {
-        //     Debug.Log("Horizontal");
-        // }
-        // else if (_currState == RotationState.Vertical)
-        // {
-        //     Debug.Log("Vertical");
-        // }
-        // else if (_currState == RotationState.Rotating)
-        // {
-        //     Debug.Log("Rotating");
-        // }
     }
 
     void FixedUpdate()
@@ -172,8 +134,6 @@ public class CameraController : MonoBehaviour
 
         float minimumCameraSize = defaultCameraSize * _cameraZoomRatio;
 
-        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
-        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
         float[] camSizes = { nextCameraSizeByDiagnal, nextCameraSizeByHeight, nextCameraSizeByWidth };
         var nextCameraSize = Mathf.Max(camSizes);
 
@@ -189,11 +149,7 @@ public class CameraController : MonoBehaviour
      */
     private void UpdateCameraPosition()
     {
-        Vector3 nextCameraPos = GetMidPostion();
-
-        // camera position could not leave the bounded area, if applied by two anchor points and with Horizontal state
-        if (_anchored && _currState == RotationState.Horizontal)
-            nextCameraPos = ClampPosition(nextCameraPos);
+        var nextCameraPos = NextPosition(_currState);
 
         _cameraTransform.position =
             Vector3.SmoothDamp(_cameraTransform.position, nextCameraPos, ref _moveVelocity, moveSmoothTime);
@@ -206,16 +162,19 @@ public class CameraController : MonoBehaviour
     {
         var midX = nextCameraPos.x;
         var midY = nextCameraPos.y;
-        float cameraHeight = _camera.orthographicSize * 2;
-        float cameraWidth = cameraHeight * _camera.aspect;
+        if (_anchored)
+        {
+            float cameraHeight = _camera.orthographicSize * 2;
+            float cameraWidth = cameraHeight * _camera.aspect;
 
-        var minX = _buttonLeftPos.x + cameraWidth / 2;
-        var maxX = _topRightPos.x - cameraWidth / 2;
-        if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
+            var minX = _buttonLeftPos.x + cameraWidth / 2;
+            var maxX = _topRightPos.x - cameraWidth / 2;
+            if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
 
-        var minY = _buttonLeftPos.y + cameraHeight / 2;
-        var maxY = _topRightPos.y - cameraHeight / 2;
-        if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
+            var minY = _buttonLeftPos.y + cameraHeight / 2;
+            var maxY = _topRightPos.y - cameraHeight / 2;
+            if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
+        }
 
         return new Vector3(midX, midY, transform.position.z);
     }
@@ -242,40 +201,30 @@ public class CameraController : MonoBehaviour
         _cameraZoomRatio = zoomRatio;
     }
 
-    /**
-     * @return: camera rotating status: Horizontal = 0, Vertical = 1, Rotating = 2
-     *
-     */
-    public int GetCameraStatus()
-    {
-        return (int)_currState;
-    }
 
     /**
-     * @return: next position(Vector3) based on camera's current status
+     * @param: next stage of camera
+     * @return: next position(Vector3) based on the next stage of camera
      *
-     * Horizontal: next position doesn't have to be clamped
-     * Vertical: next position should be clamped by four directions
+     * Horizontal: next position should be clamped by four directions
+     * Vertical: next position doesn't have to be clamped
      * Rotating: #
      *
      */
-    public Vector3 NextPositionAfterRotating()
+    public Vector3 NextPosition(CameraState nextState)
     {
         Vector3 nextPosition = GetMidPostion();
+        _currState = nextState;
 
-        if (_currState == RotationState.Horizontal)
+        if (nextState == CameraState.Vertical)
         {
             return nextPosition;
         }
 
-        if (_currState == RotationState.Vertical)
+        if (nextState == CameraState.Horizontal)
         {
             Vector3 clampedPosition = ClampPosition(nextPosition);
             return clampedPosition;
-        }
-
-        if (_currState == RotationState.Rotating)
-        {
         }
 
         return transform.position;
