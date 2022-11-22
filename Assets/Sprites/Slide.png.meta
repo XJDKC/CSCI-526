@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95d297a675042e74b80fb86ceaa3309d
+guid: 61caaca740eddb9469cbba4b0c357822
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SlideUp_0
+      name: Slide_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba7969431076bbb4a9a57c51a7dab058
-      internalID: -152879834
+      spriteID: 05595913c9029de4f9c35c4ba24c124a
+      internalID: 562271501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SlideUp_1
+      name: Slide_1
       rect:
         serializedVersion: 2
         x: 64
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46ba9790bc28f2c46a2918febfbdc3aa
-      internalID: -1469352054
+      spriteID: 1ac301a12427b0d4fbfd36073e91bc0c
+      internalID: -216859505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SlideUp_2
+      name: Slide_2
       rect:
         serializedVersion: 2
         x: 128
@@ -161,8 +161,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36ce9eead25ec3d4c93fa901ed77f8e1
-      internalID: 501720056
+      spriteID: 1605517812e3a1248bfcc67fc7e6581f
+      internalID: 1847294824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slide_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9087e1f37239490418676d1123a2902d
+      internalID: -1418192483
       vertices: []
       indices: 
       edges: []
@@ -178,9 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SlideUp_0: -152879834
-      SlideUp_1: -1469352054
-      SlideUp_2: 501720056
+      Slide_1: -216859505
+      Slide_2: 1847294824
+      Slide_3: -1418192483
+      Slide_0: 562271501
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
