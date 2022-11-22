@@ -50,7 +50,6 @@ public class CameraController : MonoBehaviour
     private Vector3 _topRightPos;
 
     private float _prevAngle;
-    private RotationState _prevState;
     private RotationState _currState;
 
     private void Awake()
@@ -103,15 +102,6 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        var eulerAngles = transform.eulerAngles;
-
-        // _currState = eulerAngles.z == 0f || Math.Abs(eulerAngles.z - 180f) < 0.1f ? RotationState.Horizontal : RotationState.Vertical;
-
-        // Debug.Log(transform.rotation.x + ", " + transform.rotation.y + ", " + transform.rotation.z);
-    }
-
     private void LateUpdate()
     {
         var currAngle = transform.eulerAngles.z;
@@ -131,6 +121,19 @@ public class CameraController : MonoBehaviour
         {
             _currState = RotationState.Vertical;
         }
+
+        // if (_currState == RotationState.Horizontal)
+        // {
+        //     Debug.Log("Horizontal");
+        // }
+        // else if (_currState == RotationState.Vertical)
+        // {
+        //     Debug.Log("Vertical");
+        // }
+        // else if (_currState == RotationState.Rotating)
+        // {
+        //     Debug.Log("Rotating");
+        // }
     }
 
     void FixedUpdate()
@@ -186,43 +189,51 @@ public class CameraController : MonoBehaviour
      */
     private void UpdateCameraPosition()
     {
+        Vector3 nextCameraPos = GetMidPostion();
+
+        // camera position could not leave the bounded area, if applied by two anchor points and with Horizontal state
+        if (_anchored && _currState == RotationState.Horizontal)
+            nextCameraPos = ClampPosition(nextCameraPos);
+
+        _cameraTransform.position =
+            Vector3.SmoothDamp(_cameraTransform.position, nextCameraPos, ref _moveVelocity, moveSmoothTime);
+    }
+
+    /**
+     * clamp positions by anchor points
+     */
+    private Vector3 ClampPosition(Vector3 nextCameraPos)
+    {
+        var midX = nextCameraPos.x;
+        var midY = nextCameraPos.y;
+        float cameraHeight = _camera.orthographicSize * 2;
+        float cameraWidth = cameraHeight * _camera.aspect;
+
+        var minX = _buttonLeftPos.x + cameraWidth / 2;
+        var maxX = _topRightPos.x - cameraWidth / 2;
+        if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
+
+        var minY = _buttonLeftPos.y + cameraHeight / 2;
+        var maxY = _topRightPos.y - cameraHeight / 2;
+        if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
+
+        return new Vector3(midX, midY, transform.position.z);
+    }
+
+    /*
+     * Get mid position of two players
+     */
+    private Vector3 GetMidPostion()
+    {
         var playerPos1 = _player1.transform.position;
         var playerPos2 = _player2.transform.position;
         float midX = (playerPos1.x + playerPos2.x) / 2;
         float midY = (playerPos1.y + playerPos2.y) / 2;
-
-
-        // camera position could not leave the bounded area, if applied by two anchor points
-        if (_anchored)
-        {
-            float cameraHeight = _camera.orthographicSize * 2;
-            float cameraWidth = cameraHeight * _camera.aspect;
-
-            // eulerAngles.z
-            if (_currState == RotationState.Horizontal)
-            {
-                var minX = _buttonLeftPos.x + cameraWidth / 2;
-                var maxX = _topRightPos.x - cameraWidth / 2;
-                if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
-
-                var minY = _buttonLeftPos.y + cameraHeight / 2;
-                var maxY = _topRightPos.y - cameraHeight / 2;
-                if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
-            }
-            else if (_currState == RotationState.Vertical)
-            {
-                // midX = Mathf.Clamp(midX, _buttonLeftPos.y + cameraWidth / 2, _topRightPos.y - cameraWidth / 2);
-            }
-        }
-
-        var currCameraPos = _cameraTransform.position;
-        var nextCameraPos = new Vector3(midX, midY, currCameraPos.z);
-        _cameraTransform.position =
-            Vector3.SmoothDamp(currCameraPos, nextCameraPos, ref _moveVelocity, moveSmoothTime);
+        return new Vector3(midX, midY, transform.position.z);
     }
 
     /**
-     * public interface for manually set the zooming ratio of the camera
+     * public interface for manually setting the zooming ratio of the camera
      *
      * @param: zoomRatio, recommended to be set between 1 to 2.5
      */
@@ -232,13 +243,41 @@ public class CameraController : MonoBehaviour
     }
 
     /**
-     * public interface to get camera rotating status
-     *
-     * return: Horizontal = 0, Vertical = 1, Rotating = 2
+     * @return: camera rotating status: Horizontal = 0, Vertical = 1, Rotating = 2
      *
      */
     public int GetCameraStatus()
     {
         return (int)_currState;
+    }
+
+    /**
+     * @return: next position(Vector3) based on camera's current status
+     *
+     * Horizontal: next position doesn't have to be clamped
+     * Vertical: next position should be clamped by four directions
+     * Rotating: #
+     *
+     */
+    public Vector3 NextPositionAfterRotating()
+    {
+        Vector3 nextPosition = GetMidPostion();
+
+        if (_currState == RotationState.Horizontal)
+        {
+            return nextPosition;
+        }
+
+        if (_currState == RotationState.Vertical)
+        {
+            Vector3 clampedPosition = ClampPosition(nextPosition);
+            return clampedPosition;
+        }
+
+        if (_currState == RotationState.Rotating)
+        {
+        }
+
+        return transform.position;
     }
 }
