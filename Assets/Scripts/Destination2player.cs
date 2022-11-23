@@ -76,6 +76,8 @@ public class Destination2player : MonoBehaviour
         {
             var starUI = FindObjectOfType<StarUI>();
             var finalUIController = FindObjectOfType<FinalUIController>();
+            if (finalUIController.GetPanelState() != FinalUIController.PanelState.Idle) return;
+
             if (starUI && !starUI.getStatus())
             {
                 // Fail state
@@ -103,6 +105,5 @@ public class Destination2player : MonoBehaviour
                 }
             }
         }
-
     }
 }
