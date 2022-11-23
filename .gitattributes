@@ -130,3 +130,6 @@
 # Font
 *.ttf lfs
 *.otf lfs
+
+# Document
+*.pdf lfs
