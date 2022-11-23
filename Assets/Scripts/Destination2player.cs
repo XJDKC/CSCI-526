@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,6 +60,10 @@ public class Destination2player : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,22 +74,35 @@ public class Destination2player : MonoBehaviour
     {
         if (player1Arr && player2Arr)
         {
-            var starUI = GameObject.FindObjectOfType<StarUI>();
+            var starUI = FindObjectOfType<StarUI>();
+            var finalUIController = FindObjectOfType<FinalUIController>();
             if (starUI && !starUI.getStatus())
             {
-                var guide = GameObject.FindObjectOfType<Guide>();
-                var guideMessage = GameObject.FindObjectOfType<GuideMessage>();
+                // Fail state
+                var guide = FindObjectOfType<Guide>();
+                var guideMessage = FindObjectOfType<GuideMessage>();
                 if (guide && guideMessage)
                 {
                     guide.mininumScorePanel();
                     guideMessage.minimumScoreText();
                 }
+
+                if (finalUIController)
+                {
+                    finalUIController.SwitchState(FinalUIController.PanelState.Fail);
+                }
             }
             else
             {
-                SceneManager.LoadScene("Menu");
+                // Success state
+                // SceneManager.LoadScene("Menu");
                 DataManager.CompleteLevel();
+                if (finalUIController)
+                {
+                    finalUIController.SwitchState(FinalUIController.PanelState.Success);
+                }
             }
         }
+
     }
 }
