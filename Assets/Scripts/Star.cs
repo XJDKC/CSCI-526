@@ -15,6 +15,7 @@ public class Star : MonoBehaviour, IReversible
     private float _elapsedTime;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer = null;
+    private bool _isCollided;
 
     private void Awake()
     {
@@ -46,11 +47,12 @@ public class Star : MonoBehaviour, IReversible
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         var player = col.gameObject;
-        if (player.CompareTag("Player"))
+        if (player.CompareTag("Player") && _isCollided == false)
         {
+            _isCollided = true;
             // data collect
             DataManager.AddStarPoints();
             Destroy(gameObject);
