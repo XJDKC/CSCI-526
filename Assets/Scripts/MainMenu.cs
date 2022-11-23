@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
         GameObject[] checks = GameObject.FindGameObjectsWithTag("Check");
         for (var i = 0; i < checks.Length; i++)
         {
-            Debug.Log(checks[i]);
+            //Debug.Log(checks[i]);
             string levelName = "Level" + checks[i].name;
             Transform check = checks[i].gameObject.transform.GetChild(1);
             Transform tutorial = checks[i].gameObject.transform.GetChild(2);
