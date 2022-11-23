@@ -7,10 +7,19 @@ using UnityEngine;
 
 public class WhiteEnemy : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D col)
+    private Animator _whiteEnemy;
+    private bool _isCollided;
+
+    void Start()
     {
-        if (col.gameObject.CompareTag("Player") && col.collider is CapsuleCollider2D)
+        _whiteEnemy = GetComponent<Animator>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player") && _isCollided == false)
         {
+            _isCollided = true;
             GameObject parent = transform.parent.gameObject;
             GameObject blackEnemy = parent.transform.GetChild(1).gameObject;
             bool isReversed = false;
@@ -22,6 +31,20 @@ public class WhiteEnemy : MonoBehaviour
             }
 
             Destroy(transform.parent.gameObject);
+        }
+        else if (_whiteEnemy != null)
+        {
+            var isCollidedId = Animator.StringToHash("isCollided");
+            _whiteEnemy.SetBool(isCollidedId, true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (_whiteEnemy != null)
+        {
+            var isCollidedId = Animator.StringToHash("isCollided");
+            _whiteEnemy.SetBool(isCollidedId, false);
         }
     }
 }

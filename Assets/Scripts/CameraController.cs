@@ -11,9 +11,7 @@ public class AnchorPoints
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    // Game Object of the two players, assign these in the Inspector
-    private GameObject _player1;
-    private GameObject _player2;
+    public enum CameraState { Horizontal = 0, Vertical = 1 }
 
     // Anchors to confine the camera , assign these in the Inspector
     public AnchorPoints anchorPoints;
@@ -31,6 +29,9 @@ public class CameraController : MonoBehaviour
     // Zoom ratio by two players, ensure the distance of two players to the length of the screen is not greater than ZoomRatioByPlayers
     private const float ZoomRatioByPlayers = 0.7f;
 
+    // Game Object of the two players, assign these in the Inspector
+    private GameObject _player1;
+    private GameObject _player2;
 
     // Related Components
     private Camera _camera;
@@ -38,8 +39,16 @@ public class CameraController : MonoBehaviour
 
     // Control the zoom ratio of the Camera, the larger the value, the broader the view is.
     private float _cameraZoomRatio = 1;
+    private float _camMaxSize = 100f;
     private float _zoomVelocity = 0.0f;
     private Vector3 _moveVelocity = Vector3.zero;
+
+    private bool _anchored;
+    private Vector3 _buttonLeftPos;
+    private Vector3 _topRightPos;
+
+    private CameraState _currState = CameraState.Horizontal;
+
 
     private void Awake()
     {
@@ -52,6 +61,7 @@ public class CameraController : MonoBehaviour
             {
                 _player1 = player;
             }
+
             if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player2)
             {
                 _player2 = player;
@@ -72,15 +82,22 @@ public class CameraController : MonoBehaviour
             _camera.orthographic = true;
             _camera.orthographicSize = defaultCameraSize;
         }
+
+        if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
+        {
+            _anchored = true;
+            _buttonLeftPos = anchorPoints.buttonLeftPoint.position;
+            _topRightPos = anchorPoints.topRightPoint.position;
+            _camMaxSize = (_topRightPos.y - _buttonLeftPos.y) / 2;
+        }
     }
 
     void FixedUpdate()
     {
         if (_camera && _player1 && _player2)
         {
-            UpdateCameraPosition();
             UpdateCameraSize();
-
+            UpdateCameraPosition();
         }
     }
 
@@ -111,25 +128,11 @@ public class CameraController : MonoBehaviour
 
         float minimumCameraSize = defaultCameraSize * _cameraZoomRatio;
 
-        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
-        // var nextCameraSize = Mathf.Max(nextCameraSizeByHeight, nextCameraSizeByWidth);
-        float [] camSizes = {nextCameraSizeByDiagnal, nextCameraSizeByHeight, nextCameraSizeByWidth};
+        float[] camSizes = { nextCameraSizeByDiagnal, nextCameraSizeByHeight, nextCameraSizeByWidth };
         var nextCameraSize = Mathf.Max(camSizes);
 
-        // camera size could not be smaller than the default size;
-        if (nextCameraSize < minimumCameraSize)
-        {
-            nextCameraSize = minimumCameraSize;
-        }
-
-        if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
-        {
-            var camMaxSize = (anchorPoints.topRightPoint.position.y - anchorPoints.buttonLeftPoint.position.y) / 2;
-            if (nextCameraSize > camMaxSize)
-            {
-                nextCameraSize = camMaxSize;
-            }
-        }
+        // camera size should be clamped;
+        nextCameraSize = Mathf.Clamp(nextCameraSize, minimumCameraSize, _camMaxSize);
 
         _camera.orthographicSize =
             Mathf.SmoothDamp(_camera.orthographicSize, nextCameraSize, ref _zoomVelocity, zoomSmoothTime);
@@ -140,35 +143,87 @@ public class CameraController : MonoBehaviour
      */
     private void UpdateCameraPosition()
     {
-        var playerPos1 = _player1.transform.position;
-        var playerPos2 = _player2.transform.position;
-        float midX = (playerPos1.x + playerPos2.x) / 2;
-        float midY = (playerPos1.y + playerPos2.y) / 2;
+        var nextCameraPos = NextPosition(_currState);
 
-        // camera position could not leave the bounded area, if applied by two anchor points
-        if (anchorPoints.topRightPoint && anchorPoints.buttonLeftPoint)
-        {
-            float cameraHeight = _camera.orthographicSize * 2;
-            float cameraWidth = cameraHeight * _camera.aspect;
-            var buttonLeftPos = anchorPoints.buttonLeftPoint.position;
-            var topRightPos = anchorPoints.topRightPoint.position;
-            midX = Mathf.Clamp(midX, buttonLeftPos.x + cameraWidth / 2, topRightPos.x - cameraWidth / 2);
-            midY = Mathf.Clamp(midY, buttonLeftPos.y + cameraHeight / 2, topRightPos.y - cameraHeight / 2);
-        }
-
-        var currCameraPos = _cameraTransform.position;
-        var nextCameraPos = new Vector3(midX, midY, currCameraPos.z);
         _cameraTransform.position =
-            Vector3.SmoothDamp(currCameraPos, nextCameraPos, ref _moveVelocity, moveSmoothTime);
+            Vector3.SmoothDamp(_cameraTransform.position, nextCameraPos, ref _moveVelocity, moveSmoothTime);
     }
 
+
     /**
-     * public interface for manually set the zooming ratio of the camera
+     * public interface for manually setting the zooming ratio of the camera
      *
      * @param: zoomRatio, recommended to be set between 1 to 2.5
      */
     public void SetZoomRatio(float zoomRatio)
     {
         _cameraZoomRatio = zoomRatio;
+    }
+
+    /**
+     * public interface for getting the camera state
+     *
+     * @return: camera rotating state: Horizontal = 0, Vertical = 1
+     */
+    public CameraState GetCameraState()
+    {
+        return _currState;
+    }
+
+    /**
+     * @param: next stage of camera
+     * @return: next position(Vector3) based on the next stage of camera
+     *
+     * Horizontal: next position should be clamped by four directions
+     * Vertical: next position doesn't have to be clamped
+     *
+     */
+    public Vector3 NextPosition(CameraState nextState)
+    {
+        _currState = nextState;
+
+        Vector3 nextPosition = GetMidPosition();
+        if (nextState == CameraState.Horizontal)
+        {
+            nextPosition = ClampPosition(nextPosition);
+        }
+
+        return nextPosition;
+    }
+
+    /**
+     * Get mid position of two players
+     */
+    private Vector3 GetMidPosition()
+    {
+        var playerPos1 = _player1.transform.position;
+        var playerPos2 = _player2.transform.position;
+        float midX = (playerPos1.x + playerPos2.x) / 2;
+        float midY = (playerPos1.y + playerPos2.y) / 2;
+        return new Vector3(midX, midY, transform.position.z);
+    }
+
+    /**
+     * clamp positions by anchor points
+     */
+    private Vector3 ClampPosition(Vector3 nextCameraPos)
+    {
+        var midX = nextCameraPos.x;
+        var midY = nextCameraPos.y;
+        if (_anchored)
+        {
+            float cameraHeight = _camera.orthographicSize * 2;
+            float cameraWidth = cameraHeight * _camera.aspect;
+
+            var minX = _buttonLeftPos.x + cameraWidth / 2;
+            var maxX = _topRightPos.x - cameraWidth / 2;
+            if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
+
+            var minY = _buttonLeftPos.y + cameraHeight / 2;
+            var maxY = _topRightPos.y - cameraHeight / 2;
+            if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
+        }
+
+        return new Vector3(midX, midY, transform.position.z);
     }
 }
