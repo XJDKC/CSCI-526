@@ -12,7 +12,8 @@ public class FinalUIController : MonoBehaviour
     public GameObject successDialog;
     public GameObject failDialog;
 
-    private PanelState _panelState = PanelState.Idle;
+    private PanelState _prevPanelState = PanelState.Idle;
+    private PanelState _currPanelState = PanelState.Idle;
     private int _sceneNo;
 
     private void Awake()
@@ -27,7 +28,9 @@ public class FinalUIController : MonoBehaviour
 
     private void Update()
     {
-        switch (_panelState)
+        if (_prevPanelState == _currPanelState) return;
+
+        switch (_currPanelState)
         {
             case PanelState.Idle:
                 successDialog.SetActive(false);
@@ -46,12 +49,12 @@ public class FinalUIController : MonoBehaviour
                 break;
         }
 
+        _prevPanelState = _currPanelState;
     }
 
     // Move to the next level button controller
     public void NextLevel()
     {
-        Debug.Log("Btn clicked");
         SceneManager.LoadScene(_sceneNo);
     }
 
@@ -59,7 +62,7 @@ public class FinalUIController : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //data manage hook
+        // data manage hook
         DataManager.RestartLevel();
         DataManager.GetStartTime();
     }
@@ -72,6 +75,11 @@ public class FinalUIController : MonoBehaviour
 
     public void SwitchState(PanelState panelState)
     {
-        _panelState = panelState;
+        _currPanelState = panelState;
+    }
+
+    public PanelState GetPanelState()
+    {
+        return _currPanelState;
     }
 }
