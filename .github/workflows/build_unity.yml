@@ -34,7 +34,7 @@ jobs:
           lfs: true
 
       - name: Caching Unity Library
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             Library
@@ -53,7 +53,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
