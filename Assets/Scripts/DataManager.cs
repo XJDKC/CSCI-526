@@ -111,6 +111,7 @@ public class DataManager : MonoBehaviour
         {
             endStatus = "Completed";
             Instance.GetEndTime();
+            LevelStatus.ChangeLevelStatus();
             Instance.Send();
         }
     }

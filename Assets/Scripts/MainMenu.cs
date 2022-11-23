@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,27 @@ public class MainMenu : MonoBehaviour
     void Awake()
     {
         DataManager.GetSessionID();
+    }
+
+    void Start()
+    {
+        // Transform[] children = GetComponentsInChildren<Transform>();
+        // foreach (var child in children)
+        // {
+        //     Debug.Log(child.name);
+        // }
+        GameObject[] checks = GameObject.FindGameObjectsWithTag("Check");
+        for (var i = 0; i < checks.Length; i++)
+        {
+            //Debug.Log(checks[i]);
+            string levelName = "Level" + checks[i].name;
+            Transform check = checks[i].gameObject.transform.GetChild(1);
+            Transform tutorial = checks[i].gameObject.transform.GetChild(2);
+            Boolean status = LevelStatus.completeLevels.Contains(levelName);
+            Boolean isTutorial = LevelStatus.tutorialLevels.Contains(levelName);
+            check.gameObject.SetActive(status);
+            tutorial.gameObject.SetActive(isTutorial);
+        }
     }
 
     public void PlayLevel1_1()
@@ -168,6 +190,13 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Level7-3");
         DataManager.levelName = "Level7-3";
+        DataManager.GetStartTime();
+    }
+
+    public void PlayLevel8_1()
+    {
+        SceneManager.LoadScene("Level8-1");
+        DataManager.levelName = "Level8-1";
         DataManager.GetStartTime();
     }
 }
