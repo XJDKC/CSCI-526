@@ -136,6 +136,7 @@ public class RotationSwitch : MonoBehaviour
 
         // Do animations
         var elapsedTime = 0.0f;
+        var startTime = Time.realtimeSinceStartup;
         var deltaTime = animationTime / DivisionNumbers;
         var cameraPosition = _camera.transform.position;
         var cameraRotation = _camera.transform.localRotation;
@@ -144,7 +145,7 @@ public class RotationSwitch : MonoBehaviour
         var targetPosition = GetCameraTargetPosition();
         while (elapsedTime <= animationTime)
         {
-            var t = elapsedTime / animationTime;
+            var t = Mathf.Clamp(elapsedTime / animationTime, 0.0f, 1.0f);
             _camera.transform.position = Vector3.Slerp(cameraPosition, targetPosition, t);
             var targetRotation = deltaAngle * cameraRotation;
             _camera.transform.localRotation = Quaternion.Slerp(cameraRotation, targetRotation, t);
@@ -152,9 +153,9 @@ public class RotationSwitch : MonoBehaviour
             _player1.transform.localRotation = Quaternion.Slerp(player1Rotation, targetRotation, t);
             targetRotation = deltaAngle * player2Rotation;
             _player2.transform.localRotation = Quaternion.Slerp(player2Rotation, targetRotation, t);
-            elapsedTime += deltaTime;
 
             yield return new WaitForSecondsRealtime(deltaTime);
+            elapsedTime = Time.realtimeSinceStartup - startTime;
         }
 
         Time.timeScale = 1.0f;
