@@ -12,7 +12,7 @@ public class FinalUIController : MonoBehaviour
     public GameObject successDialog;
     public GameObject failDialog;
 
-    private PanelState _prevPanelState = PanelState.Idle;
+    private PanelState _prevPanelState = PanelState.Success;
     private PanelState _currPanelState = PanelState.Idle;
     private int _sceneNo;
 
