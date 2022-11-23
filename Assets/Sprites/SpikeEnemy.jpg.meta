@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ibb&obbEnemy_0
+      name: SprikeEnemy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,7 +125,7 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ibb&obbEnemy_1
+      name: SprikeEnemy_1
       rect:
         serializedVersion: 2
         x: 2048
@@ -146,7 +146,7 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,15 +159,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ibb&obbEnemy_2
+      name: SprikeEnemy_2
       rect:
         serializedVersion: 2
-        x: 4096
+        x: 4105
         y: 0
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,7 +180,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ibb&obbEnemy_3
+      name: SprikeEnemy_4
       rect:
         serializedVersion: 2
         x: 6144
@@ -188,7 +188,7 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -201,7 +201,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ibb&obbEnemy_4
+      name: SprikeEnemy_
       rect:
         serializedVersion: 2
         x: 8192
@@ -209,7 +209,7 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,7 +222,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ibb&obbEnemy_5
+      name: SprikeEnemy_5
       rect:
         serializedVersion: 2
         x: 10240
@@ -230,7 +230,7 @@ TextureImporter:
         width: 2048
         height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ibb&obbEnemy_1: 434641839
-      ibb&obbEnemy_0: -870622556
-      ibb&obbEnemy_5: 1349956278
-      ibb&obbEnemy_2: 706020513
-      ibb&obbEnemy_3: 593969266
-      ibb&obbEnemy_4: 524692966
+      SprikeEnemy_4: 593969266
+      SprikeEnemy_0: -870622556
+      SprikeEnemy_: 524692966
+      SprikeEnemy_1: 434641839
+      SprikeEnemy_5: 1349956278
+      SprikeEnemy_2: 706020513
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
