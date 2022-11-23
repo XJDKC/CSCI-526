@@ -97,12 +97,12 @@ public class Destination2player : MonoBehaviour
             else
             {
                 // Success state
-                // SceneManager.LoadScene("Menu");
-                DataManager.CompleteLevel();
                 if (finalUIController)
                 {
                     finalUIController.SwitchState(FinalUIController.PanelState.Success);
                 }
+
+                DataManager.CompleteLevel();
             }
         }
     }

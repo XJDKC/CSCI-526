@@ -9,7 +9,8 @@ public class RestartBtn : MonoBehaviour
     [SerializeField] private string scene;
 
     // get active scence
-    private void Start() {
+    private void Start()
+    {
         scene = SceneManager.GetActiveScene().name;
     }
 
@@ -17,7 +18,6 @@ public class RestartBtn : MonoBehaviour
     public void OnButtonPress()
     {
         SceneManager.LoadScene(scene);
-        //data manage hook
         DataManager.RestartLevel();
         DataManager.GetStartTime();
     }
