@@ -14,7 +14,6 @@ public class FinalUIController : MonoBehaviour
 
     private PanelState _prevPanelState = PanelState.Success;
     private PanelState _currPanelState = PanelState.Idle;
-    private int _sceneNo;
 
     private void Awake()
     {
@@ -23,7 +22,6 @@ public class FinalUIController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _sceneNo = SceneManager.GetActiveScene().buildIndex + 1;
     }
 
     private void Update()
@@ -55,7 +53,7 @@ public class FinalUIController : MonoBehaviour
     // Move to the next level button controller
     public void NextLevel()
     {
-        SceneManager.LoadScene(_sceneNo);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     // Restart level controller

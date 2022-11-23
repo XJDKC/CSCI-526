@@ -2,15 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelStatus : MonoBehaviour
 {
     private static LevelStatus _instance;
     public static LevelStatus Instance { get { return _instance; } }
 
-    public static Hashtable completeStatus = new Hashtable();
-    public static HashSet<string> completeLevels = new HashSet<string>();
-    public static HashSet<string> tutorialLevels = new HashSet<string>();
+    public static HashSet<string> CompleteLevels = new HashSet<string>();
+
+    public static readonly HashSet<string> TutorialLevels = new HashSet<string>()
+    {
+        "Level1-1",
+        "Level1-2",
+        "Level1-3",
+        "Level1-4",
+        "Level2-1",
+        "Level3-1",
+        "Level4-1",
+        "Level5-1",
+        "Level6-1",
+        "Level7-1",
+        "Level8-1"
+    };
 
     void Awake()
     {
@@ -23,32 +37,19 @@ public class LevelStatus : MonoBehaviour
         {
             _instance = this;
         }
+
         DontDestroyOnLoad(gameObject);
-        if (tutorialLevels.Count == 0)
-        {
-            tutorialLevels.Add("Level1-1");
-            tutorialLevels.Add("Level1-2");
-            tutorialLevels.Add("Level1-3");
-            tutorialLevels.Add("Level1-4");
-            tutorialLevels.Add("Level2-1");
-            tutorialLevels.Add("Level3-1");
-            tutorialLevels.Add("Level4-1");
-            tutorialLevels.Add("Level5-1");
-            tutorialLevels.Add("Level6-1");
-            tutorialLevels.Add("Level7-1");
-            tutorialLevels.Add("Level8-1");
-        }
     }
 
     public static void ChangeLevelStatus()
     {
         if (Instance)
         {
-            string level = DataManager.levelName;
+            string level = SceneManager.GetActiveScene().name;
             Debug.Log(level);
-            if (!completeLevels.Contains(level))
+            if (!CompleteLevels.Contains(level))
             {
-                completeLevels.Add(level);
+                CompleteLevels.Add(level);
             }
         }
         else

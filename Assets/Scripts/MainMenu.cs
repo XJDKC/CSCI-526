@@ -13,20 +13,13 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        // Transform[] children = GetComponentsInChildren<Transform>();
-        // foreach (var child in children)
-        // {
-        //     Debug.Log(child.name);
-        // }
-        GameObject[] checks = GameObject.FindGameObjectsWithTag("Check");
-        for (var i = 0; i < checks.Length; i++)
+        foreach (var level in GameObject.FindGameObjectsWithTag("Check"))
         {
-            //Debug.Log(checks[i]);
-            string levelName = "Level" + checks[i].name;
-            Transform check = checks[i].gameObject.transform.GetChild(1);
-            Transform tutorial = checks[i].gameObject.transform.GetChild(2);
-            Boolean status = LevelStatus.completeLevels.Contains(levelName);
-            Boolean isTutorial = LevelStatus.tutorialLevels.Contains(levelName);
+            string levelName = "Level" + level.name;
+            Transform check = level.transform.GetChild(1);
+            Transform tutorial = level.transform.GetChild(2);
+            bool status = LevelStatus.CompleteLevels.Contains(levelName);
+            bool isTutorial = LevelStatus.TutorialLevels.Contains(levelName);
             check.gameObject.SetActive(status);
             tutorial.gameObject.SetActive(isTutorial);
         }
