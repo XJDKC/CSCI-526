@@ -1014,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GravityReverse1
       objectReference: {fileID: 0}
+    - target: {fileID: 6168479096766958840, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
 --- !u!1001 &940170143
