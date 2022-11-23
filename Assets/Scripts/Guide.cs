@@ -33,11 +33,13 @@ public class Guide : MonoBehaviour
     private Boolean reach;
     public int hU;
     public float dS;
+    private Boolean hints;
 
 
     void Start()
     {
         reach = false;
+        hints = false;
         if (hU == 0)
         {
             hU = 0;
@@ -102,6 +104,36 @@ public class Guide : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (hints)
+        {
+            if (GetComponent<RectTransform>().offsetMax.y > -60)
+            {
+                gameObject.transform.position = new Vector3(transform.position.x,
+                    transform.position.y - 0.6f, transform.position.z);
+            }
+        }
+        else
+        {
+            if (GetComponent<RectTransform>().offsetMax.y < 90)
+            {
+                gameObject.transform.position = new Vector3(transform.position.x,
+                    transform.position.y + 0.6f, transform.position.z);
+            }
+        }
+    }
+
+    public void hintsButton()
+    {
+        if (hints == true)
+        {
+            hints = false;
+
+        }
+        else
+        {
+            hints = true;
         }
     }
 
