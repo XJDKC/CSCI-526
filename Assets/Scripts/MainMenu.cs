@@ -23,9 +23,12 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log(checks[i]);
             string levelName = "Level" + checks[i].name;
-            Transform child = checks[i].gameObject.transform.GetChild(1);
+            Transform check = checks[i].gameObject.transform.GetChild(1);
+            Transform tutorial = checks[i].gameObject.transform.GetChild(2);
             Boolean status = LevelStatus.completeLevels.Contains(levelName);
-            child.gameObject.SetActive(status);
+            Boolean isTutorial = LevelStatus.tutorialLevels.Contains(levelName);
+            check.gameObject.SetActive(status);
+            tutorial.gameObject.SetActive(isTutorial);
         }
     }
 
