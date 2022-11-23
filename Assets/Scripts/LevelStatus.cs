@@ -36,6 +36,7 @@ public class LevelStatus : MonoBehaviour
             tutorialLevels.Add("Level5-1");
             tutorialLevels.Add("Level6-1");
             tutorialLevels.Add("Level7-1");
+            tutorialLevels.Add("Level8-1");
         }
     }
 
