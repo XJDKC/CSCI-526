@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
@@ -23,11 +24,11 @@ public class DataManager : MonoBehaviour
     private static int _starPoint = 1;
 
     private static DataManager _instance;
-    public static DataManager Instance { get { return _instance;  } }
+    public static DataManager Instance { get { return _instance; } }
 
     void Awake()
     {
-        //sessionId = DateTime.Now.Ticks;
+        // sessionId = DateTime.Now.Ticks;
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -35,7 +36,9 @@ public class DataManager : MonoBehaviour
         else
         {
             _instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -43,14 +46,14 @@ public class DataManager : MonoBehaviour
     void Start()
     {
         currentStarPoints = 0;
-        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLMoxH4aXAOXu_kRxxODsHIG14is4OP-7tnWGqBNDjygMTZw/formResponse";
+        url =
+            "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLMoxH4aXAOXu_kRxxODsHIG14is4OP-7tnWGqBNDjygMTZw/formResponse";
         levelName = "";
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     // Get session id
@@ -72,7 +75,7 @@ public class DataManager : MonoBehaviour
         {
             currentStarPoints += _starPoint;
         }
-        //Debug.Log("points: " + currentStarPoints);
+        // Debug.Log("points: " + currentStarPoints);
     }
 
     public static void GetDeathReason(GameObject Enemy)
@@ -84,7 +87,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("enemy: " + parent);
             endStatus = parent;
             Instance.GetEndTime();
-            //TODO: call data post
+            // TODO: call data post
             if (_instance == null)
                 Debug.Log("Null Instance1");
             Instance.Send();
@@ -94,7 +97,8 @@ public class DataManager : MonoBehaviour
     //get start time when a level starts
     public static void GetStartTime()
     {
-        if(Instance){
+        if (Instance)
+        {
             startTime = DateTime.Now.Ticks;
         }
     }
@@ -126,28 +130,22 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public static void ClearStarPoints()
-    {
-        currentStarPoints = 0;
-    }
-
     public void Send()
     {
         Debug.Log("--Collecting data--");
-        //Debug.Log("starQuantity: " + starQuantity);
+        // Debug.Log("starQuantity: " + starQuantity);
         gameSeconds = (endTime - startTime) / 10000000;
-        //Debug.Log(gameSeconds);
+        // Debug.Log(gameSeconds);
         StartCoroutine(Post());
-        currentStarPoints = 0;
-        //PostData(starQuantity.ToString());
+        // PostData(starQuantity.ToString());
     }
 
-    //arg1: coinQuantity(read from STarUI), arg2: deathReason(read from BlackEnemyConfig, get parent.name)
+    // arg1: coinQuantity(read from STarUI), arg2: deathReason(read from BlackEnemyConfig, get parent.name)
     private IEnumerator Post()
     {
         Debug.Log("--Posting data--");
         WWWForm form = new WWWForm();
-        //Change according to google form html
+        // Change according to google form html
         form.AddField("entry.244983340", sessionId.ToString());
         form.AddField("entry.1862673262", endStatus);
         form.AddField("entry.1387275365", currentStarPoints.ToString());
@@ -155,7 +153,7 @@ public class DataManager : MonoBehaviour
         form.AddField("entry.232040088", gameSeconds.ToString());
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
-            //Debug.Log("--Sending request--");
+            // Debug.Log("--Sending request--");
             yield return www.SendWebRequest();
             if (www.result != UnityWebRequest.Result.Success)
             {
@@ -166,5 +164,10 @@ public class DataManager : MonoBehaviour
                 Debug.Log("Data upload complete");
             }
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        currentStarPoints = 0;
     }
 }
