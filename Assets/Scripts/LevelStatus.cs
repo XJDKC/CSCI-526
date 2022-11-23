@@ -11,6 +11,7 @@ public class LevelStatus : MonoBehaviour
     public static Hashtable completeStatus = new Hashtable();
     public static HashSet<string> completeLevels = new HashSet<string>();
     public static HashSet<string> tutorialLevels = new HashSet<string>();
+    public static List<string> levelList = new List<string>();
 
     void Awake()
     {
@@ -37,6 +38,33 @@ public class LevelStatus : MonoBehaviour
             tutorialLevels.Add("Level6-1");
             tutorialLevels.Add("Level7-1");
             tutorialLevels.Add("Level8-1");
+        }
+
+        if (levelList.Count == 0)
+        {
+            levelList.Add("Level1-1");
+            levelList.Add("Level1-2");
+            levelList.Add("Level1-3");
+            levelList.Add("Level1-4");
+            levelList.Add("Level2-1");
+            levelList.Add("Level2-2");
+            levelList.Add("Level2-3");
+            levelList.Add("Level3-1");
+            levelList.Add("Level3-2");
+            levelList.Add("Level3-3");
+            levelList.Add("Level4-1");
+            levelList.Add("Level4-2");
+            levelList.Add("Level4-3");
+            levelList.Add("Level5-1");
+            levelList.Add("Level5-2");
+            levelList.Add("Level5-3");
+            levelList.Add("Level6-1");
+            levelList.Add("Level6-2");
+            levelList.Add("Level6-3");
+            levelList.Add("Level7-1");
+            levelList.Add("Level7-2");
+            levelList.Add("Level7-3");
+            levelList.Add("Level8-1");
         }
     }
 

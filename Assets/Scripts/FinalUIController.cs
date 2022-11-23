@@ -55,7 +55,11 @@ public class FinalUIController : MonoBehaviour
     // Move to the next level button controller
     public void NextLevel()
     {
-        SceneManager.LoadScene(_sceneNo);
+        if (_sceneNo <= LevelStatus.levelList.Count)
+        {
+            SceneManager.LoadScene(_sceneNo);
+            DataManager.levelName = LevelStatus.levelList[_sceneNo - 1];
+        }
     }
 
     // Restart level controller
