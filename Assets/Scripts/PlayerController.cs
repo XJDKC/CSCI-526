@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour, IReversible
     private PlayerState _playerState = PlayerState.Idle;
     private PlayerState _prevMoveState = PlayerState.Idle;
 
+    private bool _skipUpdate = false;
     private Matrix4x4 _rotationMatrix = Matrix4x4.identity;
 
     private void Awake()
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour, IReversible
 
     void FixedUpdate()
     {
+        if (ShouldSkipUpdate(true)) return;
         UpdateRotationMatrix();
         UpdatePlayerState();
         UpdateMovement();
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour, IReversible
 
     void Update()
     {
-        if (Time.timeScale == 0.0f) return;
+        if (ShouldSkipUpdate(false)) return;
         UpdateRotationMatrix();
         UpdateRotation();
         UpdateAnimation();
@@ -100,6 +102,19 @@ public class PlayerController : MonoBehaviour, IReversible
     public void OnJump(InputAction.CallbackContext context)
     {
         _jumpInput = context.ReadValue<float>();
+    }
+
+    bool ShouldSkipUpdate(bool fixedUpdate)
+    {
+        // skip update if the time scale is zero or it is the first frame after unfreezing
+        _skipUpdate = _skipUpdate || Time.timeScale == 0.0f;
+        if (_skipUpdate && fixedUpdate)
+        {
+            _skipUpdate = false;
+            return true;
+        }
+
+        return _skipUpdate;
     }
 
     bool IsOnGround()
