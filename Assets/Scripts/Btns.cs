@@ -64,11 +64,6 @@ public class Btns : MonoBehaviour
     {
         if (DataManager.currentStarPoints >= minimum)
         {
-            print("DataManager.currentStarPoints");
-            print(DataManager.currentStarPoints);
-            print("minimum");
-            print(minimum);
-            print(maximum);
             reached = true;
             _textMeshPro.color = Color.green * 0.8f;
         }
