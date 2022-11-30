@@ -82,11 +82,9 @@ public class Destination2player : MonoBehaviour
             {
                 // Fail state
                 var guide = FindObjectOfType<Guide>();
-                var guideMessage = FindObjectOfType<GuideMessage>();
-                if (guide && guideMessage)
+                if (guide)
                 {
                     guide.mininumScorePanel();
-                    guideMessage.minimumScoreText();
                 }
 
                 if (finalUIController)

@@ -2157,6 +2157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guideInfos: []
+  messages: []
   hU: 0
   dS: 0
 --- !u!1 &6559469183719926062
@@ -2653,7 +2654,6 @@ GameObject:
   - component: {fileID: 5139321208346169206}
   - component: {fileID: 8944469340141587696}
   - component: {fileID: 5208922186753824801}
-  - component: {fileID: 138465363235704607}
   m_Layer: 5
   m_Name: TextPrompt
   m_TagString: Untagged
@@ -2778,16 +2778,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &138465363235704607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8236412026754049384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84c7ecee6f3f4e1783b402a3e405672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messages: []
