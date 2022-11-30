@@ -37,6 +37,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void Return()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
     public void PlayLevel1_1()
     {
         SceneManager.LoadScene("Level1-1");
