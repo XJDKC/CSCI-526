@@ -409,6 +409,10 @@ PrefabInstance:
       value: GravitySlide-Top (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4049861153827556406, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049861153827556406, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
       propertyPath: m_AutoTiling
       value: 1
       objectReference: {fileID: 0}
@@ -418,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4049861153827556406, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 8.3
+      value: 8.230814
       objectReference: {fileID: 0}
     - target: {fileID: 4049861153827556407, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
       propertyPath: m_Size.y
@@ -525,6 +529,10 @@ PrefabInstance:
     - target: {fileID: 4049861153827556404, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
       propertyPath: m_Name
       value: GravitySlide-Top
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049861153827556406, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
+      propertyPath: m_Size.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4049861153827556406, guid: 57d38d60718d94499aa1abc2a6fb0494, type: 3}
       propertyPath: m_AutoTiling
