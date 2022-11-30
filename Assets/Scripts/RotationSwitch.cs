@@ -158,6 +158,10 @@ public class RotationSwitch : MonoBehaviour
             elapsedTime = Time.realtimeSinceStartup - startTime;
         }
 
+        _camera.transform.localRotation = deltaAngle * cameraRotation;
+        _player1.transform.localRotation = deltaAngle * player1Rotation;
+        _player2.transform.localRotation = deltaAngle * player2Rotation;
+
         Time.timeScale = 1.0f;
     }
 

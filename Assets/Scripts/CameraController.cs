@@ -39,16 +39,16 @@ public class CameraController : MonoBehaviour
 
     // Control the zoom ratio of the Camera, the larger the value, the broader the view is.
     private float _cameraZoomRatio = 1;
-    private float _camMaxSize = 100f;
     private float _zoomVelocity = 0.0f;
     private Vector3 _moveVelocity = Vector3.zero;
 
     private bool _anchored;
-    // flags for camera to follow plays in x and y axises
-    private bool _followPlayersX;
-    private bool _followPlayersY;
+    private float _anchorWidth;
+    private float _anchorHeight;
     private Vector3 _buttonLeftPos;
     private Vector3 _topRightPos;
+
+    // central middle points of the two anchors
     private Vector3 _midAnchorPos;
 
     private CameraState _currState = CameraState.Horizontal;
@@ -92,16 +92,10 @@ public class CameraController : MonoBehaviour
             _anchored = true;
             _buttonLeftPos = anchorPoints.buttonLeftPoint.position;
             _topRightPos = anchorPoints.topRightPoint.position;
-            var anchorWidth = _topRightPos.x - _buttonLeftPos.x;
-            var anchorHeight = _topRightPos.y - _buttonLeftPos.y;
+            _anchorWidth = _topRightPos.x - _buttonLeftPos.x;
+            _anchorHeight = _topRightPos.y - _buttonLeftPos.y;
             _midAnchorPos = new Vector3((_topRightPos.x + _buttonLeftPos.x) / 2,
                 (_topRightPos.y + _buttonLeftPos.y) / 2, _cameraTransform.position.z);
-            var defaultCameraWidth = defaultCameraSize * _camera.aspect * 2;
-            var defaultCameraHeight = defaultCameraSize * 2;
-            _cameraTransform.position = _midAnchorPos;
-            _followPlayersX = anchorWidth > defaultCameraWidth;
-            _followPlayersY = anchorHeight > defaultCameraHeight;
-            _camMaxSize = (_topRightPos.y - _buttonLeftPos.y) / 2;
         }
     }
 
@@ -145,7 +139,8 @@ public class CameraController : MonoBehaviour
         var nextCameraSize = Mathf.Max(camSizes);
 
         // camera size should be clamped;
-        nextCameraSize = Mathf.Clamp(nextCameraSize, minimumCameraSize, _camMaxSize);
+        // nextCameraSize = Mathf.Clamp(nextCameraSize, minimumCameraSize, _camMaxSize);
+        nextCameraSize = Mathf.Max(nextCameraSize, minimumCameraSize);
 
         _camera.orthographicSize =
             Mathf.SmoothDamp(_camera.orthographicSize, nextCameraSize, ref _zoomVelocity, zoomSmoothTime);
@@ -221,24 +216,23 @@ public class CameraController : MonoBehaviour
      */
     private Vector3 ClampPosition(Vector3 nextCameraPos)
     {
-        var midX = nextCameraPos.x;
-        var midY = nextCameraPos.y;
-        if (_anchored)
-        {
-            float cameraHeight = _camera.orthographicSize * 2;
-            float cameraWidth = cameraHeight * _camera.aspect;
+        if (!_anchored) return new Vector3(nextCameraPos.x, nextCameraPos.y, transform.position.z);
+        var currentCameraWidth = _camera.orthographicSize * _camera.aspect * 2;
+        var currentCameraHeight = _camera.orthographicSize * 2;
 
-            var minX = _buttonLeftPos.x + cameraWidth / 2;
-            var maxX = _topRightPos.x - cameraWidth / 2;
-            if (_followPlayersX) midX = Mathf.Clamp(midX, minX, maxX);
-            else midX = _midAnchorPos.x;
+        // flags for the cameras to have them clamped in x and y axises
+        var followPlayersX = _anchorWidth > currentCameraWidth;
+        var followPlayersY = _anchorHeight > currentCameraHeight;
+        var nextX = nextCameraPos.x;
+        var nextY = nextCameraPos.y;
+        var minX = _buttonLeftPos.x + currentCameraWidth / 2;
+        var maxX = _topRightPos.x - currentCameraWidth / 2;
+        nextX = followPlayersX ? Mathf.Clamp(nextX, minX, maxX) : _midAnchorPos.x;
 
-            var minY = _buttonLeftPos.y + cameraHeight / 2;
-            var maxY = _topRightPos.y - cameraHeight / 2;
-            if (_followPlayersY) midY = Mathf.Clamp(midY, minY, maxY);
-            else midY = _midAnchorPos.y;
-        }
+        var minY = _buttonLeftPos.y + currentCameraHeight / 2;
+        var maxY = _topRightPos.y - currentCameraHeight / 2;
+        nextY = followPlayersY ? Mathf.Clamp(nextY, minY, maxY) : _midAnchorPos.y;
 
-        return new Vector3(midX, midY, transform.position.z);
+        return new Vector3(nextX, nextY, transform.position.z);
     }
 }
