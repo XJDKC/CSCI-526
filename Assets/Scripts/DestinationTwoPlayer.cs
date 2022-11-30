@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Destination2player : MonoBehaviour
+public class DestinationTwoPlayer : MonoBehaviour
 {
-    private bool player1Arr;
-    private bool player2Arr;
+    public float validateTime = 0.25f;
+
+    private bool _player1Arr;
+    private bool _player2Arr;
+    private GameObject _player1Des;
+    private GameObject _player2Des;
+    private float _lastArriveTime = -1.0f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,12 +21,12 @@ public class Destination2player : MonoBehaviour
             if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
                 // Debug.Log("Player1 reached");
-                player1Arr = true;
+                _player1Arr = true;
             }
             else
             {
                 // Debug.Log("Player2 reached");
-                player2Arr = true;
+                _player2Arr = true;
             }
         }
     }
@@ -33,12 +38,12 @@ public class Destination2player : MonoBehaviour
             if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
                 // Debug.Log("Player1 stayed");
-                player1Arr = true;
+                _player1Arr = true;
             }
             else
             {
                 // Debug.Log("Player2 stayed");
-                player2Arr = true;
+                _player2Arr = true;
             }
         }
     }
@@ -50,12 +55,12 @@ public class Destination2player : MonoBehaviour
             if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
             {
                 // Debug.Log("Player1 leaved");
-                player1Arr = false;
+                _player1Arr = false;
             }
             else
             {
                 //Debug.Log("Player2 leaved");
-                player2Arr = false;
+                _player2Arr = false;
             }
         }
     }
@@ -67,14 +72,21 @@ public class Destination2player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _player1Des = transform.GetChild(0).gameObject;
+        _player2Des = transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player1Arr && player2Arr)
+        _player1Des.SetActive(_player1Arr);
+        _player2Des.SetActive(_player2Arr);
+        if (_player1Arr && _player2Arr)
         {
-            var btns = GameObject.Find("Controller").GetComponent<Btns>();
+            if (_lastArriveTime < 0.0f) _lastArriveTime = Time.realtimeSinceStartup;
+            if (Time.realtimeSinceStartup - _lastArriveTime < validateTime) return;
+
+            var btns = FindObjectOfType<Btns>();
             var finalUIController = FindObjectOfType<FinalUIController>();
             if (finalUIController.GetPanelState() != FinalUIController.PanelState.Idle) return;
 
@@ -102,6 +114,10 @@ public class Destination2player : MonoBehaviour
 
                 DataManager.CompleteLevel();
             }
+        }
+        else
+        {
+            _lastArriveTime = -1.0f;
         }
     }
 }
