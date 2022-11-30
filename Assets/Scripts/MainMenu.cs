@@ -209,4 +209,18 @@ public class MainMenu : MonoBehaviour
         DataManager.levelName = "Level8-1";
         DataManager.GetStartTime();
     }
+
+    public void PlayLevel8_2()
+    {
+        SceneManager.LoadScene("Level8-2");
+        DataManager.levelName = "Level8-2";
+        DataManager.GetStartTime();
+    }
+
+    public void PlayLevel8_3()
+    {
+        SceneManager.LoadScene("Level8-3");
+        DataManager.levelName = "Level8-3";
+        DataManager.GetStartTime();
+    }
 }
