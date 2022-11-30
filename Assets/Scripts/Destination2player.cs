@@ -74,11 +74,11 @@ public class Destination2player : MonoBehaviour
     {
         if (player1Arr && player2Arr)
         {
-            var starUI = FindObjectOfType<StarUI>();
+            var btns = GameObject.Find("Controller").GetComponent<Btns>();
             var finalUIController = FindObjectOfType<FinalUIController>();
             if (finalUIController.GetPanelState() != FinalUIController.PanelState.Idle) return;
 
-            if (starUI && !starUI.getStatus())
+            if (btns && !btns.getStatus())
             {
                 // Fail state
                 var guide = FindObjectOfType<Guide>();
