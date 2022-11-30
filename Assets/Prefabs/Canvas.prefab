@@ -258,9 +258,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8591112423628275022}
-        m_TargetAssemblyTypeName: HintsBtn, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 8106392017029816644}
+        m_TargetAssemblyTypeName: Btns, Assembly-CSharp
+        m_MethodName: OnHintsButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -798,9 +798,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8764041251436346957}
-        m_TargetAssemblyTypeName: RestartBtn, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 7111524463017825946}
+        m_TargetAssemblyTypeName: Btns, Assembly-CSharp
+        m_MethodName: OnRestartButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1144,9 +1144,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8198954769900393563}
-        m_TargetAssemblyTypeName: ExitBtn, Assembly-CSharp
-        m_MethodName: OnButtonPress
+      - m_Target: {fileID: 343890743284926849}
+        m_TargetAssemblyTypeName: Btns, Assembly-CSharp
+        m_MethodName: OnExitButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1437,7 +1437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6074670110755082706}
-  - component: {fileID: 8764041251436346957}
+  - component: {fileID: 7111524463017825946}
   m_Layer: 5
   m_Name: RestartButtonController
   m_TagString: Untagged
@@ -1465,7 +1465,7 @@ RectTransform:
   m_AnchoredPosition: {x: -5.724, y: -405}
   m_SizeDelta: {x: 74.268, y: -41.759995}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8764041251436346957
+--- !u!114 &7111524463017825946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1477,7 +1477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e81e7430296e342bbaf32f71812fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Level0_gravity_change
+  scene: 
+  sceneMenu: Menu
 --- !u!1 &5211379364289773420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4330824110844406307}
-  - component: {fileID: 8591112423628275022}
+  - component: {fileID: 8106392017029816644}
   m_Layer: 5
   m_Name: HintsButtonController
   m_TagString: Untagged
@@ -1515,7 +1516,7 @@ RectTransform:
   m_AnchoredPosition: {x: 109, y: -356}
   m_SizeDelta: {x: 88.363, y: 37.201}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8591112423628275022
+--- !u!114 &8106392017029816644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1524,9 +1525,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5211379364289773420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eb8f7383c2fc4c5a9f647a24f960011, type: 3}
+  m_Script: {fileID: 11500000, guid: 02e81e7430296e342bbaf32f71812fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene: 
+  sceneMenu: Menu
 --- !u!1 &5557599493176651946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2634,7 +2637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4458492624230088123}
-  - component: {fileID: 8198954769900393563}
+  - component: {fileID: 343890743284926849}
   m_Layer: 5
   m_Name: ExitButtonController
   m_TagString: Untagged
@@ -2662,7 +2665,7 @@ RectTransform:
   m_AnchoredPosition: {x: 109, y: -356}
   m_SizeDelta: {x: 88.363, y: 37.201}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8198954769900393563
+--- !u!114 &343890743284926849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2671,10 +2674,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7291049107998824401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 706353348038b44a4924ca1d6537503a, type: 3}
+  m_Script: {fileID: 11500000, guid: 02e81e7430296e342bbaf32f71812fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Menu
+  scene: 
+  sceneMenu: Menu
 --- !u!1 &7938759970158324366
 GameObject:
   m_ObjectHideFlags: 0
