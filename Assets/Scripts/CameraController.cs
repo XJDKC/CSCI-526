@@ -44,8 +44,12 @@ public class CameraController : MonoBehaviour
     private Vector3 _moveVelocity = Vector3.zero;
 
     private bool _anchored;
+    // flags for camera to follow plays in x and y axises
+    private bool _followPlayersX;
+    private bool _followPlayersY;
     private Vector3 _buttonLeftPos;
     private Vector3 _topRightPos;
+    private Vector3 _midAnchorPos;
 
     private CameraState _currState = CameraState.Horizontal;
 
@@ -88,6 +92,15 @@ public class CameraController : MonoBehaviour
             _anchored = true;
             _buttonLeftPos = anchorPoints.buttonLeftPoint.position;
             _topRightPos = anchorPoints.topRightPoint.position;
+            var anchorWidth = _topRightPos.x - _buttonLeftPos.x;
+            var anchorHeight = _topRightPos.y - _buttonLeftPos.y;
+            _midAnchorPos = new Vector3((_topRightPos.x + _buttonLeftPos.x) / 2,
+                (_topRightPos.y + _buttonLeftPos.y) / 2, _cameraTransform.position.z);
+            var defaultCameraWidth = defaultCameraSize * _camera.aspect * 2;
+            var defaultCameraHeight = defaultCameraSize * 2;
+            _cameraTransform.position = _midAnchorPos;
+            _followPlayersX = anchorWidth > defaultCameraWidth;
+            _followPlayersY = anchorHeight > defaultCameraHeight;
             _camMaxSize = (_topRightPos.y - _buttonLeftPos.y) / 2;
         }
     }
@@ -217,11 +230,13 @@ public class CameraController : MonoBehaviour
 
             var minX = _buttonLeftPos.x + cameraWidth / 2;
             var maxX = _topRightPos.x - cameraWidth / 2;
-            if (minX < maxX) midX = Mathf.Clamp(midX, minX, maxX);
+            if (_followPlayersX) midX = Mathf.Clamp(midX, minX, maxX);
+            else midX = _midAnchorPos.x;
 
             var minY = _buttonLeftPos.y + cameraHeight / 2;
             var maxY = _topRightPos.y - cameraHeight / 2;
-            if (minY < maxY) midY = Mathf.Clamp(midY, minY, maxY);
+            if (_followPlayersY) midY = Mathf.Clamp(midY, minY, maxY);
+            else midY = _midAnchorPos.y;
         }
 
         return new Vector3(midX, midY, transform.position.z);
