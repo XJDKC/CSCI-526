@@ -1532,6 +1532,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8106392017029816644, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: maximum
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106392017029816644, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: minimum
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8613381721980987054, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_text
       value: 'Minimum score requirement: 9'
