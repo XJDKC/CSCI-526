@@ -14,59 +14,16 @@ public class DestinationTwoPlayer : MonoBehaviour
     private GameObject _player2Des;
     private float _lastArriveTime = -1.0f;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
-            {
-                // Debug.Log("Player1 reached");
-                _player1Arr = true;
-            }
-            else
-            {
-                // Debug.Log("Player2 reached");
-                _player2Arr = true;
-            }
-        }
-    }
+    private LevelUIController _levelUIController;
+    private FinalUIController _finalUIController;
+    private GuideUIController _guideUIController;
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
-            {
-                // Debug.Log("Player1 stayed");
-                _player1Arr = true;
-            }
-            else
-            {
-                // Debug.Log("Player2 stayed");
-                _player2Arr = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
-            {
-                // Debug.Log("Player1 leaved");
-                _player1Arr = false;
-            }
-            else
-            {
-                //Debug.Log("Player2 leaved");
-                _player2Arr = false;
-            }
-        }
-    }
 
     private void Awake()
     {
+        _levelUIController = FindObjectOfType<LevelUIController>();
+        _finalUIController = FindObjectOfType<FinalUIController>();
+        _guideUIController = FindObjectOfType<GuideUIController>();
     }
 
     // Start is called before the first frame update
@@ -79,45 +36,64 @@ public class DestinationTwoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _player1Des.SetActive(_player1Arr);
-        _player2Des.SetActive(_player2Arr);
-        if (_player1Arr && _player2Arr)
+        if (_player1Des && _player1Des)
         {
-            if (_lastArriveTime < 0.0f) _lastArriveTime = Time.realtimeSinceStartup;
-            if (Time.realtimeSinceStartup - _lastArriveTime < validateTime) return;
+            _player1Des.SetActive(_player1Arr);
+            _player2Des.SetActive(_player2Arr);
+        }
 
-            var btns = FindObjectOfType<Btns>();
-            var finalUIController = FindObjectOfType<FinalUIController>();
-            if (finalUIController.GetPanelState() != FinalUIController.PanelState.Idle) return;
+        if (!_player1Arr || !_player2Arr)
+        {
+            _lastArriveTime = -1.0f;
+            return;
+        }
 
-            if (btns && !btns.getStatus())
-            {
-                // Fail state
-                var guide = FindObjectOfType<Guide>();
-                if (guide)
-                {
-                    guide.mininumScorePanel();
-                }
-
-                if (finalUIController)
-                {
-                    finalUIController.SwitchState(FinalUIController.PanelState.Fail);
-                }
-            }
-            else
-            {
-                // Success state
-                if (finalUIController)
-                {
-                    finalUIController.SwitchState(FinalUIController.PanelState.Success);
-                }
-
-                DataManager.CompleteLevel();
-            }
+        if (_lastArriveTime < 0.0f) _lastArriveTime = Time.realtimeSinceStartup;
+        if (Time.realtimeSinceStartup - _lastArriveTime < validateTime) return;
+        if (!_levelUIController || !_finalUIController) return;
+        if (_finalUIController.GetPanelState() != FinalUIController.PanelState.Idle) return;
+        if (!_levelUIController.GetStatus())
+        {
+            // Fail state
+            if (_guideUIController) _guideUIController.minimumScorePanel();
+            if (_finalUIController) _finalUIController.SwitchState(FinalUIController.PanelState.Fail);
         }
         else
         {
-            _lastArriveTime = -1.0f;
+            // Success state
+            if (_finalUIController) _finalUIController.SwitchState(FinalUIController.PanelState.Success);
+            DataManager.CompleteLevel();
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        UpdateArriveState(other, true);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        UpdateArriveState(other, true);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        UpdateArriveState(other, false);
+    }
+
+    private void UpdateArriveState(Collider2D other, bool status)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (other.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
+            {
+                _player1Arr = status;
+            }
+            else
+            {
+                _player2Arr = status;
+            }
         }
     }
 }
