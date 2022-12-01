@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1162111661841700110}
   - component: {fileID: 5569150747115711138}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RotationSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 1162111662218360529}
   - component: {fileID: 1162111662218360528}
   - component: {fileID: 1162111662218360543}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 1162111662783132853}
   - component: {fileID: 1162111662783132855}
   - component: {fileID: 1162111662783132852}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
