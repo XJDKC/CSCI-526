@@ -14,12 +14,14 @@ public class SwapGravityController : MonoBehaviour
     private GameObject _playerObject1;
 
     private GameObject _playerObject2;
+    private GameObject _ban;
 
     private
 
         // Start is called before the first frame update
         void Start()
     {
+        _ban = transform.GetChild(0).gameObject;
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (player.GetComponent<PlayerController>().playerType == PlayerController.PlayerType.Player1)
@@ -45,6 +47,13 @@ public class SwapGravityController : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = secondSwapIcon;
                 break;
         }
+    }
+
+    private void Update()
+    {
+        var isBaned = _playerObject1.GetComponent<Rigidbody2D>().gravityScale
+            .Equals(_playerObject2.GetComponent<Rigidbody2D>().gravityScale);
+        _ban.SetActive(isBaned);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
