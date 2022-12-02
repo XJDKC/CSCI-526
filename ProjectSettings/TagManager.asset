@@ -45,6 +45,9 @@ TagManager:
   - name: Ground
     uniqueID: 467945531
     locked: 0
+  - name: Guidance
+    uniqueID: 4288549051
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
