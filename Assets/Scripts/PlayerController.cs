@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour, IReversible
         UpdateRotationMatrix();
         UpdateRotation();
         UpdateAnimation();
+        AudioControl();
     }
 
 
