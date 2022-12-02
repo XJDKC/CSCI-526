@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GravityReverse : MonoBehaviour
 {
     public float sleepTime = 1f;
-    public Boolean isUnlimited=true;
+    public Boolean isUnlimited = true;
 
     private float _x;
     private float _y;
@@ -68,7 +68,6 @@ public class GravityReverse : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x,
                 gameObject.transform.position.y - 0.0005f, gameObject.transform.position.z);
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -82,7 +81,7 @@ public class GravityReverse : MonoBehaviour
                     player.GetComponent<PlayerController>().playerType)
                 {
                     collider.GetComponent<PlayerController>().Reverse();
-                    if (!isUnlimited)
+                    if (isUnlimited)
                     {
                         gameObject.SetActive(false);
                         Invoke("Hide", 1f);
@@ -100,5 +99,4 @@ public class GravityReverse : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-
 }
