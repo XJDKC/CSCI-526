@@ -82,6 +82,7 @@ public class SwapGravityController : MonoBehaviour
     {
         if (!player1.GetComponent<Rigidbody2D>().gravityScale.Equals(player2.GetComponent<Rigidbody2D>().gravityScale))
         {
+            AudioController.Instance.Play("Swap");
             player1.GetComponent<PlayerController>().Reverse();
             player2.GetComponent<PlayerController>().Reverse();
         }
