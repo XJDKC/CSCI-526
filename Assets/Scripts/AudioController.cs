@@ -115,7 +115,6 @@ public class AudioController : MonoBehaviour
     //stop all bgms and sounds
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-
         string sceneName = scene.name;
         if (sceneName == "DevelopersList") return;
         StopAllSounds();
@@ -128,9 +127,12 @@ public class AudioController : MonoBehaviour
         {
             bgmName = "Menu";
         }
+        else if (sceneName == "EasterEgg")
+        {
+            bgmName = "EasterEgg";
+        }
         else
         {
-
             int pos = sceneName.IndexOf(LevelPrefix, StringComparison.Ordinal);
             if (pos >= 0)
             {

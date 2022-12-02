@@ -148,3 +148,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6439dc9402623451d9ee6835a308df48, type: 3}
     volume: 0.253
     pitch: 1
+  - name: EasterEgg
+    clip: {fileID: 8300000, guid: 6c26f64bd3c94423790970bfcf574450, type: 3}
+    volume: 0.38
+    pitch: 1
