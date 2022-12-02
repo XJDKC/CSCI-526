@@ -433,6 +433,26 @@ PrefabInstance:
       propertyPath: player2
       value: 
       objectReference: {fileID: 179436379}
+    - target: {fileID: 8691753992633499412, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e5d037a2a9b994affab3746d8485865e, type: 3}
+    - target: {fileID: 8691753992633499412, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691753992633499412, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691753992633499412, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691753992633499412, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!1001 &628336207
