@@ -53,6 +53,7 @@ public class Sound
 
 public class AudioController : MonoBehaviour
 {
+    private const string LevelPrefix = "Level";
     private static AudioController _instance;
     public static AudioController Instance { get { return _instance; } }
 
@@ -114,9 +115,11 @@ public class AudioController : MonoBehaviour
     //stop all bgms and sounds
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
+
+        string sceneName = scene.name;
+        if (sceneName == "DevelopersList") return;
         StopAllSounds();
-        String sceneName = scene.name;
-        String bgmName = null;
+        string bgmName = null;
         if (sceneName == "StartScene")
         {
             bgmName = "Main";
@@ -127,10 +130,11 @@ public class AudioController : MonoBehaviour
         }
         else
         {
-            int pos = sceneName.IndexOf("Level");
+
+            int pos = sceneName.IndexOf(LevelPrefix, StringComparison.Ordinal);
             if (pos >= 0)
             {
-                int level = int.Parse(sceneName.Substring(pos + 5, 1));
+                int level = int.Parse(sceneName.Substring(pos + LevelPrefix.Length, 1));
                 bgmName = "BGM" + (level % 4 + 1);
             }
         }
