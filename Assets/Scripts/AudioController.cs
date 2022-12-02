@@ -103,14 +103,18 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    //stop all bgms and sounds
-    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    public void StopAllSounds()
     {
         foreach (var sound in sounds)
         {
             sound.Stop();
         }
+    }
 
+    //stop all bgms and sounds
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        StopAllSounds();
         String sceneName = scene.name;
         String bgmName = null;
         if (sceneName == "StartScene")
