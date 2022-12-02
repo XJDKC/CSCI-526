@@ -6,15 +6,14 @@ using UnityEngine.UI;
 
 public class GravityReverse : MonoBehaviour
 {
-    // public GameObject player1;
-    // public GameObject player2;
-    public int countDown;
+    public float sleepTime = 1f;
+    public Boolean isUnlimited=true;
+
     private float _x;
     private float _y;
     private Boolean _xPositive;
     private Boolean _yPositive;
     private Text _text;
-    private Boolean limited;
 
     private void Awake()
     {
@@ -24,20 +23,6 @@ public class GravityReverse : MonoBehaviour
         _xPositive = true;
         _yPositive = true;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        _text = gameObject.GetComponentInChildren<Text>();
-        if (countDown==0)
-        {
-            limited = false;
-            _text.text = "∞";
-        }
-        else
-        {
-            limited = true;
-        }
-    }
 
     // Update is called once per frame
     void Update()
@@ -46,39 +31,44 @@ public class GravityReverse : MonoBehaviour
         {
             _xPositive = false;
         }
+
         if (gameObject.transform.position.x < _x - 0.03)
         {
             _xPositive = true;
         }
+
         if (gameObject.transform.position.y > _y + 0.1)
         {
             _yPositive = false;
         }
+
         if (gameObject.transform.position.y < _y - 0.1)
         {
             _yPositive = true;
         }
+
         if (_xPositive)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.001f,
+                gameObject.transform.position.y, gameObject.transform.position.z);
         }
         else
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.001f,gameObject.transform.position.y,gameObject.transform.position.z);
-        }
-        if (_yPositive)
-        {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y + 0.0005f,gameObject.transform.position.z);
-        }
-        else
-        {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y - 0.0005f,gameObject.transform.position.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 0.001f,
+                gameObject.transform.position.y, gameObject.transform.position.z);
         }
 
-        if (limited)
+        if (_yPositive)
         {
-            _text.text = countDown + "";
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x,
+                gameObject.transform.position.y + 0.0005f, gameObject.transform.position.z);
         }
+        else
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x,
+                gameObject.transform.position.y - 0.0005f, gameObject.transform.position.z);
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -88,21 +78,27 @@ public class GravityReverse : MonoBehaviour
         {
             foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
             {
-                // var playerType = player.GetComponent<PlayerController>().playerType;
-                if (collider.GetComponent<PlayerController>().playerType == player.GetComponent<PlayerController>().playerType)
+                if (collider.GetComponent<PlayerController>().playerType ==
+                    player.GetComponent<PlayerController>().playerType)
                 {
                     collider.GetComponent<PlayerController>().Reverse();
-                }
-            }
-
-            if (limited)
-            {
-                countDown--;
-                if (countDown <= 0)
-                {
-                    Destroy(gameObject);
+                    if (!isUnlimited)
+                    {
+                        gameObject.SetActive(false);
+                        Invoke("Hide", 1f);
+                    }
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }
     }
+
+    void Hide()
+    {
+        gameObject.SetActive(true);
+    }
+
 }
