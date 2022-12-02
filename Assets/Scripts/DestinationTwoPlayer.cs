@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class DestinationTwoPlayer : MonoBehaviour
 {
     public float validateTime = 0.25f;
+    private string easterEggSceneName = "EasterEgg";
 
     private bool _player1Arr;
     private bool _player2Arr;
@@ -60,9 +61,19 @@ public class DestinationTwoPlayer : MonoBehaviour
         }
         else
         {
-            // Success state
-            if (_finalUIController) _finalUIController.SwitchState(FinalUIController.PanelState.Success);
+            // Success State
+            bool prevState = LevelStatus.CompleteAllLevels();
             DataManager.CompleteLevel();
+            bool currState = LevelStatus.CompleteAllLevels();
+            DataManager.CompleteLevel();
+            if (!prevState && currState)
+            {
+                SceneManager.LoadScene(easterEggSceneName);
+            }
+            else if (_finalUIController)
+            {
+                _finalUIController.SwitchState(FinalUIController.PanelState.Success);
+            }
         }
     }
 

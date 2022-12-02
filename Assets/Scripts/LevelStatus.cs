@@ -9,6 +9,7 @@ public class LevelStatus : MonoBehaviour
     private static LevelStatus _instance;
     public static LevelStatus Instance { get { return _instance; } }
 
+    public static int TotalLevelCount = 25;
     public static HashSet<string> CompleteLevels = new HashSet<string>();
 
     public static readonly HashSet<string> TutorialLevels = new HashSet<string>()
@@ -56,5 +57,15 @@ public class LevelStatus : MonoBehaviour
         {
             Debug.Log("Not valid instance");
         }
+    }
+
+    public static bool CompleteAllLevels()
+    {
+        if (Instance)
+        {
+            return CompleteLevels.Count == TotalLevelCount;
+        }
+
+        return false;
     }
 }

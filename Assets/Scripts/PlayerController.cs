@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour, IReversible
     {
         if (_boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
             _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")) ||
+            _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Switch")) ||
             _boxCollider2D.IsTouchingLayers(LayerMask.GetMask("Platform")))
         {
             return true;
