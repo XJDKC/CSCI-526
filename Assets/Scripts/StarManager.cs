@@ -27,12 +27,13 @@ public class StarManager : MonoBehaviour
 
     public void InstanceStars(bool isReversed, GameObject blackEnemy)
     {
-        float angle = 0;
+        float angle = Random.Range(0.0f, 360.0f);
         for (int i = 0; i < starNumber; i++)
         {
             Quaternion rotation = new Quaternion();
-            angle += 90f / starNumber;
-            rotation.eulerAngles = new Vector3(0.0f, 0.0f, angle + 45f / starNumber);
+            angle += 180.0f / starNumber;
+            rotation.eulerAngles = new Vector3(0.0f, 0.0f, angle);
+
             var star = Instantiate(startPrefab, blackEnemy.transform.position, rotation);
             star.GetComponent<Rigidbody2D>().gravityScale = isReversed ? -1.0f : 1.0f;
             star.GetComponent<Rigidbody2D>().velocity = new Vector2(0,
