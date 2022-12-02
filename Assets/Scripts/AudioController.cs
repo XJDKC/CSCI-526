@@ -12,65 +12,86 @@ public class Sound
     [Range(0f, 1f)]
     public float pitch = 0.7f;
 
-    private AudioSource theAS;
+    private AudioSource _theAs;
 
-    public void SetUpSound(AudioSource _theAS) {
-        theAS = _theAS;
-        theAS.clip = clip;
+    public void SetUpSound(AudioSource theAs) {
+        _theAs = theAs;
+        _theAs.clip = clip;
     }
 
     public void PlayOneShot() {
-        theAS.pitch = pitch;
-        theAS.volume = volume;
-        theAS.PlayOneShot(clip, volume);
+        SetPitchAndVolume();
+        _theAs.PlayOneShot(clip, volume);
     }
 
     public void Play() {
-        theAS.pitch = pitch;
-        theAS.volume = volume;
-        theAS.Play();
+        SetPitchAndVolume();
+        _theAs.Play();
+    }
+
+    public void PlayBackgroundMusic()
+    {
+        SetPitchAndVolume();
+        _theAs.loop = true;
+        _theAs.PlayOneShot(clip, volume);
+    }
+
+    public void SetPitchAndVolume()
+    {
+        _theAs.pitch = pitch;
+        _theAs.volume = volume;
     }
 }
 
 public class AudioController : MonoBehaviour
 {
-    public static AudioController instance;
+    private static AudioController _instance;
+    public static AudioController Instance { get { return _instance; } }
 
     [SerializeField]
     private Sound[] sounds;
 
-    Dictionary<string, Sound> audioMap = new Dictionary<string, Sound>();
+    private readonly Dictionary<string, Sound> _audioMap = new Dictionary<string, Sound>();
     private void Awake()
     {
-        if (instance == null) {
-            instance = this;
-            foreach(var sound in sounds){
-                audioMap.Add(sound.name, sound);
-            }
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
         }
-        else if (instance != this) {
-            Destroy(gameObject);
+        else
+        {
+            _instance = this;
+            foreach(var sound in sounds){
+                _audioMap.Add(sound.name, sound);
+            }
         }
     }
 
     private void Start()
     {
         foreach (var sound in sounds) {
-            sound.SetUpSound(new GameObject().AddComponent<AudioSource>());
+            sound.SetUpSound(gameObject.AddComponent<AudioSource>());
         }
     }
 
     public void Play(string _name) {
-        if (audioMap.ContainsKey(_name))
+        if (_audioMap.ContainsKey(_name))
         {
-            audioMap[_name].Play();
+            _audioMap[_name].Play();
         }
     }
 
     public void PlayOneShot(string _name) {
-        if (audioMap.ContainsKey(_name))
+        if (_audioMap.ContainsKey(_name))
         {
-            audioMap[_name].PlayOneShot();
+            _audioMap[_name].PlayOneShot();
+        }
+    }
+
+    public void PlayBackgroundMusic(string _name) {
+        if (_audioMap.ContainsKey(_name))
+        {
+            _audioMap[_name].PlayBackgroundMusic();
         }
     }
 }

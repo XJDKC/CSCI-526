@@ -36,7 +36,7 @@ public class SpringController : MonoBehaviour
                 var isCollidedId = Animator.StringToHash("isCollided");
                 _springAnimator.SetBool(isCollidedId, true);
                 col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, isReverse ? -1 : 1) * force);
-                AudioController.instance.Play("Spring");
+                AudioController.Instance.Play("Spring");
             }
 
             if (playerTop - 0.05 <= springBottom && isReverse == true)
@@ -44,7 +44,7 @@ public class SpringController : MonoBehaviour
                 var isCollidedId = Animator.StringToHash("isCollided");
                 _springAnimator.SetBool(isCollidedId, true);
                 col.GameObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0, isReverse ? -1 : 1) * force);
-                AudioController.instance.Play("Spring");
+                AudioController.Instance.Play("Spring");
             }
         }
     }

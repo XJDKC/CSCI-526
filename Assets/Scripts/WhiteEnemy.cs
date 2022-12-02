@@ -31,7 +31,7 @@ public class WhiteEnemy : MonoBehaviour
             }
 
             Destroy(transform.parent.gameObject);
-            AudioController.instance.Play("WhiteEneny");
+            AudioController.Instance.Play("EnemyCollide");
         }
         else if (_whiteEnemy != null)
         {

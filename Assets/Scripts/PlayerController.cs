@@ -254,4 +254,12 @@ public class PlayerController : MonoBehaviour, IReversible
         bool isJumping = (_playerState & PlayerState.Jumping) != 0;
         _playerAnimator.SetBool(jumpId, isJumping);
     }
+
+    void AudioControl()
+    {
+        if ((_playerState & PlayerState.Jumping) != 0)
+        {
+            AudioController.Instance.PlayOneShot("Jump");
+        }
+    }
 }

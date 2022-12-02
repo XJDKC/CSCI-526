@@ -54,7 +54,7 @@ public class Star : MonoBehaviour, IReversible
         {
             _isCollided = true;
 
-            AudioController.instance.PlayOneShot("StarsCollide");
+            AudioController.Instance.PlayOneShot("StarsCollide");
             // data collect
             DataManager.AddStarPoints();
             Destroy(gameObject);
@@ -70,7 +70,7 @@ public class Star : MonoBehaviour, IReversible
              col.collider.IsTouchingLayers(LayerMask.GetMask("Player")) ||
              col.collider.IsTouchingLayers(LayerMask.GetMask("Platform"))))
         {
-            AudioController.instance.PlayOneShot("StarsCollide");
+            AudioController.Instance.PlayOneShot("StarsCollide");
         }
     }
 
