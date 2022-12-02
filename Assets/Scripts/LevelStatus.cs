@@ -63,7 +63,7 @@ public class LevelStatus : MonoBehaviour
     {
         if (Instance)
         {
-            return CompleteLevels.Count == 3;
+            return CompleteLevels.Count == TotalLevelCount;
         }
 
         return false;

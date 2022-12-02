@@ -20,8 +20,12 @@ public class LevelUIController : MonoBehaviour
     {
         _defaultColor = new Color(0.85f, 0.4f, 0.38f);
         _passColor = new Color(0.3f, 1f, 0.78f);
-        _scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
-        _scoreText.color = _defaultColor;
+        var scoreTextObject = GameObject.Find("ScoreText");
+        if (scoreTextObject)
+        {
+            _scoreText = scoreTextObject.GetComponent<TextMeshProUGUI>();
+            _scoreText.color = _defaultColor;
+        }
     }
 
     // get active scene
@@ -36,10 +40,13 @@ public class LevelUIController : MonoBehaviour
         if (DataManager.currentStarPoints >= minimum)
         {
             _reachedTargetScore = true;
-            _scoreText.color = _passColor;
         }
 
-        _scoreText.text = DataManager.currentStarPoints + "";
+        if (_scoreText)
+        {
+            if (_reachedTargetScore) _scoreText.color = _passColor;
+            _scoreText.text = DataManager.currentStarPoints + "";
+        }
     }
 
     public bool GetStatus()
