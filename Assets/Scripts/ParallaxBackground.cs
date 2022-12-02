@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    public Camera mainCamera;
+    private GameObject _mainCamera;
 
     [SerializeField] private Vector2 parallaxEffectMultiplier;
     [SerializeField] private bool infiniteHorizontal;
@@ -18,7 +18,8 @@ public class ParallaxBackground : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cameraTransform = mainCamera.transform;
+        _mainCamera = GameObject.Find("Camera");
+        _cameraTransform = _mainCamera.transform;
         _lastCameraPosition = _cameraTransform.position;
 
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
