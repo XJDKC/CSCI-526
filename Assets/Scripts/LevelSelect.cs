@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class LevelSelect : MonoBehaviour
 {
+    private GameObject _easterEggIcon;
+
     void Awake()
     {
         DataManager.GetSessionID();
@@ -23,6 +25,17 @@ public class MainMenu : MonoBehaviour
             check.gameObject.SetActive(status);
             tutorial.gameObject.SetActive(isTutorial);
         }
+
+        Debug.Log(LevelStatus.CompleteLevels);
+        _easterEggIcon = GameObject.Find("EasterEgg");
+        if (LevelStatus.CompleteAllLevels())
+        {
+            _easterEggIcon.SetActive(true);
+        }
+        else
+        {
+            _easterEggIcon.SetActive(false);
+        }
     }
 
     public void Play()
@@ -32,14 +45,24 @@ public class MainMenu : MonoBehaviour
         DataManager.GetStartTime();
     }
 
-    public void SelectLevel()
+    public void DevelopersList()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("DevelopersList");
     }
 
     public void Return()
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+    public void SelectLevel()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void EasterEgg()
+    {
+        SceneManager.LoadScene("EasterEgg");
     }
 
     public void PlayLevel1_1()
@@ -109,13 +132,6 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Level3-3");
         DataManager.levelName = "Level3-3";
-        DataManager.GetStartTime();
-    }
-
-    public void PlayLevel3_4()
-    {
-        SceneManager.LoadScene("Level3-4");
-        DataManager.levelName = "Level3-4";
         DataManager.GetStartTime();
     }
 
