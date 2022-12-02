@@ -21,7 +21,6 @@ public class LevelSelect : MonoBehaviour
             tutorial.gameObject.SetActive(isTutorial);
         }
 
-        Debug.Log(LevelStatus.CompleteLevels);
         if (LevelStatus.CompleteAllLevels())
         {
             GameObject.Find("EasterEgg").SetActive(true);
