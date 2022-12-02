@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2881106884432332271
+--- !u!1 &6684580965609023966
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4134622130506942844}
-  - component: {fileID: 1382599639215095420}
+  - component: {fileID: 4782534051345392973}
+  - component: {fileID: 7498531319032091213}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4134622130506942844
+--- !u!4 &4782534051345392973
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2881106884432332271}
+  m_GameObject: {fileID: 6684580965609023966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.8601604, y: 1.0090102, z: 31.021906}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382599639215095420
+--- !u!114 &7498531319032091213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2881106884432332271}
+  m_GameObject: {fileID: 6684580965609023966}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 548a70f9c20d946189426cb88a6d59fe, type: 3}
@@ -47,9 +47,21 @@ MonoBehaviour:
   sounds:
   - name: Jump
     clip: {fileID: 8300000, guid: 42331ed29a36f4527a7b5e0fa5043a32, type: 3}
-    volume: 0.751
-    pitch: 0.676
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    volume: 0.232
+    pitch: 1
+  - name: Spring
+    clip: {fileID: 8300000, guid: 4a2f19e4ce4124598a1c097ed51f3583, type: 3}
+    volume: 0.119
+    pitch: 1
+  - name: Door
+    clip: {fileID: 8300000, guid: 83de6bb88fb4a488f895db3daa196157, type: 3}
+    volume: 0.724
+    pitch: 0.673
+  - name: WhiteEneny
+    clip: {fileID: 8300000, guid: f74b8561f2382458b81f94f8abde7381, type: 3}
+    volume: 1
+    pitch: 1
+  - name: StarsCollide
+    clip: {fileID: 8300000, guid: 3fd5118cf841442aca11efbd211bed9e, type: 3}
+    volume: 0.654
+    pitch: 1

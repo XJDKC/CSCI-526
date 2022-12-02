@@ -19,6 +19,12 @@ public class Sound
         theAS.clip = clip;
     }
 
+    public void PlayOneShot() {
+        theAS.pitch = pitch;
+        theAS.volume = volume;
+        theAS.PlayOneShot(clip, volume);
+    }
+
     public void Play() {
         theAS.pitch = pitch;
         theAS.volume = volume;
@@ -58,6 +64,13 @@ public class AudioController : MonoBehaviour
         if (audioMap.ContainsKey(_name))
         {
             audioMap[_name].Play();
+        }
+    }
+
+    public void PlayOneShot(string _name) {
+        if (audioMap.ContainsKey(_name))
+        {
+            audioMap[_name].PlayOneShot();
         }
     }
 }
