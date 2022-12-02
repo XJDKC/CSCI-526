@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour
 {
-    private GameObject _easterEggIcon;
-
     void Awake()
     {
         DataManager.GetSessionID();
@@ -27,14 +22,13 @@ public class LevelSelect : MonoBehaviour
         }
 
         Debug.Log(LevelStatus.CompleteLevels);
-        _easterEggIcon = GameObject.Find("EasterEgg");
         if (LevelStatus.CompleteAllLevels())
         {
-            _easterEggIcon.SetActive(true);
+            GameObject.Find("EasterEgg").SetActive(true);
         }
         else
         {
-            _easterEggIcon.SetActive(false);
+            GameObject.Find("EasterEgg").SetActive(false);
         }
     }
 
