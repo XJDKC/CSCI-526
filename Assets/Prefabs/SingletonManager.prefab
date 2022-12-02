@@ -98,7 +98,7 @@ MonoBehaviour:
     pitch: 1
   - name: Jump
     clip: {fileID: 8300000, guid: 42331ed29a36f4527a7b5e0fa5043a32, type: 3}
-    volume: 0.488
+    volume: 0.274
     pitch: 1
   - name: Main
     clip: {fileID: 8300000, guid: fb83048ff32354b308e996da6cecbfd5, type: 3}
@@ -110,9 +110,25 @@ MonoBehaviour:
     pitch: 1
   - name: Spring
     clip: {fileID: 8300000, guid: 4a2f19e4ce4124598a1c097ed51f3583, type: 3}
-    volume: 0.415
+    volume: 0.331
     pitch: 1
   - name: StarsCollide
     clip: {fileID: 8300000, guid: 3fd5118cf841442aca11efbd211bed9e, type: 3}
     volume: 0.747
+    pitch: 1
+  - name: BGM1
+    clip: {fileID: 8300000, guid: cd59e273d55354885924e15764328c47, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM2
+    clip: {fileID: 8300000, guid: 664724864fbf1496b8b456f24639b8f4, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM3
+    clip: {fileID: 8300000, guid: 90f5afd2c43214936b56c426ffded882, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM4
+    clip: {fileID: 8300000, guid: c5dc39c7b40454e068fb89dc886e0513, type: 3}
+    volume: 0.808
     pitch: 1

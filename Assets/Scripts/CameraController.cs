@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
 
 [Serializable]
 public class AnchorPoints
@@ -73,8 +71,6 @@ public class CameraController : MonoBehaviour
                 _player2 = player;
             }
         }
-
-
     }
 
     // Start is called before the first frame update
@@ -101,9 +97,6 @@ public class CameraController : MonoBehaviour
             _midAnchorPos = new Vector3((_topRightPos.x + _buttonLeftPos.x) / 2,
                 (_topRightPos.y + _buttonLeftPos.y) / 2, _cameraTransform.position.z);
         }
-        String sceneName = SceneManager.GetActiveScene().name;
-        AudioController.Instance.PlayBackgroundMusic("Main");
-
     }
 
     void FixedUpdate()
@@ -113,10 +106,6 @@ public class CameraController : MonoBehaviour
             UpdateCameraSize();
             UpdateCameraPosition();
         }
-    }
-
-    void Update()
-    {
     }
 
     /**
