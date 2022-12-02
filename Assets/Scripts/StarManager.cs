@@ -9,7 +9,6 @@ public class StarManager : MonoBehaviour
     public Object startPrefab = null;
     public int starNumber = 8;
     public float starInitialSpeed = 5;
-
     private static StarManager _instance;
     public static StarManager Instance { get { return _instance; } }
 
