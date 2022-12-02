@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 720
+  spritePixelsToUnits: 650
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -120,10 +120,10 @@ TextureImporter:
       name: NewSwap_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 24
         y: 0
-        width: 720
-        height: 720
+        width: 680
+        height: 620
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: NewSwap_1
       rect:
         serializedVersion: 2
-        x: 720
+        x: 740
         y: 0
-        width: 720
-        height: 720
+        width: 669
+        height: 620
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: NewSwap_2
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1460
         y: 0
-        width: 720
-        height: 720
+        width: 672
+        height: 620
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
