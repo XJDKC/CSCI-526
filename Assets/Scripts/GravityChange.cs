@@ -124,6 +124,7 @@ public class GravityChange : MonoBehaviour
 
         // update collider prev side
         _colliderPrevSide[collider] = currSide;
+        AudioController.Instance.Play("Door");
     }
 
     private bool CheckRestriction(Collider2D collider)

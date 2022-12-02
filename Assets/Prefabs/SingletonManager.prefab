@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2329486292278044738}
   - component: {fileID: 7327135890861882582}
   - component: {fileID: 545713918949034338}
+  - component: {fileID: 5482157613256056198}
   m_Layer: 0
   m_Name: SingletonManager
   m_TagString: Untagged
@@ -74,3 +75,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ba231b4aa64ef0b93d240f7b57c66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5482157613256056198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329486292278044739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548a70f9c20d946189426cb88a6d59fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Door
+    clip: {fileID: 8300000, guid: 83de6bb88fb4a488f895db3daa196157, type: 3}
+    volume: 1
+    pitch: 1
+  - name: EnemyCollide
+    clip: {fileID: 8300000, guid: f74b8561f2382458b81f94f8abde7381, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Jump
+    clip: {fileID: 8300000, guid: 42331ed29a36f4527a7b5e0fa5043a32, type: 3}
+    volume: 0.274
+    pitch: 1
+  - name: Main
+    clip: {fileID: 8300000, guid: fb83048ff32354b308e996da6cecbfd5, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Menu
+    clip: {fileID: 8300000, guid: 1c02ff354b9b340a4bbae0773aa1df0d, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Spring
+    clip: {fileID: 8300000, guid: 4a2f19e4ce4124598a1c097ed51f3583, type: 3}
+    volume: 0.331
+    pitch: 1
+  - name: StarsCollide
+    clip: {fileID: 8300000, guid: 3fd5118cf841442aca11efbd211bed9e, type: 3}
+    volume: 0.747
+    pitch: 1
+  - name: BGM1
+    clip: {fileID: 8300000, guid: cd59e273d55354885924e15764328c47, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM2
+    clip: {fileID: 8300000, guid: 664724864fbf1496b8b456f24639b8f4, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM3
+    clip: {fileID: 8300000, guid: 90f5afd2c43214936b56c426ffded882, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: BGM4
+    clip: {fileID: 8300000, guid: c5dc39c7b40454e068fb89dc886e0513, type: 3}
+    volume: 0.808
+    pitch: 1

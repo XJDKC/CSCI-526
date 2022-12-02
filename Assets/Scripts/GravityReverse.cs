@@ -72,6 +72,7 @@ public class GravityReverse : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        AudioController.Instance.PlayOneShot("Door");
         if (collider.gameObject.CompareTag("Player") &&
             collider.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
         {

@@ -53,9 +53,24 @@ public class Star : MonoBehaviour, IReversible
         if (player.CompareTag("Player") && _isCollided == false)
         {
             _isCollided = true;
+
+            AudioController.Instance.PlayOneShot("StarsCollide");
             // data collect
             DataManager.AddStarPoints();
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+
+        // Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > 0.8f &&
+            (col.collider.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+             col.collider.IsTouchingLayers(LayerMask.GetMask("Player")) ||
+             col.collider.IsTouchingLayers(LayerMask.GetMask("Platform"))))
+        {
+            AudioController.Instance.PlayOneShot("StarsCollide");
         }
     }
 
