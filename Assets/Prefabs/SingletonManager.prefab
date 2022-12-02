@@ -132,3 +132,19 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c5dc39c7b40454e068fb89dc886e0513, type: 3}
     volume: 0.808
     pitch: 1
+  - name: Success
+    clip: {fileID: 8300000, guid: 2d1dd5b9f39414873b7ed8804251f3b4, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: Swap
+    clip: {fileID: 8300000, guid: 5e7d70e8401754f81a9e550d9d1294f2, type: 3}
+    volume: 0.808
+    pitch: 1
+  - name: Switch
+    clip: {fileID: 8300000, guid: a9b43d062848b4ac3b186aedae6b4ad8, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Slides
+    clip: {fileID: 8300000, guid: 6439dc9402623451d9ee6835a308df48, type: 3}
+    volume: 0.253
+    pitch: 1

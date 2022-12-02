@@ -62,6 +62,8 @@ public class DestinationTwoPlayer : MonoBehaviour
         else
         {
             // Success State
+            AudioController.Instance.StopAllSounds();
+            AudioController.Instance.PlayOneShot("Success");
             bool prevState = LevelStatus.CompleteAllLevels();
             DataManager.CompleteLevel();
             bool currState = LevelStatus.CompleteAllLevels();

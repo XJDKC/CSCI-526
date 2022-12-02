@@ -112,6 +112,7 @@ public class RotationSwitch : MonoBehaviour
 
         if (_currState != _prevState)
         {
+            AudioController.Instance.Play("Switch");
             StartCoroutine(ExecuteRotation());
         }
     }

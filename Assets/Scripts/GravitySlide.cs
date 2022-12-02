@@ -32,6 +32,7 @@ public class GravitySlide : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
+        AudioController.Instance.PlayOneShot("Slides");
         var reversibleObject = collider.gameObject.GetComponent<IReversible>();
         if (reversibleObject == null) return;
 
