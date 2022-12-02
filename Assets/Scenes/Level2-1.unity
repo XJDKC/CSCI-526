@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: countDown
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6168479094997727196, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
+      propertyPath: isUnlimited
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6168479096766958840, guid: 1d282ef2c790640e29ad74b1671dcb59, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -123233,6 +123237,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5638328378849937393, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5638328380224258912, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -123413,7 +123421,8 @@ PrefabInstance:
       propertyPath: guideInfos.Array.data[0].dropStart
       value: 120
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5638328378849937393, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 07921ffeabc0246b88baa4f563348270, type: 3}
 --- !u!1001 &1047650543
 PrefabInstance:
